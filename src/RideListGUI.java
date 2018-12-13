@@ -22,9 +22,9 @@ public class RideListGUI extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+
     	primaryStage.setWidth(STAGE_WIDTH);
     	primaryStage.setHeight(STAGE_HEIGHT);
-    	
     	
         Button btn = new Button();
         btn.setText("Say 'Hello World'");
@@ -42,13 +42,14 @@ public class RideListGUI extends Application {
         layout.setStyle("-fx-background-color: transparent;");  
         layout.getChildren().add(btn);
         
+
         Scene scene = new Scene(layout, 600, 250);
         scene.setFill(Color.RED);
         
 //        Rectangle r = new Rectangle(25,25,250,250);
 //        r.setFill(Color.BLUE);
 //        layout.getChildren().add(r);
-        
+
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
         primaryStage.show();
