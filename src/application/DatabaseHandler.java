@@ -1,3 +1,5 @@
+package application;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -53,14 +55,16 @@ public class DatabaseHandler {
 		
 	}*/
 	
-	public static void addRidePost(RidePost ridePost) {
+	public static int addRidePost(RidePost ridePost) {
 		String sqlInsert = String.format("INSERT INTO RidePosts values (null, '%s', '%s', '%s', '%s', %d, '%s', '%s')", 
 				 ridePost.getDate(), ridePost.getTime(), ridePost.getToLocation(), ridePost.getFromLocation(), ridePost.getNumSpots(), ridePost.getPrice(), ridePost.getComments());
 
 		try{
-			databaseStatement.executeUpdate(sqlInsert);
+			int rowsAdded = databaseStatement.executeUpdate(sqlInsert);
+			return rowsAdded;
 		}catch(SQLException ex) {
 			ex.printStackTrace();
+			return 0;
 		}
 	}
 	
@@ -88,6 +92,25 @@ public class DatabaseHandler {
 			ex.printStackTrace();
 			System.exit(-1);
 			return null;
+		}
+	}
+	
+	public static int getTotalRows()
+	{
+		try
+		{	
+			int count = 0;
+			ResultSet rset = databaseStatement.executeQuery("SELECT COUNT(*) FROM RidePosts");
+			while (rset.next())
+			{
+				count = rset.getInt(1);
+			}
+			return count;
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return 0;
 		}
 	}
 }

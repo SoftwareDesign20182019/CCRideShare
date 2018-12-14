@@ -1,3 +1,4 @@
+package application;
 import java.util.ArrayList;
 
 public class RidePost {
@@ -80,16 +81,18 @@ public class RidePost {
 		this.comments = comments;
 	}
 	
-	public void addToDatabase() {
-		DatabaseHandler.addRidePost(this);
+	public int addToDatabase() {
+		int rowsAdded = DatabaseHandler.addRidePost(this);
+		return rowsAdded;
 	}
 	
 	public static void main(String[] args) {
+		
 		DatabaseHandler.initialize();
 		RidePost post = new RidePost("1/1/19", "11:00PM", "Dover", "Colorado College", 4, "$20", "no comments");
 		RidePost post2 = new RidePost("1/1/20", "11:00PM", "Denver", "Colorado College", 4, "$20", "");
 		post.addToDatabase();
 		post2.addToDatabase();
-		ArrayList<RidePost> ridePosts = DatabaseHandler.getRidePosts();
+		ArrayList<RidePost> ridePosts = DatabaseHandler.getRidePosts();		
 	}
 }
