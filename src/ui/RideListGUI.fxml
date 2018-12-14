@@ -57,12 +57,11 @@
                               </Label>
                               <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="62.0" prefHeight="646.0" prefWidth="1098.0" style="-fx-background-color: #818c98;" vbarPolicy="ALWAYS">
                                  <content>
-                                    <TableView fx:id="ridepost_table1" prefHeight="646.0" prefWidth="1098.0">
+                                    <TableView fx:id="riderequestpost_table" prefHeight="646.0" prefWidth="1098.0">
                                        <columns>
-                                          <TableColumn fx:id="time_col1" prefWidth="112.00004577636719" text="Time" />
-                                          <TableColumn fx:id="to_col1" prefWidth="347.1999816894531" text="To" />
-                                          <TableColumn fx:id="from_col1" prefWidth="316.0" text="From" />
-                                          <TableColumn fx:id="avail_Seats_col1" prefWidth="325.5999755859375" text="Seats Available" />
+                                          <TableColumn fx:id="request_time_col" prefWidth="161.60000610351562" text="Time" />
+                                          <TableColumn fx:id="request_to_col" prefWidth="487.9999694824219" text="To" />
+                                          <TableColumn fx:id="request_from_col" prefWidth="451.2000732421875" text="From" />
                                        </columns>
                                     </TableView>
                                  </content>
@@ -129,7 +128,7 @@
             </Button>
             <ImageView fitHeight="62.0" fitWidth="251.0" layoutX="555.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@CClogo.png" />
+                  <Image url="@../Downloads/CClogo.png" />
                </image>
             </ImageView>
       </children>
