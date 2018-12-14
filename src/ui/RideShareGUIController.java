@@ -41,6 +41,7 @@ public class RideShareGUIController{
 	
 	
 	public RideShareGUIController() {
+		application.Main.primaryStage.setResizable(false);
 		ridepost_table = new TableView<RidePost>();
 		time_col = new TableColumn();
 		to_col = new TableColumn();

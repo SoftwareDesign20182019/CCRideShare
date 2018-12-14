@@ -1,102 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox style="-fx-background-color: A0A0A0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RideShareGUIController">
+<VBox style="-fx-background-color: A0A0A0;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RideShareGUIController">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="442.0" prefWidth="566.0" style="-fx-background-color: C0C0C0;" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1250.0" scaleShape="false" style="-fx-background-color: C0C0C0;">
       <children>
-            <TabPane layoutX="153.0" layoutY="61.0" prefHeight="374.0" prefWidth="524.0" style="-fx-background-color: A0A0A0;" tabClosingPolicy="UNAVAILABLE">
+            <TabPane layoutX="153.0" layoutY="61.0" prefHeight="739.0" prefWidth="1098.0" style="-fx-background-color: A0A0A0;" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab closable="false" style="-fx-background-color: FFFFFF;" text="Rides">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: FFFFFF;">
                            <children>
-                              <Label layoutX="194.0" layoutY="7.0" prefHeight="28.0" prefWidth="180.0" text="INPUT_DATE">
+                              <Label layoutX="494.0" layoutY="14.0" prefHeight="28.0" prefWidth="180.0" text="INPUT_DATE">
                                  <font>
                                     <Font name="Calibri" size="23.0" />
                                  </font>
                               </Label>
-                              <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="62.0" prefHeight="282.0" prefWidth="524.0" style="-fx-background-color: #818c98;" vbarPolicy="ALWAYS">
+                              <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="62.0" prefHeight="646.0" prefWidth="1098.0" style="-fx-background-color: #818c98;" vbarPolicy="ALWAYS">
                                  <content>
-                                    <TableView fx:id="ridepost_table" prefHeight="270.0" prefWidth="505.0">
+                                    <TableView fx:id="ridepost_table" prefHeight="646.0" prefWidth="1098.0">
                                       <columns>
-                                        <TableColumn fx:id="time_col" prefWidth="75.0" text="Time" />
-                                        <TableColumn fx:id="to_col" prefWidth="161.0" text="To" />
-                                          <TableColumn fx:id="from_col" prefWidth="134.0" text="From" />
-                                          <TableColumn fx:id="avail_Seats_col" prefWidth="134.0" text="Seats Available" />
+                                        <TableColumn fx:id="time_col" prefWidth="112.00004577636719" text="Time" />
+                                        <TableColumn fx:id="to_col" prefWidth="347.1999816894531" text="To" />
+                                          <TableColumn fx:id="from_col" prefWidth="316.0" text="From" />
+                                          <TableColumn fx:id="avail_Seats_col" prefWidth="325.5999755859375" text="Seats Available" />
                                       </columns>
                                     </TableView>
                                  </content></ScrollPane>
-                              <Button layoutX="30.0" layoutY="8.0" mnemonicParsing="false" text="Previous Day" />
-                              <Button layoutX="401.0" layoutY="8.0" mnemonicParsing="false" text="Next Day" />
+                              <Button layoutX="68.0" layoutY="8.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="199.0" text="Previous Day" />
+                              <Button layoutX="837.0" layoutY="8.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="201.0" text="Next Day" />
                            </children>
                         </AnchorPane>
                   </content>
                 </Tab>
-                  <Tab closable="false" style="-fx-background-color: C0C0C0;" text="RideRequests">
+                  <Tab closable="false" style="-fx-background-color: C0C0C0;" text="Ride Requests">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C0C0C0;">
                            <children>
-                              <Label layoutX="14.0" layoutY="41.0" text="Time" />
-                              <Label layoutX="99.0" layoutY="41.0" text="To" />
-                              <Label layoutX="166.0" layoutY="41.0" text="From" />
-                              <Label layoutX="194.0" layoutY="7.0" prefHeight="18.0" prefWidth="138.0" text="INPUT_DATE">
+                              <Label layoutX="494.0" layoutY="14.0" prefHeight="28.0" prefWidth="180.0" text="INPUT_DATE">
                                  <font>
                                     <Font name="Calibri" size="23.0" />
                                  </font>
                               </Label>
-                              <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="62.0" prefHeight="282.0" prefWidth="524.0" style="-fx-background-color: #818c98;" vbarPolicy="ALWAYS" />
-                              <Button layoutX="63.0" layoutY="8.0" mnemonicParsing="false" text="Previous Day" />
-                              <Button layoutX="362.0" layoutY="8.0" mnemonicParsing="false" text="Next Day" />
+                              <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="62.0" prefHeight="646.0" prefWidth="1098.0" style="-fx-background-color: #818c98;" vbarPolicy="ALWAYS">
+                                 <content>
+                                    <TableView fx:id="ridepost_table1" prefHeight="646.0" prefWidth="1098.0">
+                                       <columns>
+                                          <TableColumn fx:id="time_col1" prefWidth="112.00004577636719" text="Time" />
+                                          <TableColumn fx:id="to_col1" prefWidth="347.1999816894531" text="To" />
+                                          <TableColumn fx:id="from_col1" prefWidth="316.0" text="From" />
+                                          <TableColumn fx:id="avail_Seats_col1" prefWidth="325.5999755859375" text="Seats Available" />
+                                       </columns>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                              <Button layoutX="68.0" layoutY="8.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="199.0" text="Previous Day" />
+                              <Button layoutX="837.0" layoutY="8.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="201.0" text="Next Day" />
                            </children>
                         </AnchorPane>
                      </content>
                   </Tab>
               </tabs>
             </TabPane>
-            <Button layoutX="217.0" layoutY="20.0" mnemonicParsing="false" text="List a Ride">
+            <Button layoutX="215.0" layoutY="7.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="166.0" text="List a Ride">
                <font>
                   <Font name="Calibri Bold" size="12.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@car.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button layoutX="450.0" layoutY="20.0" mnemonicParsing="false" text="Request a Ride">
+            <Button layoutX="953.0" layoutY="7.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="175.0" text="Request a Ride">
                <font>
                   <Font name="Calibri Bold" size="12.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@thumbsup.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Label layoutX="55.0" layoutY="107.0" text="Filter">
+            <Label layoutX="55.0" layoutY="267.0" text="Filter">
                <font>
                   <Font name="Calibri Bold" size="22.0" />
                </font>
             </Label>
-            <Label layoutX="20.0" layoutY="146.0" text="To" />
-            <ChoiceBox layoutX="20.0" layoutY="164.0" prefHeight="26.0" prefWidth="118.0" />
-            <Label layoutX="20.0" layoutY="203.0" text="From" />
-            <ChoiceBox layoutX="20.0" layoutY="221.0" prefHeight="26.0" prefWidth="118.0" />
-            <Label layoutX="21.0" layoutY="260.0" text="Date" />
-            <ChoiceBox layoutX="20.0" layoutY="278.0" prefHeight="26.0" prefWidth="118.0" />
+            <Label layoutX="21.0" layoutY="303.0" text="To" />
+            <ChoiceBox layoutX="3.0" layoutY="321.0" prefHeight="38.0" prefWidth="134.0" />
+            <Label layoutX="20.0" layoutY="382.0" text="From" />
+            <ChoiceBox layoutX="3.0" layoutY="400.0" prefHeight="38.0" prefWidth="134.0" />
+            <Label layoutX="21.0" layoutY="470.0" text="Date" />
+            <ChoiceBox layoutX="3.0" layoutY="488.0" prefHeight="38.0" prefWidth="134.0" />
             <Label layoutX="138.0" layoutY="312.0" />
-            <Label layoutX="21.0" layoutY="312.0" text="Price" />
-            <ChoiceBox layoutX="20.0" layoutY="330.0" prefHeight="26.0" prefWidth="118.0" />
-            <ChoiceBox layoutX="20.0" layoutY="389.0" prefHeight="26.0" prefWidth="118.0" />
-            <Label layoutX="21.0" layoutY="371.0" text="Seats Available" />
-            <ImageView fitHeight="49.0" fitWidth="148.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+            <Label layoutX="21.0" layoutY="550.0" text="Price" />
+            <ChoiceBox layoutX="3.0" layoutY="568.0" prefHeight="38.0" prefWidth="134.0" />
+            <ChoiceBox layoutX="3.0" layoutY="653.0" prefHeight="38.0" prefWidth="133.0" />
+            <Label layoutX="21.0" layoutY="635.0" text="Seats Available" />
+            <Button layoutX="9.0" layoutY="107.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="122.0" text="Search">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@searchicon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <ImageView fitHeight="62.0" fitWidth="251.0" layoutX="555.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@CClogo.png" />
                </image>

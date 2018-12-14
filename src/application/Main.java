@@ -14,6 +14,7 @@ import javafx.scene.Scene;
  */
 public class Main extends Application {
 	
+	public static Stage primaryStage;
 	/**
 	 * Set up stage for the GUI
 	 * @param primaryStage - the primary stage
@@ -22,6 +23,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try 
 		{
+			this.primaryStage = primaryStage;
 			DatabaseHandler.initialize();
 			Parent root = FXMLLoader.load(getClass().getResource("/ui/RideListGUI.fxml"));
 			Scene scene = new Scene(root);
