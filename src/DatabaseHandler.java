@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class DatabaseHandler {
 	
-	public static final String PORT_NUMBER = "8889";
+	public static final String PORT_NUMBER = "3306";
 	
 	private static Statement databaseStatement; // Does this need to be closed ever?
 	
