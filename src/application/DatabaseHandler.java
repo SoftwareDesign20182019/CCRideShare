@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * class for DatabaseHandler - responsible for creating database and tables (if they don't already exist) and for adding rides to the database
- * @author kbhat
+ * @author kbhat and arehorst
  *
  */
 public class DatabaseHandler {
@@ -16,7 +16,7 @@ public class DatabaseHandler {
 	private static Statement databaseStatement; // Does this need to be closed ever?
 	
 	/**
-	 * Creates the local database and the RidePost table, if they don't already exist
+	 * Creates the local database, the RidePost table, and RideRequestPost table if they don't already exist
 	 */
 	public static void initialize() {
 		try(
@@ -32,7 +32,7 @@ public class DatabaseHandler {
 				"jdbc:mysql://localhost:" + PORT_NUMBER + "/CCRideShare?user=root&password=root");
 			databaseStatement = conn.createStatement();	
 		
-			String createTable = "create table if not exists RidePosts ( " + 
+			String createRideTable = "create table if not exists RidePosts ( " + 
 					 "id int not null auto_increment, "
 					 + "date varchar(25), "
 					 + "time varchar(10), "
@@ -43,7 +43,17 @@ public class DatabaseHandler {
 					 + "comments varchar(500), "
 					 + "primary key (id));";
 			
-			databaseStatement.execute(createTable);
+			String createRequestTable = "create table if not exists RideRequestPosts ( " + 
+					 "id int not null auto_increment, "
+					 + "date varchar(25), "
+					 + "time varchar(10), "
+					 + "toLocation varchar(50), "
+					 + "fromLocation varchar(50), "
+					 + "comments varchar(500), "
+					 + "primary key (id));";
+			
+			databaseStatement.execute(createRideTable);
+			databaseStatement.execute(createRequestTable);
 			
 		}catch(SQLException ex) {
 			ex.printStackTrace();
@@ -72,6 +82,24 @@ public class DatabaseHandler {
 	public static int addRidePost(RidePost ridePost) {
 		String sqlInsert = String.format("INSERT INTO RidePosts values (null, '%s', '%s', '%s', '%s', %d, '%s', '%s')", 
 				 ridePost.getDate(), ridePost.getTime(), ridePost.getToLocation(), ridePost.getFromLocation(), ridePost.getNumSpots(), ridePost.getPrice(), ridePost.getComments());
+
+		try{
+			int rowsAdded = databaseStatement.executeUpdate(sqlInsert);
+			return rowsAdded;
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+			return 0;
+		}
+	}
+	
+	/**
+	 * adds a specified RideRequestPost to the RideRequestPosts table
+	 * @param riderequestPost - the RideRequestPost that is to be added to the table
+	 * @return number of posts added
+	 */
+	public static int addRideRequestPost(RideRequestPost riderequestPost) {
+		String sqlInsert = String.format("INSERT INTO RideRequestPosts values (null, '%s', '%s', '%s', '%s', '%s')", 
+				 riderequestPost.getDate(), riderequestPost.getTime(), riderequestPost.getToLocation(), riderequestPost.getFromLocation(), riderequestPost.getComments());
 
 		try{
 			int rowsAdded = databaseStatement.executeUpdate(sqlInsert);
@@ -114,25 +142,55 @@ public class DatabaseHandler {
 	}
 	
 	/**
+	 * Retrieves a list of all RideRequestPost rows in the RideRequestPosts table
+	 * @return ArrayList of RideRequestPost
+	 */
+	public static ArrayList<RideRequestPost> getRideRequestPosts() {
+		String sqlSelect = "select * from RideRequestPosts";
+		try{
+			ResultSet rset = databaseStatement.executeQuery(sqlSelect);
+			ArrayList<RideRequestPost> riderequestPosts = new ArrayList<RideRequestPost>();
+			while(rset.next()) {
+				String date = rset.getString("date");
+				String time = rset.getString("time");
+				String toLocation = rset.getString("toLocation");
+				String fromLocation = rset.getString("fromLocation");
+				String comments = rset.getString("comments");
+				RideRequestPost currRideRequestPost = new RideRequestPost(date, time, toLocation, fromLocation, comments);
+				
+				riderequestPosts.add(currRideRequestPost);
+			}
+			
+			rset.close();
+			return riderequestPosts;
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+			return null;
+		}
+	}
+	
+	/**
 	 * retrieves the number of rows in the RidePosts table
 	 * @return number of rows in table
 	 */
-	public static int getTotalRows()
-	{
-		try
-		{	
-			int count = 0;
-			ResultSet rset = databaseStatement.executeQuery("SELECT COUNT(*) FROM RidePosts");
-			while (rset.next())
-			{
-				count = rset.getInt(1);
-			}
-			return count;
-		}
-		catch(SQLException e)
-		{
-			e.printStackTrace();
-			return 0;
-		}
-	}
+	//For JUnit testing purposes
+//	public static int getTotalRows()
+//	{
+//		try
+//		{	
+//			int count = 0;
+//			ResultSet rset = databaseStatement.executeQuery("SELECT COUNT(*) FROM RidePosts");
+//			while (rset.next())
+//			{
+//				count = rset.getInt(1);
+//			}
+//			return count;
+//		}
+//		catch(SQLException e)
+//		{
+//			e.printStackTrace();
+//			return 0;
+//		}
+//	}
 }

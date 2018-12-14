@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 
 /**
  * Class responsible for holding the main GUI
- * @author kbhat
+ * @author kbhat and arehorst
  *
  */
 public class Main extends Application {
