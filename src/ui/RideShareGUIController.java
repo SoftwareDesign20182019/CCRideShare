@@ -34,13 +34,18 @@ public class RideShareGUIController{
 	private TableColumn from_col;
 	@FXML
 	private TableColumn avail_Seats_col;
+	@FXML
+	ObservableList<RidePost> data;
 	
 	
-//	//constructor
-//	public RideShareGUIController() {
-//		System.out.println("inside constructor?");
-//		
-//	}
+	public RideShareGUIController() {
+		ridepost_table = new TableView<RidePost>();
+		time_col = new TableColumn();
+		to_col = new TableColumn();
+		from_col = new TableColumn();
+		avail_Seats_col = new TableColumn();
+		data = FXCollections.observableArrayList();
+	}
 	
 	/**
 	 * Method to be called automatically when this controller is attached to the FXML file
@@ -48,9 +53,8 @@ public class RideShareGUIController{
 	@FXML
 	private void initialize() {
 		
-		System.out.println("Hellooooooo");
-		
 		time_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("time"));
+		
 		
 		to_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("toLocation"));
 		
@@ -58,7 +62,6 @@ public class RideShareGUIController{
 		
 		avail_Seats_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("numSpots"));
 		
-		ObservableList<RidePost> data = FXCollections.observableArrayList();
 		ridepost_table.setItems(data);
 		
 		RidePost post = new RidePost("1/1/19", "11:00PM", "Dover", "Colorado College", 4, "$20", "no comments");
