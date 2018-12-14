@@ -3,12 +3,20 @@ package application;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * class for DatabaseHandler - responsible for creating database and tables (if they don't already exist) and for adding rides to the database
+ * @author kbhat
+ *
+ */
 public class DatabaseHandler {
 	
 	public static final String PORT_NUMBER = "3306";
 	
 	private static Statement databaseStatement; // Does this need to be closed ever?
 	
+	/**
+	 * Creates the local database and the RidePost table, if they don't already exist
+	 */
 	public static void initialize() {
 		try(
 				Connection initialConn = DriverManager.getConnection("jdbc:mysql://localhost:" + PORT_NUMBER + "/", 
@@ -55,6 +63,11 @@ public class DatabaseHandler {
 		
 	}*/
 	
+	/**
+	 * adds a specified RidePost to the RidePosts table
+	 * @param ridePost - the RidePost that is to be added to the table
+	 * @return number of posts added
+	 */
 	public static int addRidePost(RidePost ridePost) {
 		String sqlInsert = String.format("INSERT INTO RidePosts values (null, '%s', '%s', '%s', '%s', %d, '%s', '%s')", 
 				 ridePost.getDate(), ridePost.getTime(), ridePost.getToLocation(), ridePost.getFromLocation(), ridePost.getNumSpots(), ridePost.getPrice(), ridePost.getComments());
@@ -68,6 +81,10 @@ public class DatabaseHandler {
 		}
 	}
 	
+	/**
+	 * Retrieves a list of all RidePost rows in the RidePosts table
+	 * @return ArrayList of RidePost
+	 */
 	public static ArrayList<RidePost> getRidePosts() {
 		String sqlSelect = "select * from RidePosts";
 		try{
@@ -95,6 +112,10 @@ public class DatabaseHandler {
 		}
 	}
 	
+	/**
+	 * retrieves the number of rows in the RidePosts table
+	 * @return number of rows in table
+	 */
 	public static int getTotalRows()
 	{
 		try

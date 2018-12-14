@@ -6,9 +6,16 @@ import application.DatabaseHandler;
 import application.RidePost;
 import java.sql.*;
 
-
+/**
+ * Unit tests for the DatabaseHandler class
+ * @author kbhat
+ *
+ */
 public class DatabaseTest {
 
+	/**
+	 * Check to see that addToDatabase adds a single post to the database successfully
+	 */
 	@Test
 	public void databaseEntryTest() 
 	{
@@ -20,8 +27,12 @@ public class DatabaseTest {
 		assertEquals(rowsAdded,1);
 	}
 	
+	/**
+	 * Check to see that the number of rows in the RidePosts table is the same as the number of items 
+	 * returned in the getRidePosts() method
+	 */
 	@Test
-	public void getAllRidersTest()
+	public void getAllRidePostsTest()
 	{
 		DatabaseHandler handler = new DatabaseHandler();
 		handler.initialize();

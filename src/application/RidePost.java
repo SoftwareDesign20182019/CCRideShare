@@ -1,6 +1,11 @@
 package application;
 import java.util.ArrayList;
 
+/**
+ * Class for ride posts - a post listed by drivers, for people finding a ride
+ * @author kbhat
+ *
+ */
 public class RidePost {
 
 	private String date;
@@ -14,6 +19,16 @@ public class RidePost {
 	// private User driver;
 	// private ArrayList<User> riders;
 	
+	/**
+	 * Constructor for RidePost
+	 * @param date - date of departure
+	 * @param time - time of departure
+	 * @param toLocation - destination location
+	 * @param fromLocation - starting location
+	 * @param numSpots - number of available seats in car
+	 * @param price - cost to ride
+	 * @param comments - any additional comments about trunk space for luggage, car coziness, etc.
+	 */
 	public RidePost(String date, String time, String toLocation, String fromLocation, int numSpots, String price, String comments) {
 		this.date = date; 
 		this.time = time;
@@ -81,11 +96,19 @@ public class RidePost {
 		this.comments = comments;
 	}
 	
+	/**
+	 * adds a RiderPost to the database
+	 * @return number of rows added
+	 */
 	public int addToDatabase() {
 		int rowsAdded = DatabaseHandler.addRidePost(this);
 		return rowsAdded;
 	}
 	
+	/**
+	 * main method
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
 		DatabaseHandler.initialize();
