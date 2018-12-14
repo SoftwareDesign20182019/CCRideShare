@@ -7,15 +7,6 @@ import javafx.scene.control.Label;
 
 public class TestController {
 
-    @FXML
-    private Button btn_submit;
-
-    @FXML
-    private Label message;
-
-    @FXML
-    void Display(ActionEvent event) {
-    	 message.setText("Kobi is LIFE");
-    }
+ 
 
 }
