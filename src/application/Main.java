@@ -22,6 +22,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try 
 		{
+			DatabaseHandler.initialize();
 			Parent root = FXMLLoader.load(getClass().getResource("/ui/RideListGUI.fxml"));
 			Scene scene = new Scene(root);
 //			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

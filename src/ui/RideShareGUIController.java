@@ -5,6 +5,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ResourceBundle;
+
+import application.DatabaseHandler;
 import application.RidePost;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,7 +57,6 @@ public class RideShareGUIController{
 		
 		time_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("time"));
 		
-		
 		to_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("toLocation"));
 		
 		from_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("fromLocation"));
@@ -64,10 +65,8 @@ public class RideShareGUIController{
 		
 		ridepost_table.setItems(data);
 		
-		RidePost post = new RidePost("1/1/19", "11:00PM", "Dover", "Colorado College", 4, "$20", "no comments");
-		RidePost post2 = new RidePost("1/1/20", "11:00PM", "Denver", "Colorado College", 4, "$20", "");
-		data.add(post);
-		data.add(post2);
+		ArrayList<RidePost> ridePosts = DatabaseHandler.getRidePosts();
+		data.addAll(ridePosts);
 	}
 	
 //	public void addToRidePostList(RidePost ridePost) {
