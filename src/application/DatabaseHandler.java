@@ -11,8 +11,8 @@ import java.util.Collections;
  */
 public class DatabaseHandler {
 	
-//	public static final String PORT_NUMBER = "3306"; // Most people seem to use this port
-	 public static final String PORT_NUMBER = "8889"; // Ely uses this port
+	public static final String PORT_NUMBER = "3306"; // Most people seem to use this port
+//	 public static final String PORT_NUMBER = "8889"; // Ely uses this port
 	
 	private static Statement databaseStatement; // Does this need to be closed ever?
 	
@@ -58,9 +58,16 @@ public class DatabaseHandler {
 					 + "location varchar(50), "
 					 + "primary key (id));";
 			
+			String createAccountTable = "create table if not exists Accounts ( "
+					+ "id not null_auto_increment, "
+					+ "name varchar(15), "
+					+ "email varchar(25), "
+					+ "password varchar(25));";
+			
 			databaseStatement.execute(createRideTable);
 			databaseStatement.execute(createRequestTable);
 			databaseStatement.execute(createLocationTable);
+			databaseStatement.execute(createAccountTable);
 			
 		}catch(SQLException ex) {
 			ex.printStackTrace();
@@ -128,6 +135,21 @@ public class DatabaseHandler {
 		try{
 			int locationsAdded = databaseStatement.executeUpdate(sqlInsert);
 			return locationsAdded;
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+			return 0;
+		}
+	}
+	/**
+	 * adds a user account to the Accounts table
+	 * @param account the account of type user to be added to the table
+	 * @return the number of accounts added
+	 */
+	public static int addAccount(User account) {
+		String sqlInsert = String.format("INSERT INTO Accounts values (null, '%s', '%s', '%s')", User.getName(), User.Email());
+		try{
+			int accountsAdded = databaseStatement.executeUpdate(sqlInsert);
+			return accountsAdded;
 		}catch(SQLException ex) {
 			ex.printStackTrace();
 			return 0;
