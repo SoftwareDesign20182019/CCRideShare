@@ -64,10 +64,10 @@
                               </BorderPane>
                               <BorderPane prefHeight="33.0" prefWidth="600.0">
                                  <right>
-                                    <ComboBox prefHeight="27.0" prefWidth="285.0" promptText="Select a location..." BorderPane.alignment="CENTER" />
+                                    <ComboBox fx:id="toLocationComboBox" prefHeight="27.0" prefWidth="285.0" promptText="Select a location..." BorderPane.alignment="CENTER" />
                                  </right>
                                  <center>
-                                    <ComboBox prefHeight="27.0" prefWidth="286.0" promptText="Select a location..." BorderPane.alignment="CENTER" />
+                                    <ComboBox fx:id="fromLocationComboBox" prefHeight="27.0" prefWidth="286.0" promptText="Select a location..." BorderPane.alignment="CENTER" />
                                  </center>
                               </BorderPane>
                               <BorderPane prefHeight="25.0" prefWidth="600.0" />

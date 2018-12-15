@@ -45,14 +45,14 @@ public class AddRideRequestController{
 	 */
 	@FXML
 	private void initialize() {
-		cancelButton.setOnAction(new cancelButtonHandler());
+		cancelButton.setOnAction(new CancelButtonHandler());
 	}
 	
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 	}
 	
-	private class cancelButtonHandler implements EventHandler<ActionEvent>{
+	private class CancelButtonHandler implements EventHandler<ActionEvent>{
 		
 		@Override
 		public void handle(ActionEvent event) {

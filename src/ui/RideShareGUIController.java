@@ -119,9 +119,9 @@ public class RideShareGUIController{
 		ArrayList<RideRequestPost> riderequestPosts = DatabaseHandler.getRideRequestPosts();
 		requestData.addAll(riderequestPosts);
 		
-		addRidePostButton.setOnAction(new addRidePostButtonHandler());
+		addRidePostButton.setOnAction(new AddRidePostButtonHandler());
 		
-		addRideRequestButton.setOnAction(new addRideRequestButtonHandler());
+		addRideRequestButton.setOnAction(new AddRideRequestButtonHandler());
 	}
 	
 	public void setPrimaryStage(Stage primaryStage) {
@@ -129,7 +129,7 @@ public class RideShareGUIController{
 		this.primaryStage.setResizable(false);
 	}
 	
-	private class addRidePostButtonHandler implements EventHandler<ActionEvent>{
+	private class AddRidePostButtonHandler implements EventHandler<ActionEvent>{
 		
 		@Override
 		public void handle(ActionEvent event) {
@@ -143,7 +143,7 @@ public class RideShareGUIController{
 		}
 	}
 	
-	private class addRideRequestButtonHandler implements EventHandler<ActionEvent>{
+	private class AddRideRequestButtonHandler implements EventHandler<ActionEvent>{
 		
 		@Override
 		public void handle(ActionEvent event) {
