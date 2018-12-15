@@ -135,7 +135,5 @@ public class AddRidePostController{
 				comboBoxBeingObserved.setValue(newLocation);
 			}
 		}
-		
 	}
-	
 }
