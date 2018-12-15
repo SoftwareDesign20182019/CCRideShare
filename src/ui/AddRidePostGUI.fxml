@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AddRidePostController">
+   <children>
+      <Pane prefHeight="574.0" prefWidth="36.0" />
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="655.0">
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0" />
+            <BorderPane prefHeight="77.0" prefWidth="612.0">
+               <top>
+                  <Label fx:id="title_label" alignment="CENTER" contentDisplay="CENTER" text="List a New Ride" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </top>
+            </BorderPane>
+            <BorderPane prefHeight="70.0" prefWidth="600.0">
+               <top>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="503.0" prefWidth="612.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <VBox layoutX="6.0" prefHeight="488.0" prefWidth="600.0">
+                           <children>
+                              <BorderPane prefHeight="30.0" prefWidth="600.0">
+                                 <left>
+                                    <Label prefHeight="27.0" prefWidth="286.0" text=" Enter a date:" BorderPane.alignment="CENTER" />
+                                 </left>
+                                 <center>
+                                    <Label prefHeight="27.0" prefWidth="102.0" text="Enter a time:" BorderPane.alignment="CENTER" />
+                                 </center>
+                              </BorderPane>
+                              <BorderPane prefHeight="29.0" prefWidth="600.0">
+                                 <right>
+                                    <HBox alignment="TOP_CENTER" prefHeight="29.0" prefWidth="284.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <TextField alignment="CENTER" prefHeight="27.0" prefWidth="40.0" text="12" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":" wrappingWidth="6.859375">
+                                             <font>
+                                                <Font size="19.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField alignment="CENTER" prefHeight="27.0" prefWidth="45.0" text="00" />
+                                          <TextField alignment="CENTER" prefHeight="27.0" prefWidth="41.0" text="PM" />
+                                       </children>
+                                    </HBox>
+                                 </right>
+                                 <center>
+                                    <DatePicker prefHeight="27.0" prefWidth="285.0" BorderPane.alignment="CENTER" />
+                                 </center>
+                              </BorderPane>
+                              <BorderPane prefHeight="29.0" prefWidth="600.0" />
+                              <BorderPane prefHeight="30.0" prefWidth="600.0">
+                                 <right>
+                                    <Label prefHeight="17.0" prefWidth="298.0" text="Select to location:" BorderPane.alignment="CENTER" />
+                                 </right>
+                                 <left>
+                                    <Label prefHeight="17.0" prefWidth="299.0" text=" Select from location:" BorderPane.alignment="CENTER" />
+                                 </left>
+                              </BorderPane>
+                              <BorderPane prefHeight="33.0" prefWidth="600.0">
+                                 <right>
+                                    <ComboBox fx:id="toLocationComboBox" prefHeight="27.0" prefWidth="285.0" promptText="Select a location..." BorderPane.alignment="CENTER" />
+                                 </right>
+                                 <center>
+                                    <ComboBox fx:id="fromLocationComboBox" prefHeight="27.0" prefWidth="286.0" promptText="Select a location..." BorderPane.alignment="CENTER" />
+                                 </center>
+                              </BorderPane>
+                              <BorderPane prefHeight="25.0" prefWidth="600.0" />
+                              <HBox prefHeight="31.0" prefWidth="600.0">
+                                 <children>
+                                    <Label prefHeight="17.0" prefWidth="395.0" text=" Enter number of spots available for passengers:" />
+                                    <TextField prefHeight="27.0" prefWidth="61.0" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="31.0" prefWidth="600.0" />
+                              <HBox prefHeight="32.0" prefWidth="600.0">
+                                 <children>
+                                    <Label prefHeight="17.0" prefWidth="395.0" text=" Enter price:" />
+                                    <TextField prefHeight="27.0" prefWidth="62.0" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="21.0" prefWidth="600.0" />
+                              <HBox prefHeight="37.0" prefWidth="600.0">
+                                 <children>
+                                    <Label text=" Other comments:" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <TextArea prefHeight="126.0" prefWidth="584.0" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="10.0" prefWidth="600.0" />
+                              <HBox prefHeight="52.0" prefWidth="600.0">
+                                 <children>
+                                    <Pane prefHeight="52.0" prefWidth="386.0" />
+                                    <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="73.0" text="Cancel" />
+                                    <Pane prefHeight="52.0" prefWidth="57.0" />
+                                    <Button mnemonicParsing="false" text="SUBMIT" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </top>
+            </BorderPane>
+         </children>
+      </VBox>
+   </children>
+</HBox>
