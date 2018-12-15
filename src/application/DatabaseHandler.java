@@ -2,6 +2,7 @@ package application;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * class for DatabaseHandler - responsible for creating database and tables (if they don't already exist) and for adding rides to the database
@@ -65,7 +66,7 @@ public class DatabaseHandler {
 	}*/
 	
 	/**
-	 * adds a specified RidePost to the RidePosts table
+	 * adds a specified RidePost to the RidePosts table in the CCRideShare detabase
 	 * @param ridePost - the RidePost that is to be added to the table
 	 * @return number of posts added
 	 */
