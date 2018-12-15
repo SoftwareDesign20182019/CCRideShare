@@ -128,7 +128,7 @@
             </Button>
             <ImageView fitHeight="62.0" fitWidth="251.0" layoutX="555.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Downloads/CClogo.png" />
+                  <Image url="@CClogo.png" />
                </image>
             </ImageView>
       </children>
