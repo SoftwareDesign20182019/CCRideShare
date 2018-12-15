@@ -86,7 +86,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button layoutX="953.0" layoutY="7.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="175.0" text="Request a Ride">
+            <Button fx:id="addRideRequestButton" layoutX="953.0" layoutY="7.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="175.0" text="Request a Ride">
                <font>
                   <Font name="Calibri Bold" size="12.0" />
                </font>

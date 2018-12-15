@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class ApplicationFactory {
 
 	public static enum ApplicationType{
-		RIDE_LIST, ADD_RIDE_POST
+		RIDE_LIST, ADD_RIDE_POST, ADD_RIDE_REQUEST
 	}
 	
 	private static ArrayList<ApplicationWithType> applications = new ArrayList<ApplicationWithType>();
@@ -26,6 +26,9 @@ public class ApplicationFactory {
 				break;
 			case ADD_RIDE_POST:
 				newApplication = new AddRidePostApplication();
+				break;
+			case ADD_RIDE_REQUEST:
+				newApplication = new AddRideRequestApplication();
 				break;
 			default: 
 				return null;

@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Connects the AddRidePost FXML GUI file with the backend operations
  * @author elysamuel16
  */
-public class AddRidePostController{
+public class AddRideRequestController{
 
 	private Stage primaryStage;
 	
@@ -36,7 +36,7 @@ public class AddRidePostController{
 	@FXML 
 	private Button cancelButton;
 	
-	public AddRidePostController() {
+	public AddRideRequestController() {
 		cancelButton = new Button();
 	}
 	

@@ -65,6 +65,8 @@ public class RideShareGUIController{
 	// Other
 	@FXML
 	private Button addRidePostButton;
+	@FXML
+	private Button addRideRequestButton;
 	
 	
 	public RideShareGUIController() {
@@ -83,6 +85,7 @@ public class RideShareGUIController{
 		requestData = FXCollections.observableArrayList();
 		//Other
 		addRidePostButton = new Button();
+		addRideRequestButton = new Button();
 	}
 
 	/**
@@ -117,6 +120,8 @@ public class RideShareGUIController{
 		requestData.addAll(riderequestPosts);
 		
 		addRidePostButton.setOnAction(new addRidePostButtonHandler());
+		
+		addRideRequestButton.setOnAction(new addRideRequestButtonHandler());
 	}
 	
 	public void setPrimaryStage(Stage primaryStage) {
@@ -129,6 +134,20 @@ public class RideShareGUIController{
 		@Override
 		public void handle(ActionEvent event) {
 			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.ADD_RIDE_POST);
+			try{
+				app.start(primaryStage);
+				
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+	
+	private class addRideRequestButtonHandler implements EventHandler<ActionEvent>{
+		
+		@Override
+		public void handle(ActionEvent event) {
+			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.ADD_RIDE_REQUEST);
 			try{
 				app.start(primaryStage);
 				
