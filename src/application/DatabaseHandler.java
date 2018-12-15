@@ -3,7 +3,8 @@ package application;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 /**
  * class for DatabaseHandler - responsible for creating database and tables (if they don't already exist) and for adding rides to the database
  * @author kbhat and arehorst
@@ -11,8 +12,10 @@ import java.util.Collections;
  */
 public class DatabaseHandler {
 	
-//	public static final String PORT_NUMBER = "3306"; // Most people seem to use this port
-	 public static final String PORT_NUMBER = "8889"; // Ely uses this port
+	public static final String PORT_NUMBER = "3306"; // Most people seem to use this port
+//	 public static final String PORT_NUMBER = "8889"; // Ely uses this port
+	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[a-z0-9](\\.?[a-z0-9]){5,}@coloradocollege\\.edu$", Pattern.CASE_INSENSITIVE);
+	
 	
 	private static Statement databaseStatement; // Does this need to be closed ever?
 	
@@ -58,14 +61,23 @@ public class DatabaseHandler {
 					 + "location varchar(50), "
 					 + "primary key (id));";
 			
+			String createAccountTable = "create table if not exists Accounts ( "
+					+ "id not null_auto_increment, "
+					+ "name varchar(15), "
+					+ "email varchar(25), "
+					+ "password varchar(25));";
+			
 			databaseStatement.execute(createRideTable);
 			databaseStatement.execute(createRequestTable);
 			databaseStatement.execute(createLocationTable);
+			databaseStatement.execute(createAccountTable);
 			
 		}catch(SQLException ex) {
 			ex.printStackTrace();
 		}
 	}
+	
+	
 	
 	/*public static Statement getStatement() {	
 		try {
@@ -128,6 +140,21 @@ public class DatabaseHandler {
 		try{
 			int locationsAdded = databaseStatement.executeUpdate(sqlInsert);
 			return locationsAdded;
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+			return 0;
+		}
+	}
+	/**
+	 * adds a user account to the Accounts table
+	 * @param account the account of type user to be added to the table
+	 * @return the number of accounts added
+	 */
+	public static int addAccount(User account) {
+		String sqlInsert = String.format("INSERT INTO Accounts values (null, '%s', '%s', '%s')", account.getFullName(), account.getEmail());
+		try{
+			int accountsAdded = databaseStatement.executeUpdate(sqlInsert);
+			return accountsAdded;
 		}catch(SQLException ex) {
 			ex.printStackTrace();
 			return 0;
@@ -216,6 +243,12 @@ public class DatabaseHandler {
 			System.exit(-1);
 			return null;
 		}
+	}
+	
+	public static boolean filterEmails(String email)
+	{
+		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+        return matcher.find();
 	}
 	
 	/**
