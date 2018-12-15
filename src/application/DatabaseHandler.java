@@ -1,8 +1,10 @@
 package application;
 
 import java.sql.*;
+import java.util.regex.Matcher;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.regex.Pattern;
 
 /**
  * class for DatabaseHandler - responsible for creating database and tables (if they don't already exist) and for adding rides to the database
@@ -11,8 +13,9 @@ import java.util.Collections;
  */
 public class DatabaseHandler {
 	
-//	public static final String PORT_NUMBER = "3306"; // Most people seem to use this port
-	 public static final String PORT_NUMBER = "8889"; // Ely uses this port
+	public static final String PORT_NUMBER = "3306"; // Most people seem to use this port
+	//public static final String PORT_NUMBER = "8889"; // Ely uses this port
+	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[a-z0-9](\\.?[a-z0-9]){5,}@coloradocollege\\.edu$", Pattern.CASE_INSENSITIVE);
 	
 	private static Statement databaseStatement; // Does this need to be closed ever?
 	
@@ -216,6 +219,12 @@ public class DatabaseHandler {
 			System.exit(-1);
 			return null;
 		}
+	}
+	
+	public static boolean filterEmails(String email)
+	{
+		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+        return matcher.find();
 	}
 	
 	/**

@@ -151,11 +151,10 @@ public class RideShareGUIController{
 			try{
 				app.start(primaryStage);
 				
-			}catch(Exception ex) {
+			}
+			catch(Exception ex) {
 				ex.printStackTrace();
 			}
 		}
 	}
-	
-	
 }
