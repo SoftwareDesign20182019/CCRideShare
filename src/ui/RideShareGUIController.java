@@ -11,6 +11,7 @@ import application.ApplicationFactory;
 import application.DatabaseHandler;
 import application.RideListApplication;
 import application.RidePost;
+import application.RideRequestPost;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,12 +27,12 @@ import javafx.application.Application;
 
 /**
  * Connects the .fxml GUI file with the backend operations
- * @author viktorkelemen & elymerenstein
+ * @author viktorkelemen & elymerenstein & arehorst
  */
 public class RideShareGUIController{
-
 	private Stage primaryStage;
 	
+	// Ride Tab
 	@FXML
 	private URL location;
 	@FXML
@@ -47,55 +48,81 @@ public class RideShareGUIController{
 	@FXML
 	private TableColumn avail_Seats_col;
 	@FXML
-	private ObservableList<RidePost> data;
+	private ObservableList<RidePost> rideData;
+	
+	// Ride Request Tab
+	@FXML
+	private TableView<RideRequestPost> riderequestpost_table;
+	@FXML
+	private TableColumn request_time_col;
+	@FXML
+	private TableColumn request_to_col;
+	@FXML
+	private TableColumn request_from_col;
+	@FXML
+	private ObservableList<RideRequestPost> requestData;
+	
+	// Other
 	@FXML
 	private Button addRidePostButton;
 	
 	
 	public RideShareGUIController() {
+		//Ride Tab
 		ridepost_table = new TableView<RidePost>();
 		time_col = new TableColumn();
 		to_col = new TableColumn();
 		from_col = new TableColumn();
 		avail_Seats_col = new TableColumn();
-		data = FXCollections.observableArrayList();
+		rideData = FXCollections.observableArrayList();
+		//Ride Request Tab
+		riderequestpost_table = new TableView<RideRequestPost>();
+		request_time_col = new TableColumn();
+		request_to_col = new TableColumn();
+		request_from_col = new TableColumn();
+		requestData = FXCollections.observableArrayList();
+		//Other
 		addRidePostButton = new Button();
 	}
-	
+
 	/**
 	 * Method to be called automatically when this controller is attached to the FXML file
 	 */
 	@FXML
 	private void initialize() {
-		
+		// Ride Tab
 		time_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("time"));
-		
+
 		to_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("toLocation"));
-		
+
 		from_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("fromLocation"));
-		
+
 		avail_Seats_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("numSpots"));
-		
-		ridepost_table.setItems(data);
-		
+
+		ridepost_table.setItems(rideData);
+
 		ArrayList<RidePost> ridePosts = DatabaseHandler.getRidePosts();
-		data.addAll(ridePosts);
+		rideData.addAll(ridePosts);
+
+		//Ride Request Tab
+		request_time_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("time"));
+
+		request_to_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("toLocation"));
+
+		request_from_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("fromLocation"));
+
+		riderequestpost_table.setItems(requestData);
+
+		ArrayList<RideRequestPost> riderequestPosts = DatabaseHandler.getRideRequestPosts();
+		requestData.addAll(riderequestPosts);
 		
 		addRidePostButton.setOnAction(new addRidePostButtonHandler());
 	}
 	
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;
+		this.primaryStage.setResizable(false);
 	}
-	
-//	public void addToRidePostList(RidePost ridePost) {
-//		data.add(ridePost);
-//	}
-//	
-//	public void addAllToRidePostList(ArrayList<RidePost> ridePosts) {
-//		data.addAll(ridePosts);
-//	}
-	
 	
 	private class addRidePostButtonHandler implements EventHandler<ActionEvent>{
 		

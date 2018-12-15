@@ -70,7 +70,7 @@
                   </Tab>
               </tabs>
             </TabPane>
-            <Button fx:id="addRidePostButton" layoutX="217.0" layoutY="20.0" mnemonicParsing="false" text="List a Ride">
+            <Button fx:id="addRidePostButton" layoutX="215.0" layoutY="7.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="166.0" text="List a Ride">
                <font>
                   <Font name="Calibri Bold" size="12.0" />
                </font>
