@@ -116,6 +116,8 @@ public class RidePost {
 		RidePost post2 = new RidePost("1/1/20", "11:00PM", "Denver", "Colorado College", 4, "$20", "");
 		post.addToDatabase();
 		post2.addToDatabase();
+		RideRequestPost post3 = new RideRequestPost("1/1/18", "1:00PM", "Everywhere", "Everywhere else", "all the comments.");
+		post3.addToDatabase();
 		ArrayList<RidePost> ridePosts = DatabaseHandler.getRidePosts();		
 	}
 }

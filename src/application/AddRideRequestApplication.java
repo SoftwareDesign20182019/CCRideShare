@@ -6,13 +6,15 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+import ui.RideShareGUIController;
+
 
 /**
  * Class responsible for holding the main GUI
  * @author kbhat
  *
  */
-public class Main extends Application {
+public class AddRideRequestApplication extends Application {
 	
 	/**
 	 * Set up stage for the GUI
@@ -22,8 +24,11 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try 
 		{
-			DatabaseHandler.initialize();
-			Parent root = FXMLLoader.load(getClass().getResource("/ui/RideListGUI.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/AddRideRequestGUI.fxml"));
+			Parent root = loader.load();
+			ui.AddRideRequestController controller = loader.getController();
+			controller.setPrimaryStage(primaryStage);
+			//Parent root = FXMLLoader.load(getClass().getResource("/ui/RideListGUI.fxml"));
 			Scene scene = new Scene(root);
 //			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -34,13 +39,5 @@ public class Main extends Application {
 		{
 			e.printStackTrace();
 		}
-	}
-	
-	/**
-	 * main method
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		launch(args);
 	}
 }
