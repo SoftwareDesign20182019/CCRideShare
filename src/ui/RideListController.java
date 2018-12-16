@@ -29,7 +29,7 @@ import javafx.application.Application;
  * Connects the .fxml GUI file with the backend operations
  * @author viktorkelemen & elymerenstein & arehorst
  */
-public class RideShareGUIController{
+public class RideListController{
 	private Stage primaryStage;
 	
 	// Ride Tab
@@ -69,7 +69,7 @@ public class RideShareGUIController{
 	private Button addRideRequestButton;
 	
 	
-	public RideShareGUIController() {
+	public RideListController() {
 		//Ride Tab
 		ridepost_table = new TableView<RidePost>();
 		time_col = new TableColumn();

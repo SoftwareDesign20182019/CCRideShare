@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-import ui.RideShareGUIController;
+import ui.RideListController;
 
 
 /**
@@ -26,7 +26,7 @@ public class RideListApplication extends Application {
 		{
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/RideListGUI.fxml"));
 			Parent root = loader.load();
-			RideShareGUIController controller = loader.getController();
+			RideListController controller = loader.getController();
 			controller.setPrimaryStage(primaryStage);
 			//Parent root = FXMLLoader.load(getClass().getResource("/ui/RideListGUI.fxml"));
 			Scene scene = new Scene(root);
