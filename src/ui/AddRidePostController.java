@@ -155,7 +155,10 @@ public class AddRidePostController{
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 	}
-	
+	/**
+	 * reopens the main window displaying the list of rides
+	 * called by the 'cancel' and 'submit' buttons
+	 */
 	public void reopenRideListApp() {
 		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
 		try{
@@ -166,7 +169,11 @@ public class AddRidePostController{
 		
 		}
 	}
-	
+	/**
+	 * Class for dealing with a change in a location combo box
+	 * @author ely
+	 * @param <T>
+	 */
 	private class LocationComboBoxListener<T> implements ChangeListener {
 
 		private ComboBox<String> comboBoxBeingObserved;
@@ -174,17 +181,24 @@ public class AddRidePostController{
 		public LocationComboBoxListener(ComboBox<String> comboBoxBeingObserved) {
 			this.comboBoxBeingObserved = comboBoxBeingObserved;
 		}
-		
+		/**
+		 * Deals with the ability of the user to add destinations not already in the list
+		 * adds it to the database so next time the program is run, the new location will also be displayed
+		 */
 		@Override
 		public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-			if(observable.getValue() == null || !observable.getValue().equals(ADD_NEW_LOCATION_OPTION)) { // observable.getValue() would be null during one of the below calls to resetComboBoxValues() 
-																										 // (since that method triggers the listener and thus calls this method recursively while the reset process is incomplete)
+			// observable.getValue() would be null during one of the below calls to resetComboBoxValues()
+			// (since that method triggers the listener and thus calls this method recursively while the reset process is incomplete)
+			if(observable.getValue() == null || !observable.getValue().equals(ADD_NEW_LOCATION_OPTION)) {  
+																										 
 				return;
 			}
-			AddNewLocationApplication newLocationApp = new AddNewLocationApplication(); // Can't use the ApplicationFactory because we need to call a method specific to AddNewLocationApplication
+			// Can't use the ApplicationFactory because we need to call a method specific to AddNewLocationApplication
+			AddNewLocationApplication newLocationApp = new AddNewLocationApplication(); 
 			newLocationApp.start(new Stage());
 			String newLocation = newLocationApp.getNewLocation();
-			if(newLocation == null) { // The user clicked cancel in the AddNewLocationGUI
+			// The user clicked cancel in the AddNewLocationGUI
+			if(newLocation == null) { 
 				// comboBoxBeingObserved.getEditor().textProperty().setValue("Select a location...");;
 				Platform.runLater(new Runnable() {
 					@Override
@@ -201,7 +215,8 @@ public class AddRidePostController{
 				String oldFromValue = from_location_combo_box.getValue();
 				String oldToValue = to_location_combo_box.getValue();
 				resetComboBoxValues(from_location_combo_box, DatabaseHandler.getLocations());
-				if(oldFromValue != null && !oldFromValue.equals(ADD_NEW_LOCATION_OPTION)) { // oldFromValue would be null if the from ComboBox hasn't been touched yet
+				// oldFromValue would be null if the from ComboBox hasn't been touched yet
+				if(oldFromValue != null && !oldFromValue.equals(ADD_NEW_LOCATION_OPTION)) { 
 					from_location_combo_box.setValue(oldFromValue);
 				}
 				resetComboBoxValues(to_location_combo_box, DatabaseHandler.getLocations());
