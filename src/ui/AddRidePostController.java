@@ -116,38 +116,39 @@ public class AddRidePostController{
 		
 		@Override
 		public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-			if(observable.getValue() != null && observable.getValue().equals(ADD_NEW_LOCATION_OPTION)) { // observable.getValue() would be null during one of the below calls to resetComboBoxValues() 
+			if(observable.getValue() == null || !observable.getValue().equals(ADD_NEW_LOCATION_OPTION)) { // observable.getValue() would be null during one of the below calls to resetComboBoxValues() 
 																										 // (since that method triggers the listener and thus calls this method recursively while the reset process is incomplete)
-				AddNewLocationApplication newLocationApp = new AddNewLocationApplication(); // Can't use the ApplicationFactory because we need to call a method specific to AddNewLocationApplication
-				newLocationApp.start(new Stage());
-				String newLocation = newLocationApp.getNewLocation();
-				if(newLocation == null) { // The user clicked cancel in the AddNewLocationGUI
-					// comboBoxBeingObserved.getEditor().textProperty().setValue("Select a location...");;
-					Platform.runLater(new Runnable() {
-						@Override
-						public void run() {
-							comboBoxBeingObserved.setValue((String) oldValue);
-						}
-					});
-					return;
-				}
-				if(!DatabaseHandler.getLocations().contains(newLocation)) {
-					DatabaseHandler.addLocation(newLocation);
-					// Regardless of in which ComboBox this is happening, we now want to update the items in both ComboBoxes.
-					// But we should preserve the current value of whichever ComboBox isn't involved at the moment!
-					String oldFromValue = fromLocationComboBox.getValue();
-					String oldToValue = toLocationComboBox.getValue();
-					resetComboBoxValues(fromLocationComboBox, DatabaseHandler.getLocations());
-					if(oldFromValue != null && !oldFromValue.equals(ADD_NEW_LOCATION_OPTION)) { // oldFromValue would be null if the from ComboBox hasn't been touched yet
-						fromLocationComboBox.setValue(oldFromValue);
-					}
-					resetComboBoxValues(toLocationComboBox, DatabaseHandler.getLocations());
-					if(oldToValue != null && !oldToValue.equals(ADD_NEW_LOCATION_OPTION)) {
-						toLocationComboBox.setValue(oldToValue);
-					}
-				}
-				comboBoxBeingObserved.setValue(newLocation);
+				return;
 			}
+			AddNewLocationApplication newLocationApp = new AddNewLocationApplication(); // Can't use the ApplicationFactory because we need to call a method specific to AddNewLocationApplication
+			newLocationApp.start(new Stage());
+			String newLocation = newLocationApp.getNewLocation();
+			if(newLocation == null) { // The user clicked cancel in the AddNewLocationGUI
+				// comboBoxBeingObserved.getEditor().textProperty().setValue("Select a location...");;
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						comboBoxBeingObserved.setValue((String) oldValue);
+					}
+				});
+				return;
+			}
+			if(!DatabaseHandler.getLocations().contains(newLocation)) {
+				DatabaseHandler.addLocation(newLocation);
+				// Regardless of in which ComboBox this is happening, we now want to update the items in both ComboBoxes.
+				// But we should preserve the current value of whichever ComboBox isn't involved at the moment!
+				String oldFromValue = fromLocationComboBox.getValue();
+				String oldToValue = toLocationComboBox.getValue();
+				resetComboBoxValues(fromLocationComboBox, DatabaseHandler.getLocations());
+				if(oldFromValue != null && !oldFromValue.equals(ADD_NEW_LOCATION_OPTION)) { // oldFromValue would be null if the from ComboBox hasn't been touched yet
+					fromLocationComboBox.setValue(oldFromValue);
+				}
+				resetComboBoxValues(toLocationComboBox, DatabaseHandler.getLocations());
+				if(oldToValue != null && !oldToValue.equals(ADD_NEW_LOCATION_OPTION)) {
+					toLocationComboBox.setValue(oldToValue);
+				}
+			}
+			comboBoxBeingObserved.setValue(newLocation);
 		}
 		
 	}
