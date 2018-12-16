@@ -13,10 +13,11 @@
          </font>
       </Label>
       <Label alignment="CENTER" prefHeight="39.0" prefWidth="329.0" text="Enter new location:" />
+      <Label fx:id="empty_text_field_error_label" alignment="TOP_CENTER" contentDisplay="TOP" prefHeight="17.0" prefWidth="300.0" textFill="RED" />
       <HBox prefHeight="46.0" prefWidth="299.0">
          <children>
             <Pane prefHeight="32.0" prefWidth="41.0" />
-            <TextField fx:id="locationTextField" prefHeight="27.0" prefWidth="213.0" />
+            <TextField fx:id="locationTextField" onAction="#updateNewLocation" prefHeight="27.0" prefWidth="213.0" />
          </children>
       </HBox>
       <HBox prefHeight="40.0" prefWidth="299.0">

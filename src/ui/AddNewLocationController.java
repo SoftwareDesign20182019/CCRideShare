@@ -8,6 +8,9 @@ import java.util.ResourceBundle;
 import application.AddNewLocationApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.control.Label;
 
 /**
  * Connects the AddRidePost FXML GUI file with the backend operations
@@ -24,6 +27,8 @@ public class AddNewLocationController{
 	private ResourceBundle resources;
 	@FXML 
 	private TextField locationTextField;
+	@FXML
+	private Label empty_text_field_error_label;
 	
 	public AddNewLocationController() {
 		locationTextField = new TextField();
@@ -48,19 +53,25 @@ public class AddNewLocationController{
 	/**
 	 * Method to assign the value of the textLocation field to the newLocation variable 
 	 * in the corresponding application class, then close the stage this controller is controlling.
-	 * The GUI calls this method when the appropriate button is pressed.
+	 * The GUI calls this method when the appropriate button is pressed or when the enter key is pressed.
 	 */
-	public void updateNewLocation() {
+	@FXML
+	private void updateNewLocation() {
 		String newLocation = locationTextField.getText();
-		application.setNewLocation(newLocation);
-		stage.close();
+		if(newLocation.equals("")) { // Don't follow through if the user entered a blank string
+			empty_text_field_error_label.setText("Please enter a location.");
+		}else {
+			application.setNewLocation(newLocation);
+			stage.close();
+		}
 	}
 	
 	/**
 	 * Method to close the stage that this controller is controlling.
 	 * The GUI calls this method when the appropriate button is pressed. 
 	 */
-	public void closeStage() {
+	@FXML
+	private void closeStage() {
 		stage.close();
 	}
 	
