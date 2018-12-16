@@ -1,15 +1,12 @@
 package ui;
 import java.net.URL;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import java.util.ResourceBundle;
-
 import application.AddNewLocationApplication;
 import application.ApplicationFactory;
 import application.DatabaseHandler;
@@ -26,11 +23,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-
 import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-
+import java.lang.NumberFormatException;
 /**
  * Connects the AddRidePost FXML GUI file with the backend operations
  * @author elysamuel16
@@ -55,29 +51,32 @@ public class AddRidePostController{
 	@FXML
 	private DatePicker date;
 	@FXML
-	private TextField time_hours;
+	private ComboBox<Integer>time_hours;
 	@FXML
-	private TextField time_minutes;
+	private ComboBox<String> time_minutes;
 	@FXML 
-	private TextField time_ampm;
+	private ComboBox<String> time_ampm;
 	@FXML
 	private TextField num_available_spots;
 	@FXML
 	private TextField price;
 	@FXML
 	private TextArea comments;
+	@FXML
+	private Label spots_errormessage;
 	
 	public AddRidePostController() {
 		cancel_button = new Button();
 		from_location_combo_box = new ComboBox<>();
 		to_location_combo_box = new ComboBox<>();
 		date = new DatePicker();
-		time_hours = new TextField();
-		time_minutes = new TextField();
-		time_ampm = new TextField();
+		time_hours = new ComboBox<>();		
+		time_minutes = new ComboBox<>();
+		time_ampm = new ComboBox<>();
 		num_available_spots = new TextField();
 		price = new TextField();
 		comments = new TextArea();
+		spots_errormessage = new Label();
 	}
 	
 	/**
@@ -86,13 +85,19 @@ public class AddRidePostController{
 	 * called when the SUBMIT button is clicked
 	 */
 	public void createRidePost() {
-		String time = "" + time_hours.getText() + ":" + time_minutes.getText() + time_ampm.getText();
-		
-		RidePost newRidePost = new RidePost(date.getValue().toString(), time, to_location_combo_box.getValue(), 
-				from_location_combo_box.getValue(), Integer.parseInt(num_available_spots.getText()), price.getText(), comments.getText());	
-		
-		DatabaseHandler.addRidePost(newRidePost);
-		reopenRideListApp();
+		try {
+			spots_errormessage.setText("");
+			String time = "" + time_hours.getValue() + ":" + time_minutes.getValue() + time_ampm.getValue();
+			
+			RidePost newRidePost = new RidePost(date.getValue().toString(), time, to_location_combo_box.getValue(), 
+					from_location_combo_box.getValue(), Integer.parseInt(num_available_spots.getText()), price.getText(), comments.getText());	
+			
+			DatabaseHandler.addRidePost(newRidePost);
+			reopenRideListApp();
+		}
+		catch(NumberFormatException e) {
+			spots_errormessage.setText("Please enter a number");
+		}
 	}
 	
 	/**
@@ -100,6 +105,9 @@ public class AddRidePostController{
 	 */
 	@FXML
 	private void initialize() {
+		time_hours.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+		time_minutes.getItems().addAll("00", "15", "30", "45");
+		time_ampm.getItems().addAll("am","pm");
 		initializeComboBoxes();		
 	}
 	

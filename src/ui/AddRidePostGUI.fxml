@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -38,14 +39,14 @@
                                  <right>
                                     <HBox alignment="TOP_CENTER" prefHeight="29.0" prefWidth="284.0" BorderPane.alignment="CENTER">
                                        <children>
-                                          <TextField fx:id="time_hours" alignment="CENTER" prefHeight="27.0" prefWidth="40.0" text="12" />
+                                          <ComboBox fx:id="time_hours" prefHeight="31.0" prefWidth="76.0" promptText="hrs" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":" wrappingWidth="6.859375">
                                              <font>
                                                 <Font size="19.0" />
                                              </font>
                                           </Text>
-                                          <TextField fx:id="time_minutes" alignment="CENTER" prefHeight="27.0" prefWidth="45.0" text="00" />
-                                          <TextField fx:id="time_ampm" alignment="CENTER" prefHeight="27.0" prefWidth="41.0" text="PM" />
+                                          <ComboBox fx:id="time_minutes" prefHeight="31.0" prefWidth="84.0" promptText="min" />
+                                          <ComboBox fx:id="time_ampm" prefHeight="31.0" prefWidth="103.0" promptText="am/pm" />
                                        </children>
                                     </HBox>
                                  </right>
@@ -53,7 +54,14 @@
                                     <DatePicker fx:id="date" prefHeight="27.0" prefWidth="285.0" BorderPane.alignment="CENTER" />
                                  </center>
                               </BorderPane>
-                              <BorderPane prefHeight="29.0" prefWidth="600.0" />
+                              <BorderPane prefHeight="29.0" prefWidth="600.0">
+                                 <left>
+                                    <Label text="oij" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets left="100.0" />
+                                       </BorderPane.margin>
+                                    </Label>
+                                 </left></BorderPane>
                               <BorderPane prefHeight="30.0" prefWidth="600.0">
                                  <right>
                                     <Label prefHeight="17.0" prefWidth="298.0" text="Select to location:" BorderPane.alignment="CENTER" />
@@ -71,14 +79,25 @@
                                  </center>
                               </BorderPane>
                               <BorderPane prefHeight="25.0" prefWidth="600.0" />
-                              <HBox prefHeight="31.0" prefWidth="600.0">
+                              <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="600.0">
                                  <children>
                                     <Label prefHeight="17.0" prefWidth="395.0" text=" Enter number of spots available for passengers:" />
                                     <TextField fx:id="num_available_spots" prefHeight="27.0" prefWidth="61.0" />
+                                    <Label fx:id="spots_errormessage" textFill="#f80000">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </Label>
                                  </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
                               </HBox>
-                              <HBox prefHeight="31.0" prefWidth="600.0" />
-                              <HBox prefHeight="32.0" prefWidth="600.0">
+                              <HBox maxWidth="-Infinity" prefHeight="31.0" prefWidth="277.0" />
+                              <HBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="600.0">
                                  <children>
                                     <Label prefHeight="17.0" prefWidth="395.0" text=" Enter price:" />
                                     <TextField fx:id="price" prefHeight="27.0" prefWidth="62.0" />
