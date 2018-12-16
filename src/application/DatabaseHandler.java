@@ -62,10 +62,11 @@ public class DatabaseHandler {
 					 + "primary key (id));";
 			
 			String createAccountTable = "create table if not exists Accounts ( "
-					+ "id not null_auto_increment, "
+					+ "id int not null auto_increment, "
 					+ "name varchar(15), "
 					+ "email varchar(25), "
-					+ "password varchar(25));";
+					+ "password varchar(25), "
+					+ "primary key (id));";
 			
 			databaseStatement.execute(createRideTable);
 			databaseStatement.execute(createRequestTable);
@@ -74,6 +75,7 @@ public class DatabaseHandler {
 			
 		}catch(SQLException ex) {
 			ex.printStackTrace();
+			System.exit(-1);
 		}
 	}
 	
