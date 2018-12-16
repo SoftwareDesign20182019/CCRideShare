@@ -43,10 +43,17 @@ public class User
 	 * adds a RiderPost to the database
 	 * @return number of rows added
 	 */
-	/*public int addToDatabase() {
-		int rowsAdded = DatabaseHandler.addAccount(this);
-		return rowsAdded;
-	}*/
+	public boolean addToDatabase() {
+		if(DatabaseHandler.filterEmails(email) && !DatabaseHandler.checkEmail(email))
+		{
+			DatabaseHandler.addAccount(this);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	
 	/**
 	 * main method
@@ -60,7 +67,14 @@ public class User
 		User badUser = new User("first.last@randomemail.com", "password","Bad Guy");
 		System.out.println("user verified: "+DatabaseHandler.filterEmails(user.getEmail()));
 		System.out.println("badUser verified: "+DatabaseHandler.filterEmails(badUser.getEmail()));
-		//user.addToDatabase();
-		//badUser.addToDatabase();
+		
+		if(user.addToDatabase())
+			System.out.println("User exists in database");
+		else
+			System.out.println("User does not exist in database");
+		if(badUser.addToDatabase())
+			System.out.println("Bad User exists in database");
+		else
+			System.out.println("Bad User does not exist in database");
 	}
 }

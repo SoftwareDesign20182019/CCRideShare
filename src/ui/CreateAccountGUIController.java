@@ -12,6 +12,7 @@ import application.DatabaseHandler;
 import application.RideListApplication;
 import application.RidePost;
 import application.RideRequestPost;
+import application.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -88,9 +89,30 @@ public class CreateAccountGUIController {
 	
 	public void createAccountButton() {
 		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
+		String password;
+		String email;
+		String fullName;
+		
 		try{
 			app.start(primaryStage);
+			password = passwordfield.getText();
+			email = emailfield.getText();
+			fullName = namefield.getText();
 
+			if(DatabaseHandler.filterEmails(email) && DatabaseHandler.checkEmail(email))
+			{
+				//enter into database
+				//send to homepage
+				//
+				User newUser = new User(email,password,fullName);
+				newUser.addToDatabase();
+				//TODO: Send to homepage GUI
+			}
+			else
+			{
+				//TODO: Popup error that says nah boi go back and fill it out again
+			}
+				//User newUser = new User(email,password,fullName);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}

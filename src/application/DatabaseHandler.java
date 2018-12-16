@@ -152,7 +152,7 @@ public class DatabaseHandler {
 	 * @return the number of accounts added
 	 */
 	public static int addAccount(User account) {
-		String sqlInsert = String.format("INSERT INTO Accounts values (null, '%s', '%s', '%s')", account.getFullName(), account.getEmail());
+		String sqlInsert = String.format("INSERT INTO Accounts values (null, '%s', '%s', '%s')", account.getFullName(), account.getEmail(), account.getPassword());
 		try{
 			int accountsAdded = databaseStatement.executeUpdate(sqlInsert);
 			return accountsAdded;
@@ -250,6 +250,29 @@ public class DatabaseHandler {
 	{
 		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
         return matcher.find();
+	}
+	
+	public static boolean checkEmail(String email)
+	{
+		String sqlQuery = "SELECT email FROM Accounts WHERE email = '"+email+"'";
+		try
+		{
+			ResultSet rset = databaseStatement.executeQuery(sqlQuery);
+			if(rset.next())
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		catch(SQLException ex) 
+		{
+			ex.printStackTrace();
+			System.exit(-1);
+			return false;
+		}
 	}
 	
 	/**
