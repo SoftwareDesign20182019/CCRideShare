@@ -1,11 +1,10 @@
-
 package application;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Arrays;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 /**
  * class for DatabaseHandler - responsible for creating database and tables (if they don't already exist) and for adding rides to the database
  * @author kbhat and arehorst
@@ -15,6 +14,8 @@ public class DatabaseHandler {
 	
 	public static final String PORT_NUMBER = "3306"; // Most people seem to use this port
 //	 public static final String PORT_NUMBER = "8889"; // Ely uses this port
+	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[a-z0-9](\\.?[a-z0-9]){5,}@coloradocollege\\.edu$", Pattern.CASE_INSENSITIVE);
+	
 	
 	private static Statement databaseStatement; // Does this need to be closed ever?
 	
@@ -60,14 +61,25 @@ public class DatabaseHandler {
 					 + "location varchar(50), "
 					 + "primary key (id));";
 			
+			String createAccountTable = "create table if not exists Accounts ( "
+					+ "id int not null auto_increment, "
+					+ "name varchar(15), "
+					+ "email varchar(25), "
+					+ "password varchar(25), "
+					+ "primary key (id));";
+			
 			databaseStatement.execute(createRideTable);
 			databaseStatement.execute(createRequestTable);
 			databaseStatement.execute(createLocationTable);
+			databaseStatement.execute(createAccountTable);
 			
 		}catch(SQLException ex) {
 			ex.printStackTrace();
+			System.exit(-1);
 		}
 	}
+	
+	
 	
 	/*public static Statement getStatement() {	
 		try {
@@ -84,7 +96,7 @@ public class DatabaseHandler {
 	}*/
 	
 	/**
-	 * adds a specified RidePost to the RidePosts table in the CCRideShare database
+	 * adds a specified RidePost to the RidePosts table
 	 * @param ridePost - the RidePost that is to be added to the table
 	 * @return number of posts added
 	 */
@@ -101,17 +113,6 @@ public class DatabaseHandler {
 		}
 	}
 	
-	/**
-	 * creates a RidePost object from user input
-	 * 	calls addRidePost to add it to database
-	 */
-	public static void createRidePost(String date, String time, String toLocation, 
-			String fromLocation, int intNumSpots, String price, String comments) {
-		RidePost newRidePost = new RidePost(date, time, toLocation, fromLocation, intNumSpots,
-									price, comments);	
-		
-		addRidePost(newRidePost);
-	}
 	/**
 	 * adds a specified RideRequestPost to the RideRequestPosts table
 	 * @param riderequestPost - the RideRequestPost that is to be added to the table
@@ -141,6 +142,21 @@ public class DatabaseHandler {
 		try{
 			int locationsAdded = databaseStatement.executeUpdate(sqlInsert);
 			return locationsAdded;
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+			return 0;
+		}
+	}
+	/**
+	 * adds a user account to the Accounts table
+	 * @param account the account of type user to be added to the table
+	 * @return the number of accounts added
+	 */
+	public static int addAccount(User account) {
+		String sqlInsert = String.format("INSERT INTO Accounts values (null, '%s', '%s', '%s')", account.getFullName(), account.getEmail());
+		try{
+			int accountsAdded = databaseStatement.executeUpdate(sqlInsert);
+			return accountsAdded;
 		}catch(SQLException ex) {
 			ex.printStackTrace();
 			return 0;
@@ -231,6 +247,12 @@ public class DatabaseHandler {
 		}
 	}
 	
+	public static boolean filterEmails(String email)
+	{
+		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+        return matcher.find();
+	}
+	
 	/**
 	 * retrieves the number of rows in the RidePosts table
 	 * @return number of rows in table
@@ -255,4 +277,3 @@ public class DatabaseHandler {
 //		}
 //	}
 }
-
