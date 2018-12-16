@@ -150,8 +150,8 @@ public class DatabaseHandler {
 	 * @param account the account of type user to be added to the table
 	 * @return the number of accounts added
 	 */
-	public static int addAccount(User account) {
-		String sqlInsert = String.format("INSERT INTO Accounts values (null, '%s', '%s', '%s')", account.getFullName(), account.getEmail(), account.getPassword());
+	public static int addAccount(User account,String password) {
+		String sqlInsert = String.format("INSERT INTO Accounts values (null, '%s', '%s', '%s')", account.getFullName(), account.getEmail(), password);
 		try{
 			int accountsAdded = databaseStatement.executeUpdate(sqlInsert);
 			return accountsAdded;
@@ -221,6 +221,31 @@ public class DatabaseHandler {
 		}
 	}
 	
+	public static ArrayList<User> getUser(String email) {
+		String sqlSelect = "SELECT * FROM Accounts WHERE email = '"+email+"';";
+		ArrayList<User> users = new ArrayList<User>();
+
+		try
+		{
+			ResultSet rset = databaseStatement.executeQuery(sqlSelect);
+			while(rset.next()) 
+			{
+				String name = rset.getString("name");
+				String userEmail = rset.getString("email");
+				User currUser = new User(userEmail,name);
+				
+				users.add(currUser);
+			}
+			return users;
+		}
+		catch(SQLException ex) 
+		{
+			ex.printStackTrace();
+			System.exit(-1);
+			return null;
+		}
+	}
+	
 	/**
 	 * Retrieves a list of all location strings in the Locations table
 	 * @return ArrayList of String (the list of locations)
@@ -272,6 +297,29 @@ public class DatabaseHandler {
 			return false;
 		}
 	}
+	
+	public static boolean isRightPassword(String email, String password)
+	{
+		String sqlQuery = "SELECT email FROM Accounts WHERE email = '"+email+"' AND password = '"+password+"';";
+		try
+		{
+			ResultSet rset = databaseStatement.executeQuery(sqlQuery);
+			if(rset.next())
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	
 	/**
 	 * retrieves the number of rows in the RidePosts table

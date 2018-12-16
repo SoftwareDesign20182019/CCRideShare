@@ -98,18 +98,18 @@ public class CreateAccountGUIController {
 		String email;
 		String fullName;
 		
-		try{
+		try
+		{
 			password = passwordfield.getText();
 			email = emailfield.getText();
 			fullName = namefield.getText();
-			System.out.println("User Email: "+email);
-			System.out.println(email+" is a Colorado College email: "+DatabaseHandler.filterEmails(email));
-			System.out.println(email+" is in database: "+DatabaseHandler.filterEmails(email));
 			
 			if(DatabaseHandler.filterEmails(email) && !DatabaseHandler.checkEmail(email))
 			{
-				User newUser = new User(email,password,fullName);
-				newUser.addToDatabase();
+				User newUser = new User(email,fullName);
+				newUser.addToDatabase(password);
+				ApplicationFactory.setCurrentUser(email);
+				System.out.println("Current user is: "+ApplicationFactory.getCurrentUser().getFullName());
 				Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
 				app.start(primaryStage);
 			}
@@ -128,7 +128,9 @@ public class CreateAccountGUIController {
 				}
 			}
 				//User newUser = new User(email,password,fullName);
-		}catch(Exception ex) {
+		}
+		catch(Exception ex) 
+		{
 			ex.printStackTrace();
 		}
 	}

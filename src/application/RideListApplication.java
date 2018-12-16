@@ -14,8 +14,7 @@ import ui.RideShareGUIController;
  * @author kbhat
  *
  */
-public class RideListApplication extends Application {
-	
+public class RideListApplication extends Application {	
 	/**
 	 * Set up stage for the GUI
 	 * @param primaryStage - the primary stage

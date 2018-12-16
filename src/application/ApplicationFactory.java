@@ -6,7 +6,10 @@ import java.util.ArrayList;
 
 public class ApplicationFactory {
 
-	public static enum ApplicationType{
+	private static User currentUser;
+	
+	public static enum ApplicationType
+	{
 		RIDE_LIST, ADD_RIDE_POST, ADD_RIDE_REQUEST, CREATE_ACCOUNT, LOG_IN
 	}
 	
@@ -23,6 +26,7 @@ public class ApplicationFactory {
 		switch(typeDesired) {
 			case RIDE_LIST:
 				newApplication = new RideListApplication();
+
 				break;
 			case ADD_RIDE_POST:
 				newApplication = new AddRidePostApplication();
@@ -44,6 +48,21 @@ public class ApplicationFactory {
 		return newApplication;
 	}
 	
+	public static User setCurrentUser(String email)
+	{
+		ArrayList<User> users = DatabaseHandler.getUser(email);
+		if(!users.isEmpty())
+		{
+			currentUser = users.get(0);
+			System.out.println("Current user: "+email);
+			return currentUser;
+		}
+		else
+		{
+			System.out.println("Not a current user: "+email);
+			return new User("","");
+		}
+	}
 	
 	private static class ApplicationWithType{
 		private Application application;
@@ -61,5 +80,10 @@ public class ApplicationFactory {
 		public ApplicationType getType() {
 			return type;
 		}
+	}
+	
+	public static User getCurrentUser()
+	{
+		return currentUser;
 	}
 }
