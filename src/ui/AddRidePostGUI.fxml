@@ -38,19 +38,19 @@
                                  <right>
                                     <HBox alignment="TOP_CENTER" prefHeight="29.0" prefWidth="284.0" BorderPane.alignment="CENTER">
                                        <children>
-                                          <TextField alignment="CENTER" prefHeight="27.0" prefWidth="40.0" text="12" />
+                                          <TextField fx:id="time_hours" alignment="CENTER" prefHeight="27.0" prefWidth="40.0" text="12" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":" wrappingWidth="6.859375">
                                              <font>
                                                 <Font size="19.0" />
                                              </font>
                                           </Text>
-                                          <TextField alignment="CENTER" prefHeight="27.0" prefWidth="45.0" text="00" />
-                                          <TextField alignment="CENTER" prefHeight="27.0" prefWidth="41.0" text="PM" />
+                                          <TextField fx:id="time_minutes" alignment="CENTER" prefHeight="27.0" prefWidth="45.0" text="00" />
+                                          <TextField fx:id="time_ampm" alignment="CENTER" prefHeight="27.0" prefWidth="41.0" text="PM" />
                                        </children>
                                     </HBox>
                                  </right>
                                  <center>
-                                    <DatePicker prefHeight="27.0" prefWidth="285.0" BorderPane.alignment="CENTER" />
+                                    <DatePicker fx:id="date" prefHeight="27.0" prefWidth="285.0" BorderPane.alignment="CENTER" />
                                  </center>
                               </BorderPane>
                               <BorderPane prefHeight="29.0" prefWidth="600.0" />
@@ -64,24 +64,24 @@
                               </BorderPane>
                               <BorderPane prefHeight="33.0" prefWidth="600.0">
                                  <right>
-                                    <ComboBox fx:id="toLocationComboBox" prefHeight="27.0" prefWidth="285.0" promptText="Select a location..." BorderPane.alignment="CENTER" />
+                                    <ComboBox fx:id="to_location_combo_box" prefHeight="27.0" prefWidth="285.0" promptText="Select a location..." BorderPane.alignment="CENTER" />
                                  </right>
                                  <center>
-                                    <ComboBox fx:id="fromLocationComboBox" prefHeight="27.0" prefWidth="286.0" promptText="Select a location..." BorderPane.alignment="CENTER" />
+                                    <ComboBox fx:id="from_location_combo_box" prefHeight="27.0" prefWidth="286.0" promptText="Select a location..." BorderPane.alignment="CENTER" />
                                  </center>
                               </BorderPane>
                               <BorderPane prefHeight="25.0" prefWidth="600.0" />
                               <HBox prefHeight="31.0" prefWidth="600.0">
                                  <children>
                                     <Label prefHeight="17.0" prefWidth="395.0" text=" Enter number of spots available for passengers:" />
-                                    <TextField prefHeight="27.0" prefWidth="61.0" />
+                                    <TextField fx:id="num_available_spots" prefHeight="27.0" prefWidth="61.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="31.0" prefWidth="600.0" />
                               <HBox prefHeight="32.0" prefWidth="600.0">
                                  <children>
                                     <Label prefHeight="17.0" prefWidth="395.0" text=" Enter price:" />
-                                    <TextField prefHeight="27.0" prefWidth="62.0" />
+                                    <TextField fx:id="price" prefHeight="27.0" prefWidth="62.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="21.0" prefWidth="600.0" />
@@ -92,16 +92,16 @@
                               </HBox>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <TextArea prefHeight="126.0" prefWidth="584.0" />
+                                    <TextArea fx:id="comments" prefHeight="126.0" prefWidth="584.0" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="10.0" prefWidth="600.0" />
                               <HBox prefHeight="52.0" prefWidth="600.0">
                                  <children>
                                     <Pane prefHeight="52.0" prefWidth="386.0" />
-                                    <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="73.0" text="Cancel" />
+                                    <Button fx:id="cancel_button" mnemonicParsing="false" onMouseClicked="#reopenRideListApp" prefHeight="27.0" prefWidth="73.0" text="Cancel" />
                                     <Pane prefHeight="52.0" prefWidth="57.0" />
-                                    <Button mnemonicParsing="false" text="SUBMIT" />
+                                    <Button fx:id="submit_button" mnemonicParsing="false" onMouseClicked="#createRidePost" text="SUBMIT" />
                                  </children>
                               </HBox>
                            </children>
