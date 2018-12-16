@@ -7,25 +7,25 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: C0C0C0;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: C0C0C0;" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.CreateAccountGUIController">
    <children>
       <Label layoutX="116.0" layoutY="49.0" prefHeight="35.0" prefWidth="369.0" text="Welcome to CC Ride Share">
          <font>
             <Font name="Calibri Bold" size="30.0" />
          </font>
       </Label>
-      <PasswordField layoutX="300.0" layoutY="200.0" promptText="5 or more chracters" />
-      <TextField layoutX="300.0" layoutY="167.0" promptText="\@coloradocollege.edu" />
+      <PasswordField fx:id="passwordfield" layoutX="300.0" layoutY="200.0" promptText="5 or more chracters" />
+      <TextField fx:id="emailfield" layoutX="300.0" layoutY="167.0" promptText="\@coloradocollege.edu" />
       <Label layoutX="108.0" layoutY="171.0" text="Enter a Colorado College email:" />
       <Label layoutX="108.0" layoutY="204.0" text="Create a Password:" />
       <Label layoutX="108.0" layoutY="134.0" text="Enter Name:" />
-      <TextField layoutX="300.0" layoutY="130.0" />
-      <Label layoutX="190.0" layoutY="243.0" text="Already have an account?">
+      <TextField fx:id="namefield" layoutX="300.0" layoutY="130.0" />
+      <Label layoutX="190.0" layoutY="295.0" text="Already have an account?">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Button layoutX="249.0" layoutY="285.0" mnemonicParsing="false" text="Log In" />
+      <Button fx:id="login" layoutX="249.0" layoutY="333.0" mnemonicParsing="false" text="Log In" />
+      <Button fx:id="createaccount" layoutX="225.0" layoutY="243.0" mnemonicParsing="false" text="Create Account" />
    </children>
 </Pane>

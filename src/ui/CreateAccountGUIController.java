@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import javafx.scene.control.Button;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
+
 import javafx.application.Application;
 
 
@@ -50,6 +51,8 @@ public class CreateAccountGUIController {
     private TextField namefield;
     @FXML
     private Button login;
+    @FXML
+    private Button createaccount;
 	
 	
 	public CreateAccountGUIController() {
@@ -57,6 +60,7 @@ public class CreateAccountGUIController {
 		emailfield = new TextField();
 		namefield = new TextField();
 		login = new Button();	
+		createaccount = new Button();
 	}
 
 	/**
@@ -64,12 +68,26 @@ public class CreateAccountGUIController {
 	 */
 	@FXML
 	private void initialize() {
-		
+		login.setOnAction(new LogInButtonHandler());
 	}
 	
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setResizable(false);
+	}
+	
+private class LogInButtonHandler implements EventHandler<ActionEvent>{
+		
+		@Override
+		public void handle(ActionEvent event) {
+			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.LOG_IN);
+			try{
+				app.start(primaryStage);
+				
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
 	}
 	
 }

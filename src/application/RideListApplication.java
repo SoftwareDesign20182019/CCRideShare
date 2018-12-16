@@ -40,13 +40,4 @@ public class RideListApplication extends Application {
 			e.printStackTrace();
 		}
 	}
-	
-	/**
-	 * main method
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		DatabaseHandler.initialize();
-		launch(args);
-	}
 }
