@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: C0C0C0;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.CreateAccountGUIController">
+   <children>
+      <Label layoutX="215.0" layoutY="47.0" prefHeight="35.0" prefWidth="369.0" text="Welcome to CC Ride Share">
+         <font>
+            <Font name="Calibri Bold" size="30.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="passwordfield" layoutX="400.0" layoutY="200.0" promptText="5 or more chracters" />
+      <TextField fx:id="emailfield" layoutX="400.0" layoutY="159.0" promptText="\@coloradocollege.edu" />
+      <Label layoutX="182.0" layoutY="163.0" text="Enter a Colorado College email:" />
+      <Label layoutX="265.0" layoutY="204.0" text="Create a Password:" />
+      <Label layoutX="300.0" layoutY="113.0" text="Enter Name:" />
+      <TextField fx:id="namefield" layoutX="400.0" layoutY="109.0" />
+      <Label layoutX="296.0" layoutY="294.0" text="Already have an account?">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="login" layoutX="355.0" layoutY="335.0" mnemonicParsing="false" onAction="#logInButton" onMouseClicked="#logInButton" text="Log In" />
+      <Button fx:id="createaccount" layoutX="332.0" layoutY="244.0" mnemonicParsing="false" onAction="#createAccountButton" onMouseClicked="#createAccountButton" text="Create Account" />
+      <Label fx:id="checkEmailWarning" layoutX="610.0" layoutY="113.0" text="Email already in use" textFill="RED" visible="false" />
+      <Label fx:id="emailFilterWarning" layoutX="584.0" layoutY="113.0" text="Enter a Colorado College email" textFill="RED" visible="false" />
+   </children>
+</Pane>

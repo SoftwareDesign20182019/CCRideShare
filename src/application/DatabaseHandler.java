@@ -14,8 +14,7 @@ public class DatabaseHandler {
 	
 	public static final String PORT_NUMBER = "3306"; // Most people seem to use this port
 //	 public static final String PORT_NUMBER = "8889"; // Ely uses this port
-	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[a-z0-9](\\.?[a-z0-9]){5,}@coloradocollege\\.edu$", Pattern.CASE_INSENSITIVE);
-	
+	public static final String CC_DOMAIN = "coloradocollege.edu";
 	
 	private static Statement databaseStatement; // Does this need to be closed ever?
 	
@@ -63,9 +62,9 @@ public class DatabaseHandler {
 			
 			String createAccountTable = "create table if not exists Accounts ( "
 					+ "id int not null auto_increment, "
-					+ "name varchar(15), "
-					+ "email varchar(25), "
-					+ "password varchar(25), "
+					+ "name varchar(100), "
+					+ "email varchar(100), "
+					+ "password varchar(100), "
 					+ "primary key (id));";
 			
 			databaseStatement.execute(createRideTable);
@@ -75,7 +74,6 @@ public class DatabaseHandler {
 			
 		}catch(SQLException ex) {
 			ex.printStackTrace();
-			System.exit(-1);
 		}
 	}
 	
@@ -152,8 +150,8 @@ public class DatabaseHandler {
 	 * @param account the account of type user to be added to the table
 	 * @return the number of accounts added
 	 */
-	public static int addAccount(User account) {
-		String sqlInsert = String.format("INSERT INTO Accounts values (null, '%s', '%s', '%s')", account.getFullName(), account.getEmail());
+	public static int addAccount(User account,String password) {
+		String sqlInsert = String.format("INSERT INTO Accounts values (null, '%s', '%s', '%s')", account.getFullName(), account.getEmail(), password);
 		try{
 			int accountsAdded = databaseStatement.executeUpdate(sqlInsert);
 			return accountsAdded;
@@ -223,6 +221,31 @@ public class DatabaseHandler {
 		}
 	}
 	
+	public static ArrayList<User> getUser(String email) {
+		String sqlSelect = "SELECT * FROM Accounts WHERE email = '"+email+"';";
+		ArrayList<User> users = new ArrayList<User>();
+
+		try
+		{
+			ResultSet rset = databaseStatement.executeQuery(sqlSelect);
+			while(rset.next()) 
+			{
+				String name = rset.getString("name");
+				String userEmail = rset.getString("email");
+				User currUser = new User(userEmail,name);
+				
+				users.add(currUser);
+			}
+			return users;
+		}
+		catch(SQLException ex) 
+		{
+			ex.printStackTrace();
+			System.exit(-1);
+			return null;
+		}
+	}
+	
 	/**
 	 * Retrieves a list of all location strings in the Locations table
 	 * @return ArrayList of String (the list of locations)
@@ -249,9 +272,54 @@ public class DatabaseHandler {
 	
 	public static boolean filterEmails(String email)
 	{
-		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
-        return matcher.find();
+		return email.contains(CC_DOMAIN);
 	}
+	
+	public static boolean checkEmail(String email)
+	{
+		String sqlQuery = "SELECT email FROM Accounts WHERE email = '"+email+"'";
+		try
+		{
+			ResultSet rset = databaseStatement.executeQuery(sqlQuery);
+			if(rset.next())
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		catch(SQLException ex) 
+		{
+			ex.printStackTrace();
+			System.exit(-1);
+			return false;
+		}
+	}
+	
+	public static boolean isRightPassword(String email, String password)
+	{
+		String sqlQuery = "SELECT email FROM Accounts WHERE email = '"+email+"' AND password = '"+password+"';";
+		try
+		{
+			ResultSet rset = databaseStatement.executeQuery(sqlQuery);
+			if(rset.next())
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	
 	/**
 	 * retrieves the number of rows in the RidePosts table
