@@ -11,16 +11,18 @@
       <Pane prefHeight="574.0" prefWidth="36.0" />
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="655.0">
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0" />
-            <BorderPane prefHeight="77.0" prefWidth="612.0">
-               <top>
-                  <Label fx:id="title_label" alignment="CENTER" contentDisplay="CENTER" text="List a New Ride" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-               </top>
-            </BorderPane>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Pane layoutX="-2.0" prefHeight="71.0" prefWidth="626.0">
+                     <children>
+                        <Label layoutX="229.0" layoutY="21.0" text="Post a Ride">
+                           <font>
+                              <Font size="34.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children></Pane>
             <BorderPane prefHeight="70.0" prefWidth="600.0">
                <top>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="503.0" prefWidth="612.0" BorderPane.alignment="CENTER">
@@ -83,23 +85,31 @@
                                  <children>
                                     <Label prefHeight="17.0" prefWidth="395.0" text=" Enter number of spots available for passengers:" />
                                     <TextField fx:id="num_available_spots" prefHeight="27.0" prefWidth="61.0" />
-                                    <Label fx:id="spots_errormessage" textFill="#f80000">
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                       <HBox.margin>
-                                          <Insets left="10.0" />
-                                       </HBox.margin>
-                                    </Label>
                                  </children>
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
                               </HBox>
-                              <HBox maxWidth="-Infinity" prefHeight="31.0" prefWidth="277.0" />
+                              <HBox maxWidth="-Infinity" prefHeight="21.0" prefWidth="600.0">
+                                 <children>
+                                    <Pane prefHeight="13.0" prefWidth="601.0">
+                                       <children>
+                                          <Label fx:id="spots_price_errormessage" layoutX="396.0" prefHeight="21.0" prefWidth="157.0" text="Please enter a number" textFill="#f80000" visible="false">
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                 </children></HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="600.0">
                                  <children>
-                                    <Label prefHeight="17.0" prefWidth="395.0" text=" Enter price:" />
+                                    <Label prefHeight="21.0" prefWidth="385.0" text=" Enter price:" />
+                                    <Label prefHeight="27.0" prefWidth="10.0" text="\$" textFill="#616161">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
                                     <TextField fx:id="price" prefHeight="27.0" prefWidth="62.0" />
                                  </children>
                               </HBox>
@@ -117,7 +127,14 @@
                               <HBox prefHeight="10.0" prefWidth="600.0" />
                               <HBox prefHeight="52.0" prefWidth="600.0">
                                  <children>
-                                    <Pane prefHeight="52.0" prefWidth="386.0" />
+                                    <Pane prefHeight="52.0" prefWidth="386.0">
+                                       <children>
+                                          <Label fx:id="empty_box_errormessage" layoutY="25.0" text="You forgot to fill out a field!" textFill="RED" visible="false">
+                                             <font>
+                                                <Font name="System Bold" size="17.0" />
+                                             </font>
+                                          </Label>
+                                       </children></Pane>
                                     <Button fx:id="cancel_button" mnemonicParsing="false" onMouseClicked="#reopenRideListApp" prefHeight="27.0" prefWidth="73.0" text="Cancel" />
                                     <Pane prefHeight="52.0" prefWidth="57.0" />
                                     <Button fx:id="submit_button" mnemonicParsing="false" onMouseClicked="#createRidePost" text="SUBMIT" />

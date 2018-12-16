@@ -63,7 +63,9 @@ public class AddRidePostController{
 	@FXML
 	private TextArea comments;
 	@FXML
-	private Label spots_errormessage;
+	private Label spots_price_errormessage;
+	@FXML
+	private Label empty_box_errormessage;
 	
 	public AddRidePostController() {
 		cancel_button = new Button();
@@ -76,7 +78,7 @@ public class AddRidePostController{
 		num_available_spots = new TextField();
 		price = new TextField();
 		comments = new TextArea();
-		spots_errormessage = new Label();
+		spots_price_errormessage = new Label();
 	}
 	
 	/**
@@ -85,18 +87,29 @@ public class AddRidePostController{
 	 * called when the SUBMIT button is clicked
 	 */
 	public void createRidePost() {
-		try {
-			spots_errormessage.setText("");
-			String time = "" + time_hours.getValue() + ":" + time_minutes.getValue() + time_ampm.getValue();
-			
-			RidePost newRidePost = new RidePost(date.getValue().toString(), time, to_location_combo_box.getValue(), 
-					from_location_combo_box.getValue(), Integer.parseInt(num_available_spots.getText()), price.getText(), comments.getText());	
-			
-			DatabaseHandler.addRidePost(newRidePost);
-			reopenRideListApp();
+		spots_price_errormessage.setVisible(false);
+		empty_box_errormessage.setVisible(false);
+		
+		if(date.getValue() != null && (time_hours.getValue() != null) && (time_minutes.getValue() != null) && 
+				(time_ampm.getValue() != null) && (to_location_combo_box.getValue() != null) && 
+				(from_location_combo_box.getValue() != null) && !(num_available_spots.getText().equals("")) &&  
+				!(price.getText().equals("")))
+		{
+			try {								
+				String time = "" + time_hours.getValue() + ":" + time_minutes.getValue() + time_ampm.getValue();
+				
+				RidePost newRidePost = new RidePost(date.getValue().toString(), time, to_location_combo_box.getValue(), 
+						from_location_combo_box.getValue(), Integer.parseInt(num_available_spots.getText()), Integer.parseInt(price.getText()), comments.getText());	
+				
+				DatabaseHandler.addRidePost(newRidePost);
+				reopenRideListApp();
+			}
+			catch(NumberFormatException e) {
+				spots_price_errormessage.setVisible(true);
+			}
 		}
-		catch(NumberFormatException e) {
-			spots_errormessage.setText("Please enter a number");
+		else {
+			empty_box_errormessage.setVisible(true);
 		}
 	}
 	
@@ -108,6 +121,8 @@ public class AddRidePostController{
 		time_hours.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
 		time_minutes.getItems().addAll("00", "15", "30", "45");
 		time_ampm.getItems().addAll("am","pm");
+		spots_price_errormessage.setVisible(false);
+		empty_box_errormessage.setVisible(false);		
 		initializeComboBoxes();		
 	}
 	

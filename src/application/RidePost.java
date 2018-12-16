@@ -13,7 +13,7 @@ public class RidePost {
 	private String toLocation;
 	private String fromLocation;
 	private int numSpots;
-	private String price;
+	private int price;
 	private String comments;
 	
 	// private User driver;
@@ -29,7 +29,7 @@ public class RidePost {
 	 * @param price - cost to ride
 	 * @param comments - any additional comments about trunk space for luggage, car coziness, etc.
 	 */
-	public RidePost(String date, String time, String toLocation, String fromLocation, int numSpots, String price, String comments) {
+	public RidePost(String date, String time, String toLocation, String fromLocation, int numSpots, int price, String comments) {
 		this.date = date; 
 		this.time = time;
 		this.toLocation = toLocation;
@@ -80,11 +80,11 @@ public class RidePost {
 		this.numSpots = numSpots;
 	}
 
-	public String getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 
@@ -109,15 +109,15 @@ public class RidePost {
 	 * main method
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		
-		DatabaseHandler.initialize();
-		RidePost post = new RidePost("1/1/19", "11:00PM", "Dover", "Colorado College", 4, "$20", "no comments");
-		RidePost post2 = new RidePost("1/1/20", "11:00PM", "Denver", "Colorado College", 4, "$20", "");
-		post.addToDatabase();
-		post2.addToDatabase();
-		RideRequestPost post3 = new RideRequestPost("1/1/18", "1:00PM", "Everywhere", "Everywhere else", "all the comments.");
-		post3.addToDatabase();
-		ArrayList<RidePost> ridePosts = DatabaseHandler.getRidePosts();		
-	}
+//	public static void main(String[] args) {
+//		
+//		DatabaseHandler.initialize();
+//		RidePost post = new RidePost("1/1/19", "11:00PM", "Dover", "Colorado College", 4, "$20", "no comments");
+//		RidePost post2 = new RidePost("1/1/20", "11:00PM", "Denver", "Colorado College", 4, "$20", "");
+//		post.addToDatabase();
+//		post2.addToDatabase();
+//		RideRequestPost post3 = new RideRequestPost("1/1/18", "1:00PM", "Everywhere", "Everywhere else", "all the comments.");
+//		post3.addToDatabase();
+//		ArrayList<RidePost> ridePosts = DatabaseHandler.getRidePosts();		
+//	}
 }

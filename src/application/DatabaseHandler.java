@@ -178,7 +178,7 @@ public class DatabaseHandler {
 				String toLocation = rset.getString("toLocation");
 				String fromLocation = rset.getString("fromLocation");
 				int numSpots = rset.getInt("numSpots");
-				String price = rset.getString("price");
+				int price = rset.getInt("price");
 				String comments = rset.getString("comments");
 				RidePost currRidePost = new RidePost(date, time, toLocation, fromLocation, numSpots, price, comments);
 				
