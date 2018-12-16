@@ -32,29 +32,29 @@ import javafx.application.Application;
 
 public class CreateAccountGUIController {
 
-/**
- * Connects the .fxml GUI file with the backend operations
- * @author arehorst
- */
+	/**
+	 * Connects the .fxml GUI file with the backend operations
+	 * @author arehorst
+	 */
 	private Stage primaryStage;
-	
+
 	// Ride Tab
 	@FXML
 	private URL location;
 	@FXML
 	private ResourceBundle resources;
-    @FXML
-    private PasswordField passwordfield;
-    @FXML
-    private TextField emailfield;
-    @FXML
-    private TextField namefield;
-    @FXML
-    private Button login;
-    @FXML
-    private Button createaccount;
-	
-	
+	@FXML
+	private PasswordField passwordfield;
+	@FXML
+	private TextField emailfield;
+	@FXML
+	private TextField namefield;
+	@FXML
+	private Button login;
+	@FXML
+	private Button createaccount;
+
+
 	public CreateAccountGUIController() {
 		passwordfield = new PasswordField();
 		emailfield = new TextField();
@@ -68,26 +68,33 @@ public class CreateAccountGUIController {
 	 */
 	@FXML
 	private void initialize() {
-		login.setOnAction(new LogInButtonHandler());
+		
 	}
-	
+
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setResizable(false);
 	}
-	
-private class LogInButtonHandler implements EventHandler<ActionEvent>{
-		
-		@Override
-		public void handle(ActionEvent event) {
-			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.LOG_IN);
-			try{
-				app.start(primaryStage);
-				
-			}catch(Exception ex) {
-				ex.printStackTrace();
-			}
+
+	public void logInButton() {
+		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.LOG_IN);
+		try{
+			app.start(primaryStage);
+
+		}catch(Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 	
+	public void createAccountButton() {
+		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
+		try{
+			app.start(primaryStage);
+
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 }
+
+

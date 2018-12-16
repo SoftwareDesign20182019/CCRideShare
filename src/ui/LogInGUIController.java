@@ -29,49 +29,47 @@ import java.util.ArrayList;
 public class LogInGUIController 
 {
 	private Stage primaryStage;
-	
+
 	@FXML
-    private PasswordField passwordfield;
+	private PasswordField passwordfield;
 
-    @FXML
-    private TextField emailfield;
+	@FXML
+	private TextField emailfield;
 
-    @FXML
-    private Button login;
+	@FXML
+	private Button login;
 
-    @FXML
-    private Button createaccount;
-    
-    public LogInGUIController()
-    {
-    	passwordfield = new PasswordField();
-    	emailfield = new TextField();
-    	login = new Button();
-    	createaccount = new Button();
-    }
-    
-    /**
+	@FXML
+	private Button createaccount;
+
+	public LogInGUIController()
+	{
+		passwordfield = new PasswordField();
+		emailfield = new TextField();
+		login = new Button();
+		createaccount = new Button();
+	}
+
+	/**
 	 * Method to be called automatically when this controller is attached to the FXML file
 	 */
 	@FXML
 	private void initialize() {
-		createaccount.setOnAction(new CreateAccountButtonHandler());
+
 	}
-	
-private class CreateAccountButtonHandler implements EventHandler<ActionEvent>{
-		
-		@Override
-		public void handle(ActionEvent event) {
-			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.CREATE_ACCOUNT);
-			try{
-				app.start(primaryStage);
-				
-			}catch(Exception ex) {
-				ex.printStackTrace();
-			}
+
+	public void createAccountButton(){
+
+		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.CREATE_ACCOUNT);
+		try{
+			app.start(primaryStage);
+
+		}catch(Exception ex) {
+			ex.printStackTrace();
 		}
 	}
-    public void setPrimaryStage(Stage primaryStage) {
+
+	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setResizable(false);
 	}
