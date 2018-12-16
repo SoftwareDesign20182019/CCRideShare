@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="299.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AddNewLocationController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="299.0" text="Add a New Location">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" prefHeight="39.0" prefWidth="329.0" text="Enter new location:" />
+      <HBox prefHeight="46.0" prefWidth="299.0">
+         <children>
+            <Pane prefHeight="32.0" prefWidth="41.0" />
+            <TextField fx:id="locationTextField" prefHeight="27.0" prefWidth="213.0" />
+         </children>
+      </HBox>
+      <HBox prefHeight="40.0" prefWidth="299.0">
+         <children>
+            <Pane prefHeight="39.0" prefWidth="40.0" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#closeStage" text="Cancel" />
+            <Pane prefHeight="39.0" prefWidth="112.0" />
+            <Button mnemonicParsing="false" onAction="#updateNewLocation" text="Add" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

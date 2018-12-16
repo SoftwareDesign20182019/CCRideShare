@@ -2,6 +2,7 @@ package ui;
 import java.net.URL;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -9,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.util.ResourceBundle;
 
+import application.AddNewLocationApplication;
 import application.ApplicationFactory;
 import application.DatabaseHandler;
 import application.RidePost;
@@ -154,7 +156,19 @@ public class AddRidePostController{
 		public void changed(ObservableValue observable, Object oldValue, Object newValue) {
 			if(observable.getValue() != null && observable.getValue().equals(ADD_NEW_LOCATION_OPTION)) { // observable.getValue() would be null during one of the below calls to resetComboBoxValues() 
 																										 // (since that method triggers the listener and thus calls this method recursively while the reset process is incomplete)
-				String newLocation = null; // TODO: Update this to actually get the string from the user
+				AddNewLocationApplication newLocationApp = new AddNewLocationApplication(); // Can't use the ApplicationFactory because we need to call a method specific to AddNewLocationApplication
+				newLocationApp.start(new Stage());
+				String newLocation = newLocationApp.getNewLocation();
+				if(newLocation == null) { // The user clicked cancel in the AddNewLocationGUI
+					// comboBoxBeingObserved.getEditor().textProperty().setValue("Select a location...");;
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							comboBoxBeingObserved.setValue((String) oldValue);
+						}
+					});
+					return;
+				}
 				if(!DatabaseHandler.getLocations().contains(newLocation)) {
 					DatabaseHandler.addLocation(newLocation);
 					// Regardless of in which ComboBox this is happening, we now want to update the items in both ComboBoxes.
