@@ -27,5 +27,7 @@
       </Label>
       <Button fx:id="login" layoutX="355.0" layoutY="335.0" mnemonicParsing="false" onAction="#logInButton" onMouseClicked="#logInButton" text="Log In" />
       <Button fx:id="createaccount" layoutX="332.0" layoutY="244.0" mnemonicParsing="false" onAction="#createAccountButton" onMouseClicked="#createAccountButton" text="Create Account" />
+      <Label fx:id="checkEmailWarning" layoutX="610.0" layoutY="113.0" text="Email already in use" textFill="RED" visible="false" />
+      <Label fx:id="emailFilterWarning" layoutX="584.0" layoutY="113.0" text="Enter a Colorado College email" textFill="RED" visible="false" />
    </children>
 </Pane>

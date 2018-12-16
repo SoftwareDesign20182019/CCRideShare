@@ -14,8 +14,7 @@ public class DatabaseHandler {
 	
 	public static final String PORT_NUMBER = "3306"; // Most people seem to use this port
 //	 public static final String PORT_NUMBER = "8889"; // Ely uses this port
-	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[a-z0-9](\\.?[a-z0-9]){5,}@coloradocollege\\.edu$", Pattern.CASE_INSENSITIVE);
-	
+	public static final String CC_DOMAIN = "coloradocollege.edu";
 	
 	private static Statement databaseStatement; // Does this need to be closed ever?
 	
@@ -248,8 +247,7 @@ public class DatabaseHandler {
 	
 	public static boolean filterEmails(String email)
 	{
-		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
-        return matcher.find();
+		return email.contains(CC_DOMAIN);
 	}
 	
 	public static boolean checkEmail(String email)

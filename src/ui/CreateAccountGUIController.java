@@ -54,6 +54,10 @@ public class CreateAccountGUIController {
 	private Button login;
 	@FXML
 	private Button createaccount;
+    @FXML
+    private Label checkEmailWarning;
+    @FXML
+    private Label emailFilterWarning;
 
 
 	public CreateAccountGUIController() {
@@ -62,6 +66,8 @@ public class CreateAccountGUIController {
 		namefield = new TextField();
 		login = new Button();	
 		createaccount = new Button();
+		checkEmailWarning = new Label();
+		emailFilterWarning = new Label();
 	}
 
 	/**
@@ -88,29 +94,38 @@ public class CreateAccountGUIController {
 	}
 	
 	public void createAccountButton() {
-		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
 		String password;
 		String email;
 		String fullName;
 		
 		try{
-			app.start(primaryStage);
 			password = passwordfield.getText();
 			email = emailfield.getText();
 			fullName = namefield.getText();
-
-			if(DatabaseHandler.filterEmails(email) && DatabaseHandler.checkEmail(email))
+			System.out.println("User Email: "+email);
+			System.out.println(email+" is a Colorado College email: "+DatabaseHandler.filterEmails(email));
+			System.out.println(email+" is in database: "+DatabaseHandler.filterEmails(email));
+			
+			if(DatabaseHandler.filterEmails(email) && !DatabaseHandler.checkEmail(email))
 			{
-				//enter into database
-				//send to homepage
-				//
 				User newUser = new User(email,password,fullName);
 				newUser.addToDatabase();
-				//TODO: Send to homepage GUI
+				Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
+				app.start(primaryStage);
 			}
 			else
 			{
-				//TODO: Popup error that says nah boi go back and fill it out again
+				emailFilterWarning.setVisible(false);
+				checkEmailWarning.setVisible(false);
+
+				if(!DatabaseHandler.filterEmails(email))
+				{
+					emailFilterWarning.setVisible(true);
+				}
+				if(DatabaseHandler.checkEmail(email))
+				{
+					checkEmailWarning.setVisible(true);
+				}
 			}
 				//User newUser = new User(email,password,fullName);
 		}catch(Exception ex) {
