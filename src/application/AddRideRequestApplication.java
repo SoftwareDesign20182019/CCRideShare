@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-import ui.RideShareGUIController;
+import ui.RideListController;
 
 
 /**
