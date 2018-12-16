@@ -1,15 +1,12 @@
 package ui;
 import java.net.URL;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import java.util.ResourceBundle;
-
 import application.AddNewLocationApplication;
 import application.ApplicationFactory;
 import application.DatabaseHandler;
@@ -20,13 +17,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-
+import java.lang.NumberFormatException;
 /**
  * Connects the AddRidePost FXML GUI file with the backend operations
  * @author elysamuel16
@@ -43,14 +43,61 @@ public class AddRidePostController{
 	@FXML
 	private ResourceBundle resources;
 	@FXML
-	private ComboBox<String> fromLocationComboBox;
+	private ComboBox<String> from_location_combo_box;
 	@FXML
-	private ComboBox<String> toLocationComboBox;
+	private ComboBox<String> to_location_combo_box;
 	@FXML 
-	private Button cancelButton;
+	private Button cancel_button;
+	@FXML
+	private DatePicker date;
+	@FXML
+	private ComboBox<Integer>time_hours;
+	@FXML
+	private ComboBox<String> time_minutes;
+	@FXML 
+	private ComboBox<String> time_ampm;
+	@FXML
+	private TextField num_available_spots;
+	@FXML
+	private TextField price;
+	@FXML
+	private TextArea comments;
+	@FXML
+	private Label spots_errormessage;
 	
 	public AddRidePostController() {
-		cancelButton = new Button();
+		cancel_button = new Button();
+		from_location_combo_box = new ComboBox<>();
+		to_location_combo_box = new ComboBox<>();
+		date = new DatePicker();
+		time_hours = new ComboBox<>();		
+		time_minutes = new ComboBox<>();
+		time_ampm = new ComboBox<>();
+		num_available_spots = new TextField();
+		price = new TextField();
+		comments = new TextArea();
+		spots_errormessage = new Label();
+	}
+	
+	/**
+	 * creates a RidePost object from user input
+	 * 	calls addRidePost to add it to database
+	 * called when the SUBMIT button is clicked
+	 */
+	public void createRidePost() {
+		try {
+			spots_errormessage.setText("");
+			String time = "" + time_hours.getValue() + ":" + time_minutes.getValue() + time_ampm.getValue();
+			
+			RidePost newRidePost = new RidePost(date.getValue().toString(), time, to_location_combo_box.getValue(), 
+					from_location_combo_box.getValue(), Integer.parseInt(num_available_spots.getText()), price.getText(), comments.getText());	
+			
+			DatabaseHandler.addRidePost(newRidePost);
+			reopenRideListApp();
+		}
+		catch(NumberFormatException e) {
+			spots_errormessage.setText("Please enter a number");
+		}
 	}
 	
 	/**
@@ -58,8 +105,10 @@ public class AddRidePostController{
 	 */
 	@FXML
 	private void initialize() {
-		initializeComboBoxes();
-		cancelButton.setOnAction(new CancelButtonHandler());
+		time_hours.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+		time_minutes.getItems().addAll("00", "15", "30", "45");
+		time_ampm.getItems().addAll("am","pm");
+		initializeComboBoxes();		
 	}
 	
 	/**
@@ -69,11 +118,11 @@ public class AddRidePostController{
 	@FXML
 	private void initializeComboBoxes() {
 		ArrayList<String> locations = DatabaseHandler.getLocations();
-		resetComboBoxValues(fromLocationComboBox, locations);
-		resetComboBoxValues(toLocationComboBox, locations);
+		resetComboBoxValues(from_location_combo_box, locations);
+		resetComboBoxValues(to_location_combo_box, locations);
 		// The following listeners are added so that we can immediately know when the user selects the "Add a New Location..." option 
-		fromLocationComboBox.valueProperty().addListener(new LocationComboBoxListener<String>(fromLocationComboBox));
-		toLocationComboBox.valueProperty().addListener(new LocationComboBoxListener<String>(toLocationComboBox));
+		from_location_combo_box.valueProperty().addListener(new LocationComboBoxListener<String>(from_location_combo_box));
+		to_location_combo_box.valueProperty().addListener(new LocationComboBoxListener<String>(to_location_combo_box));
 	}
 	
 	/**
@@ -92,17 +141,14 @@ public class AddRidePostController{
 		this.primaryStage = primaryStage;
 	}
 	
-	private class CancelButtonHandler implements EventHandler<ActionEvent>{
+	public void reopenRideListApp() {
+		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
+		try{
+			app.start(primaryStage);
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
 		
-		@Override
-		public void handle(ActionEvent event) {
-			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
-			try{
-				app.start(primaryStage);
-				
-			}catch(Exception ex) {
-				ex.printStackTrace();
-			}
 		}
 	}
 	
@@ -137,15 +183,15 @@ public class AddRidePostController{
 				DatabaseHandler.addLocation(newLocation);
 				// Regardless of in which ComboBox this is happening, we now want to update the items in both ComboBoxes.
 				// But we should preserve the current value of whichever ComboBox isn't involved at the moment!
-				String oldFromValue = fromLocationComboBox.getValue();
-				String oldToValue = toLocationComboBox.getValue();
-				resetComboBoxValues(fromLocationComboBox, DatabaseHandler.getLocations());
+				String oldFromValue = from_location_combo_box.getValue();
+				String oldToValue = to_location_combo_box.getValue();
+				resetComboBoxValues(from_location_combo_box, DatabaseHandler.getLocations());
 				if(oldFromValue != null && !oldFromValue.equals(ADD_NEW_LOCATION_OPTION)) { // oldFromValue would be null if the from ComboBox hasn't been touched yet
-					fromLocationComboBox.setValue(oldFromValue);
+					from_location_combo_box.setValue(oldFromValue);
 				}
-				resetComboBoxValues(toLocationComboBox, DatabaseHandler.getLocations());
+				resetComboBoxValues(to_location_combo_box, DatabaseHandler.getLocations());
 				if(oldToValue != null && !oldToValue.equals(ADD_NEW_LOCATION_OPTION)) {
-					toLocationComboBox.setValue(oldToValue);
+					to_location_combo_box.setValue(oldToValue);
 				}
 			}
 			comboBoxBeingObserved.setValue(newLocation);
