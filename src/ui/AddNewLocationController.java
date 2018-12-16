@@ -32,6 +32,7 @@ public class AddNewLocationController{
 	
 	public AddNewLocationController() {
 		locationTextField = new TextField();
+		empty_text_field_error_label = new Label();
 	}
 	
 	/**
@@ -39,7 +40,7 @@ public class AddNewLocationController{
 	 */
 	@FXML
 	private void initialize() {
-		
+		empty_text_field_error_label.setVisible(false);
 	}
 	
 	public void setApplication(AddNewLocationApplication application) {
@@ -59,7 +60,7 @@ public class AddNewLocationController{
 	private void updateNewLocation() {
 		String newLocation = locationTextField.getText();
 		if(newLocation.equals("")) { // Don't follow through if the user entered a blank string
-			empty_text_field_error_label.setText("Please enter a location.");
+			empty_text_field_error_label.setVisible(true);
 		}else {
 			application.setNewLocation(newLocation);
 			stage.close();
