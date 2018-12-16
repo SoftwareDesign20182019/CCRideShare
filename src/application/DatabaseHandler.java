@@ -37,7 +37,7 @@ public class DatabaseHandler {
 		
 			String createRideTable = "create table if not exists RidePosts ( " + 
 					 "id int not null auto_increment, "
-					 + "date varchar(25), "
+					 + "date DATE, "
 					 + "time varchar(10), "
 					 + "toLocation varchar(50), "
 					 + "fromLocation varchar(50), "
@@ -48,7 +48,7 @@ public class DatabaseHandler {
 			
 			String createRequestTable = "create table if not exists RideRequestPosts ( " + 
 					 "id int not null auto_increment, "
-					 + "date varchar(25), "
+					 + "date DATE, "
 					 + "time varchar(10), "
 					 + "toLocation varchar(50), "
 					 + "fromLocation varchar(50), "
@@ -99,8 +99,9 @@ public class DatabaseHandler {
 	 * @return number of posts added
 	 */
 	public static int addRidePost(RidePost ridePost) {
+		String date = ridePost.getDate();
 		String sqlInsert = String.format("INSERT INTO RidePosts values (null, '%s', '%s', '%s', '%s', %d, '%s', '%s')", 
-				 ridePost.getDate(), ridePost.getTime(), ridePost.getToLocation(), ridePost.getFromLocation(), ridePost.getNumSpots(), ridePost.getPrice(), ridePost.getComments());
+				 "STR_TO_DATE('"+date+"','%d/%m/%Y')", ridePost.getTime(), ridePost.getToLocation(), ridePost.getFromLocation(), ridePost.getNumSpots(), ridePost.getPrice(), ridePost.getComments());
 
 		try{
 			int rowsAdded = databaseStatement.executeUpdate(sqlInsert);
@@ -117,8 +118,9 @@ public class DatabaseHandler {
 	 * @return number of posts added
 	 */
 	public static int addRideRequestPost(RideRequestPost riderequestPost) {
+		String date = riderequestPost.getDate();
 		String sqlInsert = String.format("INSERT INTO RideRequestPosts values (null, '%s', '%s', '%s', '%s', '%s')", 
-				 riderequestPost.getDate(), riderequestPost.getTime(), riderequestPost.getToLocation(), riderequestPost.getFromLocation(), riderequestPost.getComments());
+				 "STR_TO_DATE('"+date+"','%d/%m/%Y')", riderequestPost.getTime(), riderequestPost.getToLocation(), riderequestPost.getFromLocation(), riderequestPost.getComments());
 
 		try{
 			int rowsAdded = databaseStatement.executeUpdate(sqlInsert);
