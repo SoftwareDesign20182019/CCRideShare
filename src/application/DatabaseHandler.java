@@ -37,7 +37,7 @@ public class DatabaseHandler {
 		
 			String createRideTable = "create table if not exists RidePosts ( " + 
 					 "id int not null auto_increment, "
-					 + "date varchar(25), "
+					 + "date date, "
 					 + "time varchar(10), "
 					 + "toLocation varchar(50), "
 					 + "fromLocation varchar(50), "
@@ -48,7 +48,7 @@ public class DatabaseHandler {
 			
 			String createRequestTable = "create table if not exists RideRequestPosts ( " + 
 					 "id int not null auto_increment, "
-					 + "date varchar(25), "
+					 + "date date, "
 					 + "time varchar(10), "
 					 + "toLocation varchar(50), "
 					 + "fromLocation varchar(50), "
