@@ -1,5 +1,7 @@
 package application;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -319,6 +321,44 @@ public class DatabaseHandler {
 		{
 			e.printStackTrace();
 			return false;
+		}
+	}
+	
+	public static ArrayList<RidePost> RidesofDate()
+	{
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate localDate = LocalDate.now();
+		Date desiredDate = Date.valueOf(localDate);
+		String nowDate = formatter.format(localDate);
+		
+		String sqlQuery = "SELECT * FROM RidePosts WHERE date = STR_TO_DATE('"+nowDate+"','%Y-%m-%d');";
+		try
+		{
+			ResultSet rset = databaseStatement.executeQuery(sqlQuery);
+			ArrayList<RidePost> SearchedPostsByDate = new ArrayList<RidePost>();
+			
+			if(rset.next())
+			{
+				String StringDate = rset.getString("date");
+				String time = rset.getString("time");
+				String toLocation = rset.getString("toLocation");
+				String fromLocation = rset.getString("fromLocation");
+				int numSpots = rset.getInt("numSpots");
+				int price = rset.getInt("price");
+				String comments = rset.getString("comments");
+				RidePost RidePosts = new RidePost(StringDate, time, toLocation, fromLocation, numSpots, price, comments);	
+			
+				SearchedPostsByDate.add(RidePosts);	
+			}
+			rset.close();
+			System.out.println(SearchedPostsByDate);
+			return SearchedPostsByDate;
+		}
+		
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return null;
 		}
 	}
 	

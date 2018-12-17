@@ -58,6 +58,7 @@ public class CreateAccountGUIController {
     private Label checkEmailWarning;
     @FXML
     private Label emailFilterWarning;
+    
 
 
 	public CreateAccountGUIController() {
