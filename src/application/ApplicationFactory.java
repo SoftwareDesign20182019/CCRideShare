@@ -62,7 +62,8 @@ public class ApplicationFactory {
 	 */
 	public static User setCurrentUser(String email)
 	{
-		ArrayList<User> users = DatabaseHandler.getUser(email);
+		DatabaseHandler dbHandler = DatabaseHandler.getInstance();
+		ArrayList<User> users = dbHandler.getUser(email);
 		if(!users.isEmpty())
 		{
 			currentUser = users.get(0);

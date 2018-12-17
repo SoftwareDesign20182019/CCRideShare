@@ -38,6 +38,7 @@ public class CreateAccountController {
 	 * @author arehorst
 	 */
 	private Stage primaryStage;
+	private DatabaseHandler databaseHandler;
 
 	// Ride Tab
 	@FXML
@@ -65,6 +66,7 @@ public class CreateAccountController {
 
 
 	public CreateAccountController() {
+		databaseHandler = DatabaseHandler.getInstance();
 		passwordfield = new PasswordField();
 		emailfield = new TextField();
 		namefield = new TextField();
@@ -123,7 +125,7 @@ public class CreateAccountController {
 		shortPasswordWarning.setVisible(false);
 		
 		//handling invalid and empty inputs
-		if((DatabaseHandler.filterEmails(email)) && !(DatabaseHandler.checkEmail(email)) && !fullName.equals("") && !(password.length() < 5))
+		if((databaseHandler.filterEmails(email)) && !(databaseHandler.checkEmail(email)) && !fullName.equals("") && !(password.length() < 5))
 		{
 			User newUser = new User(email,fullName);
 			newUser.addToDatabase(password);
@@ -132,7 +134,7 @@ public class CreateAccountController {
 			app.start(primaryStage);
 			
 		}
-		else if(DatabaseHandler.checkEmail(email))
+		else if(databaseHandler.checkEmail(email))
 		{
 			checkEmailWarning.setVisible(true);
 		}
@@ -144,7 +146,7 @@ public class CreateAccountController {
 			shortPasswordWarning.setVisible(true);
 		}
 		//if every input is valid, put in database
-		else if(!(DatabaseHandler.filterEmails(email)))
+		else if(!(databaseHandler.filterEmails(email)))
 		{
 			emailFilterWarning.setVisible(true);	
 		}

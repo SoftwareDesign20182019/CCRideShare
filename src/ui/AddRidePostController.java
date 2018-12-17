@@ -34,6 +34,7 @@ import java.lang.NumberFormatException;
 public class AddRidePostController{
 
 	private Stage primaryStage;
+	private DatabaseHandler databaseHandler;
 	
 	@FXML
 	private static final String ADD_NEW_LOCATION_OPTION = "Add a New Location..."; 
@@ -68,6 +69,7 @@ public class AddRidePostController{
 	private Label empty_box_errormessage;
 	
 	public AddRidePostController() {
+		databaseHandler = DatabaseHandler.getInstance();
 		cancel_button = new Button();
 		from_location_combo_box = new ComboBox<>();
 		to_location_combo_box = new ComboBox<>();
@@ -101,7 +103,7 @@ public class AddRidePostController{
 				RidePost newRidePost = new RidePost(date.getValue().toString(), time, to_location_combo_box.getValue(), 
 						from_location_combo_box.getValue(), Integer.parseInt(num_available_spots.getText()), Integer.parseInt(price.getText()), comments.getText());	
 				
-				DatabaseHandler.addRidePost(newRidePost);
+				databaseHandler.addRidePost(newRidePost);
 				reopenRideListApp();
 			}
 			catch(NumberFormatException e) {
@@ -132,7 +134,7 @@ public class AddRidePostController{
 	 */
 	@FXML
 	private void initializeLocationComboBoxes() {
-		ArrayList<String> locations = DatabaseHandler.getLocations();
+		ArrayList<String> locations = databaseHandler.getLocations();
 		resetComboBoxValues(from_location_combo_box, locations);
 		resetComboBoxValues(to_location_combo_box, locations);
 		// The following listeners are added so that we can immediately know when the user selects the "Add a New Location..." option 
@@ -208,18 +210,18 @@ public class AddRidePostController{
 				});
 				return;
 			}
-			if(!DatabaseHandler.getLocations().contains(newLocation)) {
-				DatabaseHandler.addLocation(newLocation);
+			if(!databaseHandler.getLocations().contains(newLocation)) {
+				databaseHandler.addLocation(newLocation);
 				// Regardless of in which ComboBox this is happening, we now want to update the items in both ComboBoxes.
 				// But we should preserve the current value of whichever ComboBox isn't involved at the moment!
 				String oldFromValue = from_location_combo_box.getValue();
 				String oldToValue = to_location_combo_box.getValue();
-				resetComboBoxValues(from_location_combo_box, DatabaseHandler.getLocations());
+				resetComboBoxValues(from_location_combo_box, databaseHandler.getLocations());
 				// oldFromValue would be null if the from ComboBox hasn't been touched yet
 				if(oldFromValue != null && !oldFromValue.equals(ADD_NEW_LOCATION_OPTION)) { 
 					from_location_combo_box.setValue(oldFromValue);
 				}
-				resetComboBoxValues(to_location_combo_box, DatabaseHandler.getLocations());
+				resetComboBoxValues(to_location_combo_box, databaseHandler.getLocations());
 				if(oldToValue != null && !oldToValue.equals(ADD_NEW_LOCATION_OPTION)) {
 					to_location_combo_box.setValue(oldToValue);
 				}

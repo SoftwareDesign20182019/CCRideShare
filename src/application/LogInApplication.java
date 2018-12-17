@@ -35,7 +35,6 @@ public class LogInApplication extends Application {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		DatabaseHandler.initialize();
 		launch(args);
 	}
 }

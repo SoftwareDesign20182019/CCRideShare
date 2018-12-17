@@ -58,21 +58,8 @@ public class RideRequestPost {
 	 * @return number of rows added
 	 */
 	public int addToDatabase() {
-		int rowsAdded = DatabaseHandler.addRideRequestPost(this);
+		DatabaseHandler dbHandler = DatabaseHandler.getInstance();
+		int rowsAdded = dbHandler.addRideRequestPost(this);
 		return rowsAdded;
-	}
-	
-	/**
-	 * main method
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		
-		DatabaseHandler.initialize();
-		RideRequestPost post = new RideRequestPost("10/5/19", "9:00AM", "Hell", "and Back");
-		RideRequestPost post2 = new RideRequestPost("12/7/20", "3:45PM", "DIA", "Colorado College");
-		post.addToDatabase();
-		post2.addToDatabase();
-		ArrayList<RideRequestPost> riderequestPosts = DatabaseHandler.getRideRequestPosts();		
 	}
 }

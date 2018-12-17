@@ -36,7 +36,9 @@ import javafx.scene.control.TabPane;
  * @author viktorkelemen & elymerenstein & arehorst
  */
 public class RideListController{
+	
 	private Stage primaryStage;
+	private DatabaseHandler databaseHandler;
 	
 	@FXML
     private Label currentDateLabel;
@@ -85,6 +87,8 @@ public class RideListController{
 	
 	
 	public RideListController() {
+		// Non-GUI
+		databaseHandler = DatabaseHandler.getInstance();
 		//Tab framework
 		tabs = new TabPane();
 		rides_tab = new Tab();
@@ -102,7 +106,7 @@ public class RideListController{
 		request_to_col = new TableColumn();
 		request_from_col = new TableColumn();
 		requestData = FXCollections.observableArrayList();
-		//Other
+		//Other GUI
 		addRidePostButton = new Button();
 		addRideRequestButton = new Button();
 		currentDateLabel = new Label();
@@ -132,7 +136,7 @@ public class RideListController{
 		ridepost_table.setItems(rideData);
 
 //		ArrayList<RidePost> ridePosts = DatabaseHandler.getRidePosts();
-		rideData.addAll(DatabaseHandler.RidesofDate());
+		rideData.addAll(databaseHandler.RidesofDate());
 		
 		
 		//Ride Request Tab
@@ -144,7 +148,7 @@ public class RideListController{
 
 		riderequestpost_table.setItems(requestData);
 
-		ArrayList<RideRequestPost> riderequestPosts = DatabaseHandler.getRideRequestPosts();
+		ArrayList<RideRequestPost> riderequestPosts = databaseHandler.getRideRequestPosts();
 		requestData.addAll(riderequestPosts);
 		
 		addRidePostButton.setOnAction(new AddRidePostButtonHandler());

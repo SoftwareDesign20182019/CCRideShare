@@ -29,6 +29,7 @@ import java.util.ArrayList;
 public class LogInController 
 {
 	private Stage primaryStage;
+	private DatabaseHandler databaseHandler;
 
 	@FXML
 	private PasswordField passwordfield;
@@ -42,11 +43,10 @@ public class LogInController
     private Label emailNotExist;
     @FXML
     private Label wrongEmailPassword;
-    private DatabaseHandler database;
 
 	public LogInController()
 	{
-		database = new DatabaseHandler();
+		databaseHandler = DatabaseHandler.getInstance();
 		passwordfield = new PasswordField();
 		emailfield = new TextField();
 		login = new Button();
@@ -80,7 +80,7 @@ public class LogInController
 		
 		try
 		{
-			if(DatabaseHandler.checkEmail(email) && DatabaseHandler.isRightPassword(email,password))
+			if(databaseHandler.checkEmail(email) && databaseHandler.isRightPassword(email,password))
 			{
 				ApplicationFactory.setCurrentUser(email);
 				Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
@@ -93,11 +93,11 @@ public class LogInController
 				emailNotExist.setVisible(false);
 				wrongEmailPassword.setVisible(false);
 				
-				if(!DatabaseHandler.checkEmail(email))
+				if(!databaseHandler.checkEmail(email))
 				{
 					emailNotExist.setVisible(true);
 				}
-				if(!DatabaseHandler.isRightPassword(email,password) && DatabaseHandler.checkEmail(email))
+				if(!databaseHandler.isRightPassword(email,password) && databaseHandler.checkEmail(email))
 				{
 					wrongEmailPassword.setVisible(true);
 				}

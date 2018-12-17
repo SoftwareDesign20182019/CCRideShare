@@ -12,8 +12,6 @@ public class DatabaseHandlerTest {
 	@Test
 	public void addRideTest() 
 	{
-		DatabaseHandler handler = new DatabaseHandler();
-		handler.initialize();
 		RidePost ridePost = new RidePost("1-1-1", "11:11PM", "Danver", "Colorado College", 4, 20, "no comments");
 		int rowsAdded = ridePost.addToDatabase();
 		
@@ -23,8 +21,6 @@ public class DatabaseHandlerTest {
 	@Test
 	public void addRideRequestTest() 
 	{
-		DatabaseHandler handler = new DatabaseHandler();
-		handler.initialize();
 		RideRequestPost rideRequest = new RideRequestPost("1-1-1", "11:11PM", "CC", "Denver");
 		int rowsAdded = rideRequest.addToDatabase();
 		
@@ -33,64 +29,58 @@ public class DatabaseHandlerTest {
 	
 	@Test
 	public void addLocationTest() {
-		DatabaseHandler handler = new DatabaseHandler();
-		handler.initialize();
+		DatabaseHandler dbHandler = DatabaseHandler.getInstance();
 		String location = "The best location";
-		int rowsAdded = handler.addLocation(location);
+		int rowsAdded = dbHandler.addLocation(location);
 		
 		assertEquals(rowsAdded,1);
 	}
 	
 	@Test
 	public void addAccountTest() {
-		DatabaseHandler handler = new DatabaseHandler();
-		handler.initialize();
+		DatabaseHandler dbHandler = DatabaseHandler.getInstance();
 		User user = new User("accounttest@coloradocollege.edu", "Account Tester");
 		String password = "testpassword";
-		int rowsAdded = handler.addAccount(user, password);
+		int rowsAdded = dbHandler.addAccount(user, password);
 		
 		assertEquals(rowsAdded,1);
 	}
 	
 	@Test
 	public void validEmailTest() {
-		DatabaseHandler handler = new DatabaseHandler();
-		handler.initialize();
+		DatabaseHandler dbHandler = DatabaseHandler.getInstance();
 		String email = "testemail@coloradocollege.edu";
-		boolean emailIsValid = handler.filterEmails(email);
+		boolean emailIsValid = dbHandler.filterEmails(email);
 		assertTrue(emailIsValid);
 	}
 	
 	@Test
 	public void invalidEmailTest() {
-		DatabaseHandler handler = new DatabaseHandler();
-		handler.initialize();
+		DatabaseHandler dbHandler = DatabaseHandler.getInstance();
 		String email = "thebestemail";
-		boolean emailIsValid = handler.filterEmails(email);
+		boolean emailIsValid = dbHandler.filterEmails(email);
 		assertFalse(emailIsValid);
 	}
 	
 	@Test
 	public void doesContainEmailTest() {
-		DatabaseHandler handler = new DatabaseHandler();
-		handler.initialize();
+		DatabaseHandler dbHandler = DatabaseHandler.getInstance();
 		String email = "containsemailtest@coloradocollege.edu";
 		User user = new User(email, "Contains Email Tester");
 		String password = "testpassword";
-		handler.addAccount(user, password);
-		boolean containsEmail = handler.checkEmail(email);
+		dbHandler.addAccount(user, password);
+		boolean containsEmail = dbHandler.checkEmail(email);
 		assertTrue(containsEmail);
 	}
 	
 	@Test
 	public void rightPasswordTest() {
-		DatabaseHandler handler = new DatabaseHandler();
-		handler.initialize();
+		DatabaseHandler dbHandler = DatabaseHandler.getInstance();
 		String email = "rightpasswordtest@coloradocollege.edu";
 		User user = new User(email, "Right Password Tester");
 		String password = "testpassword";
-		handler.addAccount(user, password);
-		boolean isRightPassword = handler.isRightPassword(email, password);
+		dbHandler.addAccount(user, password);
+		boolean isRightPassword = dbHandler.isRightPassword(email, password);
 		assertTrue(isRightPassword);
 	}
 

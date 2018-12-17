@@ -14,16 +14,33 @@ import java.util.regex.Pattern;
  */
 public class DatabaseHandler {
 	
-	public static final String PORT_NUMBER = "3306"; // Most people seem to use this port
-//	 public static final String PORT_NUMBER = "8889"; // Ely uses this port
-	public static final String CC_DOMAIN = "coloradocollege.edu";
+	// Unique instance for Singleton pattern:
+	private static DatabaseHandler databaseHandlerInstance;
 	
-	private static Statement databaseStatement; // Does this need to be closed ever?
+	// Constants:
+	private static final String PORT_NUMBER = "3306"; // Most people seem to use this port
+//	private static final String PORT_NUMBER = "8889"; // Ely uses this port
+	private static final String CC_DOMAIN = "coloradocollege.edu";
+	
+	// Instance variables:
+	private Statement databaseStatement; // Does this need to be closed ever?
+	
+	// Singleton method: 
+	public static DatabaseHandler getInstance() {
+		if(databaseHandlerInstance == null) {
+			databaseHandlerInstance = new DatabaseHandler();
+		}
+		return databaseHandlerInstance;
+	}
+	
+	private DatabaseHandler() {
+		this.initialize();
+	}
 	
 	/**
 	 * Creates the local database, the RidePost table, and RideRequestPost table if they don't already exist
 	 */
-	public static void initialize() {
+	private void initialize() {
 		try(
 				Connection initialConn = DriverManager.getConnection("jdbc:mysql://localhost:" + PORT_NUMBER + "/", 
 						"root", "root");
@@ -100,7 +117,7 @@ public class DatabaseHandler {
 	 * @param ridePost - the RidePost that is to be added to the table
 	 * @return number of posts added
 	 */
-	public static int addRidePost(RidePost ridePost) {
+	public int addRidePost(RidePost ridePost) {
 		String date = ridePost.getDate();
 		String sqlInsert = String.format("INSERT INTO RidePosts values (null, %s, '%s', '%s', '%s', %d, '%s', '%s')", 
 				"STR_TO_DATE('"+date+"', '%Y-%m-%d')", ridePost.getTime(), ridePost.getToLocation(), ridePost.getFromLocation(), ridePost.getNumSpots(), ridePost.getPrice(), ridePost.getComments());
@@ -118,7 +135,7 @@ public class DatabaseHandler {
 	 * @param riderequestPost - the RideRequestPost that is to be added to the table
 	 * @return number of posts added
 	 */
-	public static int addRideRequestPost(RideRequestPost riderequestPost) {
+	public int addRideRequestPost(RideRequestPost riderequestPost) {
 		String date = riderequestPost.getDate();
 		String sqlInsert = String.format("INSERT INTO RideRequestPosts values (null, %s, '%s', '%s', '%s')", 
 				 "STR_TO_DATE('"+date+"','%Y-%m-%d')", riderequestPost.getTime(), riderequestPost.getToLocation(), riderequestPost.getFromLocation());
@@ -137,7 +154,7 @@ public class DatabaseHandler {
 	 * @param location the location string to be added to the table
 	 * @return the number of location strings added
 	 */
-	public static int addLocation(String location) {
+	public int addLocation(String location) {
 		String sqlInsert = String.format("INSERT INTO Locations values (null, '%s')", location);
 		
 		try{
@@ -154,7 +171,7 @@ public class DatabaseHandler {
 	 * @param password the user's password, passed in as a separate parameter so it doesn't get passed around in the User object
 	 * @return the number of accounts added
 	 */
-	public static int addAccount(User account,String password) {
+	public int addAccount(User account,String password) {
 		String sqlInsert = String.format("INSERT INTO Accounts values (null, '%s', '%s', '%s')", account.getFullName(), account.getEmail(), password);
 		try{
 			int accountsAdded = databaseStatement.executeUpdate(sqlInsert);
@@ -169,7 +186,7 @@ public class DatabaseHandler {
 	 * Retrieves a list of all RidePost rows in the RidePosts table
 	 * @return ArrayList of RidePost
 	 */
-	public static ArrayList<RidePost> getRidePosts() {
+	public ArrayList<RidePost> getRidePosts() {
 		String sqlSelect = "select * from RidePosts";
 		try{
 			ResultSet rset = databaseStatement.executeQuery(sqlSelect);
@@ -200,7 +217,7 @@ public class DatabaseHandler {
 	 * Retrieves a list of all RideRequestPost rows in the RideRequestPosts table
 	 * @return ArrayList of RideRequestPost
 	 */
-	public static ArrayList<RideRequestPost> getRideRequestPosts() {
+	public ArrayList<RideRequestPost> getRideRequestPosts() {
 		String sqlSelect = "select * from RideRequestPosts";
 		try{
 			ResultSet rset = databaseStatement.executeQuery(sqlSelect);
@@ -224,7 +241,7 @@ public class DatabaseHandler {
 		}
 	}
 	
-	public static ArrayList<User> getUser(String email) {
+	public ArrayList<User> getUser(String email) {
 		String sqlSelect = "SELECT * FROM Accounts WHERE email = '"+email+"';";
 		ArrayList<User> users = new ArrayList<User>();
 
@@ -253,7 +270,7 @@ public class DatabaseHandler {
 	 * Retrieves a list of all location strings in the Locations table
 	 * @return ArrayList of String (the list of locations)
 	 */
-	public static ArrayList<String> getLocations() {
+	public ArrayList<String> getLocations() {
 		String sqlSelect = "select location from Locations";
 		try{
 			ResultSet rset = databaseStatement.executeQuery(sqlSelect);
@@ -273,12 +290,12 @@ public class DatabaseHandler {
 		}
 	}
 	
-	public static boolean filterEmails(String email)
+	public boolean filterEmails(String email)
 	{
 		return email.contains(CC_DOMAIN);
 	}
 	
-	public static boolean checkEmail(String email)
+	public boolean checkEmail(String email)
 	{
 		String sqlQuery = "SELECT email FROM Accounts WHERE email = '"+email+"'";
 		try
@@ -301,7 +318,7 @@ public class DatabaseHandler {
 		}
 	}
 	
-	public static boolean isRightPassword(String email, String password)
+	public boolean isRightPassword(String email, String password)
 	{
 		String sqlQuery = "SELECT email FROM Accounts WHERE email = '"+email+"' AND password = '"+password+"';";
 		try
@@ -323,7 +340,7 @@ public class DatabaseHandler {
 		}
 	}
 	
-	public static ArrayList<RidePost> RidesofDate()
+	public ArrayList<RidePost> RidesofDate()
 	{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate localDate = LocalDate.now();
@@ -358,31 +375,6 @@ public class DatabaseHandler {
 		{
 			e.printStackTrace();
 			return null;
-		}
-	}
-	
-	
-	/**
-	 * retrieves the number of rows in the RidePosts table
-	 * @return number of rows in table
-	 */
-	//For JUnit testing purposes
-	public static int getTotalRows()
-	{
-		try
-		{	
-			int count = 0;
-			ResultSet rset = databaseStatement.executeQuery("SELECT COUNT(*) FROM RidePosts");
-			while (rset.next())
-			{
-				count = rset.getInt(1);
-			}
-			return count;
-		}
-		catch(SQLException e)
-		{
-			e.printStackTrace();
-			return 0;
 		}
 	}
 }
