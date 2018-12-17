@@ -64,7 +64,6 @@ public class LogInGUIController
 	}
 
 	public void createAccountButton(){
-		System.out.println("The function is executing");
 		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.CREATE_ACCOUNT);
 		try
 		{

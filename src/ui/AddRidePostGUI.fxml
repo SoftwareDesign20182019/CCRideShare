@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AddRidePostController">
+<HBox style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AddRidePostController">
    <children>
       <Pane prefHeight="574.0" prefWidth="36.0" />
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="655.0">
@@ -66,10 +66,10 @@
                                  </left></BorderPane>
                               <BorderPane prefHeight="30.0" prefWidth="600.0">
                                  <right>
-                                    <Label prefHeight="17.0" prefWidth="298.0" text="Select to location:" BorderPane.alignment="CENTER" />
+                                    <Label prefHeight="17.0" prefWidth="298.0" text="To:" BorderPane.alignment="CENTER" />
                                  </right>
                                  <left>
-                                    <Label prefHeight="17.0" prefWidth="299.0" text=" Select from location:" BorderPane.alignment="CENTER" />
+                                    <Label prefHeight="17.0" prefWidth="299.0" text="From:" BorderPane.alignment="CENTER" />
                                  </left>
                               </BorderPane>
                               <BorderPane prefHeight="33.0" prefWidth="600.0">
@@ -127,7 +127,7 @@
                               <HBox prefHeight="10.0" prefWidth="600.0" />
                               <HBox prefHeight="52.0" prefWidth="600.0">
                                  <children>
-                                    <Pane prefHeight="52.0" prefWidth="386.0">
+                                    <Pane prefHeight="52.0" prefWidth="0.0">
                                        <children>
                                           <Label fx:id="empty_box_errormessage" layoutY="25.0" text="You forgot to fill out a field!" textFill="RED" visible="false">
                                              <font>
@@ -135,9 +135,9 @@
                                              </font>
                                           </Label>
                                        </children></Pane>
-                                    <Button fx:id="cancel_button" mnemonicParsing="false" onMouseClicked="#reopenRideListApp" prefHeight="27.0" prefWidth="73.0" text="Cancel" />
-                                    <Pane prefHeight="52.0" prefWidth="57.0" />
-                                    <Button fx:id="submit_button" mnemonicParsing="false" onMouseClicked="#createRidePost" text="SUBMIT" />
+                                    <Button fx:id="cancel_button" mnemonicParsing="false" onMouseClicked="#reopenRideListApp" prefHeight="31.0" prefWidth="96.0" style="-fx-background-radius: 20; -fx-background-color: red;" text="Cancel" textFill="WHITE" />
+                                    <Pane prefHeight="52.0" prefWidth="395.0" />
+                                    <Button fx:id="submit_button" mnemonicParsing="false" onMouseClicked="#createRidePost" prefHeight="31.0" prefWidth="92.0" style="-fx-background-color: limegreen; -fx-background-radius: 20;" text="Submit" textFill="WHITE" />
                                  </children>
                               </HBox>
                            </children>

@@ -64,7 +64,7 @@ public class DatabaseHandler {
 					+ "id int not null auto_increment, "
 					+ "name varchar(100), "
 					+ "email varchar(100), "
-					+ "password varchar(100), "
+					+ "password varchar(99), "
 					+ "primary key (id));";
 			
 			databaseStatement.execute(createRideTable);
