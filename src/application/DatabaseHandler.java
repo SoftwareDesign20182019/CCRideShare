@@ -336,7 +336,7 @@ public class DatabaseHandler {
 			ResultSet rset = databaseStatement.executeQuery(sqlQuery);
 			ArrayList<RidePost> SearchedPostsByDate = new ArrayList<RidePost>();
 			
-			if(rset.next())
+			while(rset.next())
 			{
 				String StringDate = rset.getString("date");
 				String time = rset.getString("time");
