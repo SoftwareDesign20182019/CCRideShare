@@ -14,8 +14,8 @@ import java.util.regex.Pattern;
  */
 public class DatabaseHandler {
 	
-//	public static final String PORT_NUMBER = "3306"; // Most people seem to use this port
-	 public static final String PORT_NUMBER = "8889"; // Ely uses this port
+	public static final String PORT_NUMBER = "3306"; // Most people seem to use this port
+//	 public static final String PORT_NUMBER = "8889"; // Ely uses this port
 	public static final String CC_DOMAIN = "coloradocollege.edu";
 	
 	private static Statement databaseStatement; // Does this need to be closed ever?
