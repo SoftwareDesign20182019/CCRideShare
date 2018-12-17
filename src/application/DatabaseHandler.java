@@ -325,7 +325,7 @@ public class DatabaseHandler {
 	{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate localDate = LocalDate.now();
-		Date desiredDate = Date.valueOf(localDate);
+//		Date desiredDate = Date.valueOf(localDate);
 		String nowDate = formatter.format(localDate);
 		
 		String sqlQuery = "SELECT * FROM RidePosts WHERE date = STR_TO_DATE('"+nowDate+"','%Y-%m-%d');";
