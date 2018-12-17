@@ -5,15 +5,15 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="299.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AddNewLocationController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="299.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AddNewLocationController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="299.0" text="Add a New Location">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="299.0" text="Add a New Location">
          <font>
             <Font size="29.0" />
          </font>
       </Label>
       <Label alignment="CENTER" prefHeight="39.0" prefWidth="329.0" text="Enter new location:" />
-      <Label fx:id="empty_text_field_error_label" alignment="TOP_CENTER" contentDisplay="TOP" prefHeight="17.0" prefWidth="300.0" textFill="RED" text="Please enter a location." />
+      <Label fx:id="empty_text_field_error_label" alignment="TOP_CENTER" contentDisplay="TOP" prefHeight="17.0" prefWidth="300.0" text="Please enter a location." textFill="RED" />
       <HBox prefHeight="46.0" prefWidth="299.0">
          <children>
             <Pane prefHeight="32.0" prefWidth="41.0" />

@@ -57,13 +57,4 @@ public class RideListApplication extends Application {
 			controller.setTab(tab);
 		}
 	}
-	
-	/**
-	 * main method
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		DatabaseHandler.initialize();
-		launch(args);
-	}
 }
