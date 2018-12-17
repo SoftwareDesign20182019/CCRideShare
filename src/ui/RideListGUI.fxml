@@ -34,7 +34,7 @@
                                     <Font name="Calibri" size="23.0" />
                                  </font>
                               </Label>
-                              <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="62.0" prefHeight="646.0" prefWidth="1098.0" style="-fx-background-color: #818c98;" vbarPolicy="ALWAYS">
+                              <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="62.0" prefHeight="615.0" prefWidth="1098.0" style="-fx-background-color: #818c98;" vbarPolicy="ALWAYS">
                                  <content>
                                     <TableView fx:id="ridepost_table" prefHeight="646.0" prefWidth="1098.0">
                                       <columns>
@@ -81,7 +81,7 @@
             </TabPane>
             <Button fx:id="addRidePostButton" layoutX="215.0" layoutY="7.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="166.0" text="List a Ride">
                <font>
-                  <Font name="Calibri Bold" size="12.0" />
+                  <Font name="Calibri Bold" size="18.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
@@ -93,7 +93,7 @@
             </Button>
             <Button fx:id="addRideRequestButton" layoutX="953.0" layoutY="7.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="175.0" text="Request a Ride">
                <font>
-                  <Font name="Calibri Bold" size="12.0" />
+                  <Font name="Calibri Bold" size="18.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">

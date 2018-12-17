@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="299.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AddNewLocationController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="299.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AddNewLocationController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="299.0" text="Add a New Location">
          <font>
@@ -14,18 +14,19 @@
       </Label>
       <Label alignment="CENTER" prefHeight="39.0" prefWidth="329.0" text="Enter new location:" />
       <Label fx:id="empty_text_field_error_label" alignment="TOP_CENTER" contentDisplay="TOP" prefHeight="17.0" prefWidth="300.0" text="Please enter a location." textFill="RED" />
-      <HBox prefHeight="46.0" prefWidth="299.0">
+      <HBox prefHeight="40.0" prefWidth="299.0">
          <children>
             <Pane prefHeight="32.0" prefWidth="41.0" />
-            <TextField fx:id="locationTextField" onAction="#updateNewLocation" prefHeight="27.0" prefWidth="213.0" />
+            <TextField fx:id="locationTextField" onAction="#updateNewLocation" prefHeight="27.0" prefWidth="213.0" style="-fx-background-radius: 20;" />
          </children>
       </HBox>
       <HBox prefHeight="40.0" prefWidth="299.0">
          <children>
-            <Pane prefHeight="39.0" prefWidth="40.0" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#closeStage" text="Cancel" />
-            <Pane prefHeight="39.0" prefWidth="112.0" />
-            <Button mnemonicParsing="false" onAction="#updateNewLocation" text="Add" />
+            <Pane prefHeight="58.0" prefWidth="299.0">
+               <children>
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="44.0" layoutY="-1.0" mnemonicParsing="false" onAction="#closeStage" style="-fx-background-color: grey; -fx-background-radius: 20;" text="Cancel" />
+                  <Button layoutX="202.0" layoutY="-1.0" mnemonicParsing="false" onAction="#updateNewLocation" style="-fx-background-color: grey; -fx-background-radius: 20;" text="Add" />
+               </children></Pane>
          </children>
       </HBox>
    </children>
