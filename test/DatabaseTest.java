@@ -19,9 +19,8 @@ public class DatabaseTest {
 	@Test
 	public void databaseEntryTest() 
 	{
-		DatabaseHandler handler = new DatabaseHandler();
-		handler.initialize();
-		RidePost ridePost = new RidePost("1/1/1", "11:11PM", "Danver", "Colorado College", 4, "$20", "no comments");
+		DatabaseHandler.initialize();
+		RidePost ridePost = new RidePost("1/1/1", "11:11PM", "Danver", "Colorado College", 4, 20, "no comments");
 		int rowsAdded = ridePost.addToDatabase();
 		
 		assertEquals(rowsAdded,1);
@@ -34,10 +33,9 @@ public class DatabaseTest {
 	@Test
 	public void getAllRidePostsTest()
 	{
-		DatabaseHandler handler = new DatabaseHandler();
-		handler.initialize();
-		int numRows = handler.getTotalRows();
-		ArrayList<RidePost> riderList = handler.getRidePosts();
+		DatabaseHandler.initialize();
+		int numRows = DatabaseHandler.getTotalRows();
+		ArrayList<RidePost> riderList = DatabaseHandler.getRidePosts();
 		
 		assertEquals(riderList.size(),numRows);
 	}

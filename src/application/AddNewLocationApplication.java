@@ -30,9 +30,7 @@ public class AddNewLocationApplication extends Application {
 			ui.AddNewLocationController controller = loader.getController();
 			controller.setApplication(this);
 			controller.setStage(primaryStage);
-			//Parent root = FXMLLoader.load(getClass().getResource("/ui/AddRidePostGUI.fxml"));
 			Scene scene = new Scene(root);
-//			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.showAndWait();
 		} 
