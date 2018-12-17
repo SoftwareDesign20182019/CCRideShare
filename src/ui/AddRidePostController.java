@@ -123,7 +123,7 @@ public class AddRidePostController{
 		time_ampm.getItems().addAll("am","pm");
 		spots_price_errormessage.setVisible(false);
 		empty_box_errormessage.setVisible(false);		
-		initializeComboBoxes();		
+		initializeLocationComboBoxes();		
 	}
 	
 	/**
@@ -131,7 +131,7 @@ public class AddRidePostController{
 	 * based on the locations currently stored in the database
 	 */
 	@FXML
-	private void initializeComboBoxes() {
+	private void initializeLocationComboBoxes() {
 		ArrayList<String> locations = DatabaseHandler.getLocations();
 		resetComboBoxValues(from_location_combo_box, locations);
 		resetComboBoxValues(to_location_combo_box, locations);

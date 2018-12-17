@@ -53,7 +53,6 @@ public class DatabaseHandler {
 					 + "time varchar(10), "
 					 + "toLocation varchar(50), "
 					 + "fromLocation varchar(50), "
-					 + "comments varchar(500), "
 					 + "primary key (id));";
 			
 			String createLocationTable = "create table if not exists Locations ( "
@@ -119,8 +118,8 @@ public class DatabaseHandler {
 	 * @return number of posts added
 	 */
 	public static int addRideRequestPost(RideRequestPost riderequestPost) {
-		String sqlInsert = String.format("INSERT INTO RideRequestPosts values (null, '%s', '%s', '%s', '%s', '%s')", 
-				 riderequestPost.getDate(), riderequestPost.getTime(), riderequestPost.getToLocation(), riderequestPost.getFromLocation(), riderequestPost.getComments());
+		String sqlInsert = String.format("INSERT INTO RideRequestPosts values (null, '%s', '%s', '%s', '%s')", 
+				 riderequestPost.getDate(), riderequestPost.getTime(), riderequestPost.getToLocation(), riderequestPost.getFromLocation());
 
 		try{
 			int rowsAdded = databaseStatement.executeUpdate(sqlInsert);
@@ -208,8 +207,7 @@ public class DatabaseHandler {
 				String time = rset.getString("time");
 				String toLocation = rset.getString("toLocation");
 				String fromLocation = rset.getString("fromLocation");
-				String comments = rset.getString("comments");
-				RideRequestPost currRideRequestPost = new RideRequestPost(date, time, toLocation, fromLocation, comments);
+				RideRequestPost currRideRequestPost = new RideRequestPost(date, time, toLocation, fromLocation);
 				
 				riderequestPosts.add(currRideRequestPost);
 			}

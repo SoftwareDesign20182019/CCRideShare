@@ -13,14 +13,12 @@ public class RideRequestPost {
 	private String time;
 	private String toLocation;
 	private String fromLocation;
-	private String comments;
 
-	public RideRequestPost(String date, String time, String toLocation, String fromLocation, String comments) {
+	public RideRequestPost(String date, String time, String toLocation, String fromLocation) {
 		this.date = date; 
 		this.time = time;
 		this.toLocation = toLocation;
 		this.fromLocation = fromLocation;
-		this.comments = comments;
 	}
 	
 	public String getDate() {
@@ -54,14 +52,6 @@ public class RideRequestPost {
 	public void setFromLocation(String fromLocation) {
 		this.fromLocation = fromLocation;
 	}
-
-	public String getComments() {
-		return comments;
-	}
-
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
 	
 	/**
 	 * adds a RiderPost to the database
@@ -79,8 +69,8 @@ public class RideRequestPost {
 	public static void main(String[] args) {
 		
 		DatabaseHandler.initialize();
-		RideRequestPost post = new RideRequestPost("10/5/19", "9:00AM", "Hell", "and Back", "no comments");
-		RideRequestPost post2 = new RideRequestPost("12/7/20", "3:45PM", "DIA", "Colorado College", "");
+		RideRequestPost post = new RideRequestPost("10/5/19", "9:00AM", "Hell", "and Back");
+		RideRequestPost post2 = new RideRequestPost("12/7/20", "3:45PM", "DIA", "Colorado College");
 		post.addToDatabase();
 		post2.addToDatabase();
 		ArrayList<RideRequestPost> riderequestPosts = DatabaseHandler.getRideRequestPosts();		
