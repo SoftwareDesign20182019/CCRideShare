@@ -11,10 +11,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: C0C0C0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.LogInGUIController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: C0C0C0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.LogInController">
    <children>
-      <PasswordField fx:id="passwordfield" layoutX="272.0" layoutY="161.0" style="-fx-background-radius: 8;" />
-      <TextField fx:id="emailfield" layoutX="272.0" layoutY="112.0" style="-fx-background-radius: 8;" />
+      <PasswordField fx:id="passwordfield" layoutX="272.0" layoutY="161.0" onAction="#logInButton" style="-fx-background-radius: 8;" />
+      <TextField fx:id="emailfield" layoutX="272.0" layoutY="112.0" onAction="#logInButton" style="-fx-background-radius: 8;" />
       <Label layoutX="196.0" layoutY="116.0" text="Email" />
       <Label layoutX="170.0" layoutY="166.0" text="Password" />
       <Label layoutX="262.0" layoutY="45.0" text="Log In">

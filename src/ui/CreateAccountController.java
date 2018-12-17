@@ -31,7 +31,7 @@ import javafx.stage.Stage;
 import javafx.application.Application;
 
 
-public class CreateAccountGUIController {
+public class CreateAccountController {
 
 	/**
 	 * Connects the .fxml GUI file with the backend operations
@@ -64,7 +64,7 @@ public class CreateAccountGUIController {
     private Label shortPasswordWarning;
 
 
-	public CreateAccountGUIController() {
+	public CreateAccountController() {
 		passwordfield = new PasswordField();
 		emailfield = new TextField();
 		namefield = new TextField();

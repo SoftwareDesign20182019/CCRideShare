@@ -26,7 +26,7 @@ import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 
-public class LogInGUIController 
+public class LogInController 
 {
 	private Stage primaryStage;
 
@@ -44,7 +44,7 @@ public class LogInGUIController
     private Label wrongEmailPassword;
     private DatabaseHandler database;
 
-	public LogInGUIController()
+	public LogInController()
 	{
 		database = new DatabaseHandler();
 		passwordfield = new PasswordField();

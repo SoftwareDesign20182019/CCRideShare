@@ -56,14 +56,7 @@
                                     <DatePicker fx:id="date" prefHeight="27.0" prefWidth="285.0" BorderPane.alignment="CENTER" />
                                  </center>
                               </BorderPane>
-                              <BorderPane prefHeight="29.0" prefWidth="600.0">
-                                 <left>
-                                    <Label text="oij" BorderPane.alignment="CENTER">
-                                       <BorderPane.margin>
-                                          <Insets left="100.0" />
-                                       </BorderPane.margin>
-                                    </Label>
-                                 </left></BorderPane>
+                              <BorderPane prefHeight="29.0" prefWidth="600.0" />
                               <BorderPane prefHeight="30.0" prefWidth="600.0">
                                  <right>
                                     <Label prefHeight="17.0" prefWidth="298.0" text="To:" BorderPane.alignment="CENTER" />
