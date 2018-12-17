@@ -66,7 +66,6 @@ public class ApplicationFactory {
 		if(!users.isEmpty())
 		{
 			currentUser = users.get(0);
-			System.out.println("Current user: "+email);
 			return currentUser;
 		}
 		else

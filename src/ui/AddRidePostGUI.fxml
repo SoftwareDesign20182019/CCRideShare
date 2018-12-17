@@ -49,7 +49,7 @@
                                              </font>
                                           </Text>
                                           <ComboBox fx:id="time_minutes" prefHeight="31.0" prefWidth="84.0" promptText="min" style="-fx-background-color: grey; -fx-background-radius: 20;" />
-                                          <ComboBox fx:id="time_ampm" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: grey; -fx-background-radius: 20;" />
+                                          <ComboBox fx:id="time_ampm" prefHeight="29.0" prefWidth="67.0" style="-fx-background-color: grey; -fx-background-radius: 20;" />
                                        </children>
                                     </HBox>
                                  </right>
