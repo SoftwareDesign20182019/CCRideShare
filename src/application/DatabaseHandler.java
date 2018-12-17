@@ -1,5 +1,7 @@
 package application;
-
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,10 +14,9 @@ import java.util.regex.Pattern;
  */
 public class DatabaseHandler {
 	
-	public static final String PORT_NUMBER = "3306"; // Most people seem to use this port
-//	 public static final String PORT_NUMBER = "8889"; // Ely uses this port
+//	public static final String PORT_NUMBER = "3306"; // Most people seem to use this port
+	 public static final String PORT_NUMBER = "8889"; // Ely uses this port
 	public static final String CC_DOMAIN = "coloradocollege.edu";
-	
 	
 	private static Statement databaseStatement; // Does this need to be closed ever?
 	
@@ -38,7 +39,7 @@ public class DatabaseHandler {
 		
 			String createRideTable = "create table if not exists RidePosts ( " + 
 					 "id int not null auto_increment, "
-					 + "date varchar(25), "
+					 + "date DATE, "
 					 + "time varchar(10), "
 					 + "toLocation varchar(50), "
 					 + "fromLocation varchar(50), "
@@ -49,7 +50,7 @@ public class DatabaseHandler {
 			
 			String createRequestTable = "create table if not exists RideRequestPosts ( " + 
 					 "id int not null auto_increment, "
-					 + "date varchar(25), "
+					 + "date DATE, "
 					 + "time varchar(10), "
 					 + "toLocation varchar(50), "
 					 + "fromLocation varchar(50), "
@@ -100,9 +101,9 @@ public class DatabaseHandler {
 	 * @return number of posts added
 	 */
 	public static int addRidePost(RidePost ridePost) {
-		String sqlInsert = String.format("INSERT INTO RidePosts values (null, '%s', '%s', '%s', '%s', %d, '%s', '%s')", 
-				 ridePost.getDate(), ridePost.getTime(), ridePost.getToLocation(), ridePost.getFromLocation(), ridePost.getNumSpots(), ridePost.getPrice(), ridePost.getComments());
-
+		String date = ridePost.getDate();
+		String sqlInsert = String.format("INSERT INTO RidePosts values (null, %s, '%s', '%s', '%s', %d, '%s', '%s')", 
+				"STR_TO_DATE('"+date+"', '%Y-%m-%d')", ridePost.getTime(), ridePost.getToLocation(), ridePost.getFromLocation(), ridePost.getNumSpots(), ridePost.getPrice(), ridePost.getComments());
 		try{
 			int rowsAdded = databaseStatement.executeUpdate(sqlInsert);
 			return rowsAdded;
@@ -118,8 +119,9 @@ public class DatabaseHandler {
 	 * @return number of posts added
 	 */
 	public static int addRideRequestPost(RideRequestPost riderequestPost) {
-		String sqlInsert = String.format("INSERT INTO RideRequestPosts values (null, '%s', '%s', '%s', '%s')", 
-				 riderequestPost.getDate(), riderequestPost.getTime(), riderequestPost.getToLocation(), riderequestPost.getFromLocation());
+		String date = riderequestPost.getDate();
+		String sqlInsert = String.format("INSERT INTO RideRequestPosts values (null, %s, '%s', '%s', '%s')", 
+				 "STR_TO_DATE('"+date+"','%Y-%m-%d')", riderequestPost.getTime(), riderequestPost.getToLocation(), riderequestPost.getFromLocation());
 
 		try{
 			int rowsAdded = databaseStatement.executeUpdate(sqlInsert);
@@ -321,27 +323,66 @@ public class DatabaseHandler {
 		}
 	}
 	
+	public static ArrayList<RidePost> RidesofDate()
+	{
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate localDate = LocalDate.now();
+//		Date desiredDate = Date.valueOf(localDate);
+		String nowDate = formatter.format(localDate);
+		
+		String sqlQuery = "SELECT * FROM RidePosts WHERE date = STR_TO_DATE('"+nowDate+"','%Y-%m-%d');";
+		try
+		{
+			ResultSet rset = databaseStatement.executeQuery(sqlQuery);
+			ArrayList<RidePost> SearchedPostsByDate = new ArrayList<RidePost>();
+			
+			if(rset.next())
+			{
+				String StringDate = rset.getString("date");
+				String time = rset.getString("time");
+				String toLocation = rset.getString("toLocation");
+				String fromLocation = rset.getString("fromLocation");
+				int numSpots = rset.getInt("numSpots");
+				int price = rset.getInt("price");
+				String comments = rset.getString("comments");
+				RidePost RidePosts = new RidePost(StringDate, time, toLocation, fromLocation, numSpots, price, comments);	
+			
+				SearchedPostsByDate.add(RidePosts);	
+			}
+			rset.close();
+			
+			return SearchedPostsByDate;
+		}
+		
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
 	/**
 	 * retrieves the number of rows in the RidePosts table
 	 * @return number of rows in table
 	 */
 	//For JUnit testing purposes
-//	public static int getTotalRows()
-//	{
-//		try
-//		{	
-//			int count = 0;
-//			ResultSet rset = databaseStatement.executeQuery("SELECT COUNT(*) FROM RidePosts");
-//			while (rset.next())
-//			{
-//				count = rset.getInt(1);
-//			}
-//			return count;
-//		}
-//		catch(SQLException e)
-//		{
-//			e.printStackTrace();
-//			return 0;
-//		}
-//	}
+	public static int getTotalRows()
+	{
+		try
+		{	
+			int count = 0;
+			ResultSet rset = databaseStatement.executeQuery("SELECT COUNT(*) FROM RidePosts");
+			while (rset.next())
+			{
+				count = rset.getInt(1);
+			}
+			return count;
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return 0;
+		}
+	}
 }

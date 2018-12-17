@@ -14,7 +14,7 @@ public class DatabaseHandlerTest {
 	{
 		DatabaseHandler handler = new DatabaseHandler();
 		handler.initialize();
-		RidePost ridePost = new RidePost("1/1/1", "11:11PM", "Danver", "Colorado College", 4, 20, "no comments");
+		RidePost ridePost = new RidePost("1-1-1", "11:11PM", "Danver", "Colorado College", 4, 20, "no comments");
 		int rowsAdded = ridePost.addToDatabase();
 		
 		assertEquals(rowsAdded,1);
@@ -25,7 +25,7 @@ public class DatabaseHandlerTest {
 	{
 		DatabaseHandler handler = new DatabaseHandler();
 		handler.initialize();
-		RideRequestPost rideRequest = new RideRequestPost("1/1/1", "11:11PM", "CC", "Denver");
+		RideRequestPost rideRequest = new RideRequestPost("1-1-1", "11:11PM", "CC", "Denver");
 		int rowsAdded = rideRequest.addToDatabase();
 		
 		assertEquals(rowsAdded,1);

@@ -3,7 +3,10 @@ package application;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import java.util.ArrayList;
-
+/**
+ * Factory class for Application objects, implementing the factory design pattern
+ * @author emerenstein
+ */
 public class ApplicationFactory {
 
 	private static User currentUser;
@@ -15,6 +18,11 @@ public class ApplicationFactory {
 	
 	private static ArrayList<ApplicationWithType> applications = new ArrayList<ApplicationWithType>();
 	
+	/**
+	 * creates the desired type of application and returns it (just like a good factory does)
+	 * @param typeDesired - the type of Application needed
+	 * @return
+	 */
 	public static Application getApplication(ApplicationType typeDesired) {
 		for(ApplicationWithType applicationWithType : applications) {
 			if(applicationWithType.getType() == typeDesired) {
@@ -47,7 +55,11 @@ public class ApplicationFactory {
 		applications.add(newApplicationWithType);
 		return newApplication;
 	}
-	
+	/**
+	 * returns the object corresponding to an email address
+	 * @param email of user
+	 * @return the user object that has the email 
+	 */
 	public static User setCurrentUser(String email)
 	{
 		ArrayList<User> users = DatabaseHandler.getUser(email);

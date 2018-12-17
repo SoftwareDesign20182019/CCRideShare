@@ -123,15 +123,20 @@ public class CreateAccountController {
 		shortPasswordWarning.setVisible(false);
 		
 		//handling invalid and empty inputs
-		if(!(DatabaseHandler.filterEmails(email)))
+		if((DatabaseHandler.filterEmails(email)) && !(DatabaseHandler.checkEmail(email)) && !fullName.equals("") && !(password.length() < 5))
 		{
-			emailFilterWarning.setVisible(true);
+			User newUser = new User(email,fullName);
+			newUser.addToDatabase(password);
+			ApplicationFactory.setCurrentUser(email);
+			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
+			app.start(primaryStage);
+			
 		}
 		else if(DatabaseHandler.checkEmail(email))
 		{
 			checkEmailWarning.setVisible(true);
 		}
-		else if(fullName.equals(""))
+		else if(fullName.equals("") || fullName.equals(null))
 		{
 			emptyFieldWarning.setVisible(true);
 		}
@@ -139,13 +144,9 @@ public class CreateAccountController {
 			shortPasswordWarning.setVisible(true);
 		}
 		//if every input is valid, put in database
-		else
+		else if(!(DatabaseHandler.filterEmails(email)))
 		{
-			User newUser = new User(email,fullName);
-			newUser.addToDatabase(password);
-			ApplicationFactory.setCurrentUser(email);
-			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
-			app.start(primaryStage);
+			emailFilterWarning.setVisible(true);	
 		}
 				
 	}

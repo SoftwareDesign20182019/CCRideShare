@@ -1,5 +1,8 @@
 package ui;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,6 +37,9 @@ import javafx.scene.control.TabPane;
  */
 public class RideListController{
 	private Stage primaryStage;
+	
+	@FXML
+    private Label currentDateLabel;
 	
 	// Ride Tab
 	@FXML
@@ -99,6 +105,7 @@ public class RideListController{
 		//Other
 		addRidePostButton = new Button();
 		addRideRequestButton = new Button();
+		currentDateLabel = new Label();
 	}
 
 	/**
@@ -106,7 +113,14 @@ public class RideListController{
 	 */
 	@FXML
 	private void initialize() {
+		
 		// Ride Tab
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate localDate = LocalDate.now();
+		Date date = Date.valueOf(localDate);
+		
+		
 		time_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("time"));
 
 		to_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("toLocation"));
@@ -117,9 +131,10 @@ public class RideListController{
 
 		ridepost_table.setItems(rideData);
 
-		ArrayList<RidePost> ridePosts = DatabaseHandler.getRidePosts();
-		rideData.addAll(ridePosts);
-
+//		ArrayList<RidePost> ridePosts = DatabaseHandler.getRidePosts();
+		rideData.addAll(DatabaseHandler.RidesofDate());
+		
+		
 		//Ride Request Tab
 		request_time_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("time"));
 
@@ -135,6 +150,11 @@ public class RideListController{
 		addRidePostButton.setOnAction(new AddRidePostButtonHandler());
 		
 		addRideRequestButton.setOnAction(new AddRideRequestButtonHandler());
+		
+		
+		
+		String dateLabel = formatter.format(localDate);
+		currentDateLabel.setText(dateLabel);
 		
 	}
 	
