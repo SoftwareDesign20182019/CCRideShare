@@ -21,9 +21,9 @@
 
 <VBox style="-fx-background-color: A0A0A0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RideListController">
   <children>
-    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1250.0" scaleShape="false" style="-fx-background-color: C0C0C0;">
+    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1250.0" scaleShape="false" style="-fx-background-color: C0C0C0; -fx-border-radius: 20;">
       <children>
-            <TabPane fx:id="tabs" layoutX="153.0" layoutY="61.0" prefHeight="739.0" prefWidth="1098.0" style="-fx-background-color: A0A0A0;" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="tabs" layoutX="153.0" layoutY="90.0" prefHeight="688.0" prefWidth="1076.0" style="-fx-background-color: A0A0A0;" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab fx:id="rides_tab" closable="false" style="-fx-background-color: FFFFFF;" text="Rides">
                   <content>
@@ -34,9 +34,9 @@
                                     <Font name="Calibri" size="23.0" />
                                  </font>
                               </Label>
-                              <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="62.0" prefHeight="615.0" prefWidth="1098.0" style="-fx-background-color: #818c98;" vbarPolicy="ALWAYS">
+                              <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="62.0" prefHeight="622.0" prefWidth="1074.0" style="-fx-background-color: #818c98;" vbarPolicy="ALWAYS">
                                  <content>
-                                    <TableView fx:id="ridepost_table" prefHeight="646.0" prefWidth="1098.0">
+                                    <TableView fx:id="ridepost_table" prefHeight="597.0" prefWidth="1059.0">
                                       <columns>
                                         <TableColumn fx:id="time_col" prefWidth="112.00004577636719" text="Time" />
                                         <TableColumn fx:id="to_col" prefWidth="347.1999816894531" text="To" />
@@ -60,9 +60,9 @@
                                     <Font name="Calibri" size="23.0" />
                                  </font>
                               </Label>
-                              <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="62.0" prefHeight="646.0" prefWidth="1098.0" style="-fx-background-color: #818c98;" vbarPolicy="ALWAYS">
+                              <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="62.0" prefHeight="592.0" prefWidth="1077.0" style="-fx-background-color: #818c98;" vbarPolicy="ALWAYS">
                                  <content>
-                                    <TableView fx:id="riderequestpost_table" prefHeight="646.0" prefWidth="1098.0">
+                                    <TableView fx:id="riderequestpost_table" prefHeight="575.0" prefWidth="1060.0">
                                        <columns>
                                           <TableColumn fx:id="request_time_col" prefWidth="161.60000610351562" text="Time" />
                                           <TableColumn fx:id="request_to_col" prefWidth="487.9999694824219" text="To" />
@@ -79,9 +79,9 @@
                   </Tab>
               </tabs>
             </TabPane>
-            <Button fx:id="addRidePostButton" layoutX="215.0" layoutY="7.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="166.0" text="List a Ride">
+            <Button fx:id="addRidePostButton" layoutX="213.0" layoutY="28.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="166.0" style="-fx-background-color: grey; -fx-background-radius: 20;" text="List a Ride">
                <font>
-                  <Font name="Calibri Bold" size="18.0" />
+                  <Font size="18.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
@@ -91,7 +91,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="addRideRequestButton" layoutX="953.0" layoutY="7.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="175.0" text="Request a Ride">
+            <Button fx:id="addRideRequestButton" layoutX="916.0" layoutY="25.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="213.0" style="-fx-background-color: grey; -fx-background-radius: 20;" text="Request a Ride">
                <font>
                   <Font name="Calibri Bold" size="18.0" />
                </font>
@@ -109,17 +109,17 @@
                </font>
             </Label>
             <Label layoutX="21.0" layoutY="303.0" text="To" />
-            <ChoiceBox layoutX="3.0" layoutY="321.0" prefHeight="38.0" prefWidth="134.0" />
+            <ChoiceBox layoutX="11.0" layoutY="318.0" prefHeight="38.0" prefWidth="134.0" />
             <Label layoutX="20.0" layoutY="382.0" text="From" />
-            <ChoiceBox layoutX="3.0" layoutY="400.0" prefHeight="38.0" prefWidth="134.0" />
+            <ChoiceBox layoutX="10.0" layoutY="397.0" prefHeight="38.0" prefWidth="134.0" />
             <Label layoutX="21.0" layoutY="470.0" text="Date" />
-            <ChoiceBox layoutX="3.0" layoutY="488.0" prefHeight="38.0" prefWidth="134.0" />
+            <ChoiceBox layoutX="11.0" layoutY="485.0" prefHeight="38.0" prefWidth="134.0" />
             <Label layoutX="138.0" layoutY="312.0" />
             <Label layoutX="21.0" layoutY="550.0" text="Price" />
-            <ChoiceBox layoutX="3.0" layoutY="568.0" prefHeight="38.0" prefWidth="134.0" />
-            <ChoiceBox layoutX="3.0" layoutY="653.0" prefHeight="38.0" prefWidth="133.0" />
+            <ChoiceBox layoutX="10.0" layoutY="565.0" prefHeight="38.0" prefWidth="134.0" />
+            <ChoiceBox layoutX="12.0" layoutY="652.0" prefHeight="38.0" prefWidth="133.0" />
             <Label layoutX="21.0" layoutY="635.0" text="Seats Available" />
-            <Button layoutX="9.0" layoutY="107.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="122.0" text="Search">
+            <Button layoutX="14.0" layoutY="111.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="129.0" style="-fx-background-color: grey; -fx-background-radius: 20;" text="Search">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -131,7 +131,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <ImageView fitHeight="62.0" fitWidth="251.0" layoutX="555.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="62.0" fitWidth="251.0" layoutX="555.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@CClogo.png" />
                </image>
