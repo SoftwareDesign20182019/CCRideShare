@@ -365,22 +365,22 @@ public class DatabaseHandler {
 	 * @return number of rows in table
 	 */
 	//For JUnit testing purposes
-//	public static int getTotalRows()
-//	{
-//		try
-//		{	
-//			int count = 0;
-//			ResultSet rset = databaseStatement.executeQuery("SELECT COUNT(*) FROM RidePosts");
-//			while (rset.next())
-//			{
-//				count = rset.getInt(1);
-//			}
-//			return count;
-//		}
-//		catch(SQLException e)
-//		{
-//			e.printStackTrace();
-//			return 0;
-//		}
-//	}
+	public static int getTotalRows()
+	{
+		try
+		{	
+			int count = 0;
+			ResultSet rset = databaseStatement.executeQuery("SELECT COUNT(*) FROM RidePosts");
+			while (rset.next())
+			{
+				count = rset.getInt(1);
+			}
+			return count;
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return 0;
+		}
+	}
 }
