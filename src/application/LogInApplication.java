@@ -4,7 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ui.LogInGUIController;
+import ui.LogInController;
 
 public class LogInApplication extends Application {
 	/**
@@ -17,7 +17,7 @@ public class LogInApplication extends Application {
 		{
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/LogInGUI.fxml"));
 			Parent root = loader.load();
-			LogInGUIController controller = loader.getController();
+			LogInController controller = loader.getController();
 			controller.setPrimaryStage(primaryStage);
 			//Parent root = FXMLLoader.load(getClass().getResource("/ui/RideListGUI.fxml"));
 			Scene scene = new Scene(root);

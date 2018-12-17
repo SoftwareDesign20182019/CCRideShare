@@ -26,7 +26,7 @@ import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 
-public class LogInGUIController 
+public class LogInController 
 {
 	private Stage primaryStage;
 
@@ -44,7 +44,7 @@ public class LogInGUIController
     private Label wrongEmailPassword;
     private DatabaseHandler database;
 
-	public LogInGUIController()
+	public LogInController()
 	{
 		database = new DatabaseHandler();
 		passwordfield = new PasswordField();
@@ -64,7 +64,6 @@ public class LogInGUIController
 	}
 
 	public void createAccountButton(){
-		System.out.println("The function is executing");
 		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.CREATE_ACCOUNT);
 		try
 		{
@@ -84,7 +83,6 @@ public class LogInGUIController
 			if(DatabaseHandler.checkEmail(email) && DatabaseHandler.isRightPassword(email,password))
 			{
 				ApplicationFactory.setCurrentUser(email);
-				System.out.println("Current user is: "+ApplicationFactory.getCurrentUser().getFullName());
 				Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
 				app.start(primaryStage);
 				//TODO: Tell main GUI that this is the person logged in

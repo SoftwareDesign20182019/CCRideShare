@@ -31,7 +31,7 @@ import javafx.stage.Stage;
 import javafx.application.Application;
 
 
-public class CreateAccountGUIController {
+public class CreateAccountController {
 
 	/**
 	 * Connects the .fxml GUI file with the backend operations
@@ -61,7 +61,7 @@ public class CreateAccountGUIController {
     
 
 
-	public CreateAccountGUIController() {
+	public CreateAccountController() {
 		passwordfield = new PasswordField();
 		emailfield = new TextField();
 		namefield = new TextField();
@@ -110,7 +110,6 @@ public class CreateAccountGUIController {
 				User newUser = new User(email,fullName);
 				newUser.addToDatabase(password);
 				ApplicationFactory.setCurrentUser(email);
-				System.out.println("Current user is: "+ApplicationFactory.getCurrentUser().getFullName());
 				Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
 				app.start(primaryStage);
 			}

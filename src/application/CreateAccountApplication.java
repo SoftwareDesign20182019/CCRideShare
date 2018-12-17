@@ -1,5 +1,5 @@
 package application;
-import ui.CreateAccountGUIController;
+import ui.CreateAccountController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -24,7 +24,7 @@ public class CreateAccountApplication extends Application{
 		{
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/CreateAccountGUI.fxml"));
 			Parent root = loader.load();
-			CreateAccountGUIController controller = loader.getController();
+			CreateAccountController controller = loader.getController();
 			controller.setPrimaryStage(primaryStage);
 			//Parent root = FXMLLoader.load(getClass().getResource("/ui/RideListGUI.fxml"));
 			Scene scene = new Scene(root);

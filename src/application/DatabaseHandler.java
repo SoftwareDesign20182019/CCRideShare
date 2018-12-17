@@ -351,7 +351,7 @@ public class DatabaseHandler {
 				SearchedPostsByDate.add(RidePosts);	
 			}
 			rset.close();
-			System.out.println(SearchedPostsByDate);
+			
 			return SearchedPostsByDate;
 		}
 		
