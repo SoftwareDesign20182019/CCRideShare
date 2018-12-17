@@ -1,5 +1,5 @@
 package application;
-
+import java.sql.Date;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -100,9 +100,9 @@ public class DatabaseHandler {
 	 */
 	public static int addRidePost(RidePost ridePost) {
 		String date = ridePost.getDate();
-		String sqlInsert = String.format("INSERT INTO RidePosts values (null, '%s', '%s', '%s', '%s', %d, '%s', '%s')", 
-				 "STR_TO_DATE('"+date+"','%d/%m/%Y')", ridePost.getTime(), ridePost.getToLocation(), ridePost.getFromLocation(), ridePost.getNumSpots(), ridePost.getPrice(), ridePost.getComments());
-
+		System.out.println(date);
+		String sqlInsert = String.format("INSERT INTO RidePosts values (null, %s, '%s', '%s', '%s', %d, '%s', '%s')", 
+				"STR_TO_DATE('"+date+"', '%Y-%m-%d')", ridePost.getTime(), ridePost.getToLocation(), ridePost.getFromLocation(), ridePost.getNumSpots(), ridePost.getPrice(), ridePost.getComments());
 		try{
 			int rowsAdded = databaseStatement.executeUpdate(sqlInsert);
 			return rowsAdded;
@@ -119,8 +119,8 @@ public class DatabaseHandler {
 	 */
 	public static int addRideRequestPost(RideRequestPost riderequestPost) {
 		String date = riderequestPost.getDate();
-		String sqlInsert = String.format("INSERT INTO RideRequestPosts values (null, '%s', '%s', '%s', '%s', '%s')", 
-				 "STR_TO_DATE('"+date+"','%d/%m/%Y')", riderequestPost.getTime(), riderequestPost.getToLocation(), riderequestPost.getFromLocation(), riderequestPost.getComments());
+		String sqlInsert = String.format("INSERT INTO RideRequestPosts values (null, %s, '%s', '%s', '%s', '%s')", 
+				 "STR_TO_DATE('"+date+"','%Y-%m-%d')", riderequestPost.getTime(), riderequestPost.getToLocation(), riderequestPost.getFromLocation(), riderequestPost.getComments());
 
 		try{
 			int rowsAdded = databaseStatement.executeUpdate(sqlInsert);
