@@ -109,15 +109,15 @@
                </font>
             </Label>
             <Label layoutX="21.0" layoutY="303.0" text="To" />
-            <ChoiceBox layoutX="11.0" layoutY="318.0" prefHeight="38.0" prefWidth="134.0" />
+            <ChoiceBox layoutX="10.0" layoutY="324.0" prefHeight="38.0" prefWidth="134.0" />
             <Label layoutX="20.0" layoutY="382.0" text="From" />
-            <ChoiceBox layoutX="10.0" layoutY="397.0" prefHeight="38.0" prefWidth="134.0" />
+            <ChoiceBox layoutX="12.0" layoutY="403.0" prefHeight="38.0" prefWidth="134.0" />
             <Label layoutX="21.0" layoutY="470.0" text="Date" />
-            <ChoiceBox layoutX="11.0" layoutY="485.0" prefHeight="38.0" prefWidth="134.0" />
+            <ChoiceBox layoutX="12.0" layoutY="491.0" prefHeight="38.0" prefWidth="134.0" />
             <Label layoutX="138.0" layoutY="312.0" />
             <Label layoutX="21.0" layoutY="550.0" text="Price" />
-            <ChoiceBox layoutX="10.0" layoutY="565.0" prefHeight="38.0" prefWidth="134.0" />
-            <ChoiceBox layoutX="12.0" layoutY="652.0" prefHeight="38.0" prefWidth="133.0" />
+            <ChoiceBox layoutX="10.0" layoutY="571.0" prefHeight="38.0" prefWidth="134.0" />
+            <ChoiceBox layoutX="11.0" layoutY="656.0" prefHeight="38.0" prefWidth="133.0" />
             <Label layoutX="21.0" layoutY="635.0" text="Seats Available" />
             <Button layoutX="14.0" layoutY="111.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="129.0" style="-fx-background-color: grey; -fx-background-radius: 20;" text="Search">
                <font>

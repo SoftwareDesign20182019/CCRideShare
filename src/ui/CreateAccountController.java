@@ -45,15 +45,15 @@ public class CreateAccountController {
 	@FXML
 	private ResourceBundle resources;
 	@FXML
-	private PasswordField passwordfield;
+	private TextField namefield;
 	@FXML
 	private TextField emailfield;
 	@FXML
-	private TextField namefield;
-	@FXML
-	private Button login;
+	private PasswordField passwordfield; 
 	@FXML
 	private Button createaccount;
+	@FXML
+	private Button login; 
     @FXML
     private Label checkEmailWarning;
     @FXML
@@ -65,11 +65,11 @@ public class CreateAccountController {
 
 
 	public CreateAccountController() {
-		passwordfield = new PasswordField();
-		emailfield = new TextField();
 		namefield = new TextField();
-		login = new Button();	
+		emailfield = new TextField();
+		passwordfield = new PasswordField();
 		createaccount = new Button();
+		login = new Button();
 		checkEmailWarning = new Label();
 		emailFilterWarning = new Label();
 		emptyFieldWarning = new Label();
@@ -113,9 +113,9 @@ public class CreateAccountController {
 		String email;
 		String fullName;
 	
-		password = passwordfield.getText();
-		email = emailfield.getText();
 		fullName = namefield.getText();
+		email = emailfield.getText();
+		password = passwordfield.getText(); 
 		
 		emailFilterWarning.setVisible(false);
 		checkEmailWarning.setVisible(false);

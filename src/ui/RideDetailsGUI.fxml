@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="233.0" prefWidth="999.0" scaleShape="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="2.0" prefHeight="233.0" prefWidth="999.0">
+         <children>
+            <Text layoutX="759.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="apfjja'psfa'pfa'psjfp'Jsd.djlfgnlfnalfng'aerknfeakirmfekrmg'kramv'kenrv'pknerv'pkqrnmv'pnkrwqvF" wrappingWidth="171.6708984375" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
