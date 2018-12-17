@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ import javafx.scene.control.Button;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.application.Application;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 
 /**
  * Connects the .fxml GUI file with the backend operations
@@ -55,6 +58,12 @@ public class RideListController{
 	private TableColumn avail_Seats_col;
 	@FXML
 	private ObservableList<RidePost> rideData;
+	@FXML
+	private TabPane tabs;
+	@FXML
+	private Tab rides_tab;
+	@FXML
+	private Tab ride_requests_tab;
 	
 	// Ride Request Tab
 	@FXML
@@ -76,6 +85,10 @@ public class RideListController{
 	
 	
 	public RideListController() {
+		//Tab framework
+		tabs = new TabPane();
+		rides_tab = new Tab();
+		ride_requests_tab = new Tab();
 		//Ride Tab
 		ridepost_table = new TableView<RidePost>();
 		time_col = new TableColumn();
@@ -143,6 +156,16 @@ public class RideListController{
 		String dateLabel = formatter.format(localDate);
 		currentDateLabel.setText(dateLabel);
 		
+	}
+	
+	public void setTab(RideListApplication.ListTab tab) {
+		switch(tab) {
+			case RIDES:
+				tabs.getSelectionModel().select(rides_tab);
+				break;
+			case RIDE_REQUESTS:
+				tabs.getSelectionModel().select(ride_requests_tab);
+		}
 	}
 	
 	public void setPrimaryStage(Stage primaryStage) {

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -14,13 +19,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox style="-fx-background-color: A0A0A0;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RideListController">
+<VBox style="-fx-background-color: A0A0A0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RideListController">
   <children>
     <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1250.0" scaleShape="false" style="-fx-background-color: C0C0C0;">
       <children>
-            <TabPane layoutX="153.0" layoutY="61.0" prefHeight="739.0" prefWidth="1098.0" style="-fx-background-color: A0A0A0;" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="tabs" layoutX="153.0" layoutY="61.0" prefHeight="739.0" prefWidth="1098.0" style="-fx-background-color: A0A0A0;" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                <Tab closable="false" style="-fx-background-color: FFFFFF;" text="Rides">
+                <Tab fx:id="rides_tab" closable="false" style="-fx-background-color: FFFFFF;" text="Rides">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: FFFFFF;">
                            <children>
@@ -29,7 +34,7 @@
                                     <Font name="Calibri" size="23.0" />
                                  </font>
                               </Label>
-                              <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="62.0" prefHeight="646.0" prefWidth="1098.0" style="-fx-background-color: #818c98;" vbarPolicy="ALWAYS">
+                              <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="62.0" prefHeight="615.0" prefWidth="1098.0" style="-fx-background-color: #818c98;" vbarPolicy="ALWAYS">
                                  <content>
                                     <TableView fx:id="ridepost_table" prefHeight="646.0" prefWidth="1098.0">
                                       <columns>
@@ -46,7 +51,7 @@
                         </AnchorPane>
                   </content>
                 </Tab>
-                  <Tab closable="false" style="-fx-background-color: C0C0C0;" text="Ride Requests">
+                  <Tab fx:id="ride_requests_tab" closable="false" style="-fx-background-color: C0C0C0;" text="Ride Requests">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C0C0C0;">
                            <children>
@@ -76,7 +81,7 @@
             </TabPane>
             <Button fx:id="addRidePostButton" layoutX="215.0" layoutY="7.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="166.0" text="List a Ride">
                <font>
-                  <Font name="Calibri Bold" size="12.0" />
+                  <Font name="Calibri Bold" size="18.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
@@ -88,7 +93,7 @@
             </Button>
             <Button fx:id="addRideRequestButton" layoutX="953.0" layoutY="7.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="175.0" text="Request a Ride">
                <font>
-                  <Font name="Calibri Bold" size="12.0" />
+                  <Font name="Calibri Bold" size="18.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">

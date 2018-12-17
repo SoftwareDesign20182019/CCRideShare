@@ -58,7 +58,10 @@ public class CreateAccountController {
     private Label checkEmailWarning;
     @FXML
     private Label emailFilterWarning;
-    
+    @FXML
+    private Label emptyFieldWarning;
+    @FXML
+    private Label shortPasswordWarning;
 
 
 	public CreateAccountController() {
@@ -69,6 +72,8 @@ public class CreateAccountController {
 		createaccount = new Button();
 		checkEmailWarning = new Label();
 		emailFilterWarning = new Label();
+		emptyFieldWarning = new Label();
+		shortPasswordWarning = new Label();
 	}
 
 	/**
@@ -83,7 +88,10 @@ public class CreateAccountController {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setResizable(false);
 	}
-
+	/**
+	 * when the login button is pressed
+	 * brings up the login window
+	 */
 	public void logInButton() {
 		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.LOG_IN);
 		try{
@@ -93,47 +101,56 @@ public class CreateAccountController {
 			ex.printStackTrace();
 		}
 	}
-	
-	public void createAccountButton() {
+	/**
+	 * when the create account button is pressed
+	 * checks for fields being empty, email being valid and not in use, password length
+	 * displays error message accordingly
+	 * if no errors, creates the user object and stores it in the database
+	 * @throws Exception - because of app.start()
+	 */
+	public void createAccountButton() throws Exception {
 		String password;
 		String email;
 		String fullName;
+	
+		password = passwordfield.getText();
+		email = emailfield.getText();
+		fullName = namefield.getText();
 		
-		try
+		emailFilterWarning.setVisible(false);
+		checkEmailWarning.setVisible(false);
+		emptyFieldWarning.setVisible(false);
+		shortPasswordWarning.setVisible(false);
+		
+		//handling invalid and empty inputs
+		if(!(DatabaseHandler.filterEmails(email)))
 		{
-			password = passwordfield.getText();
-			email = emailfield.getText();
-			fullName = namefield.getText();
-			
-			if(DatabaseHandler.filterEmails(email) && !DatabaseHandler.checkEmail(email))
-			{
-				User newUser = new User(email,fullName);
-				newUser.addToDatabase(password);
-				ApplicationFactory.setCurrentUser(email);
-				Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
-				app.start(primaryStage);
-			}
-			else
-			{
-				emailFilterWarning.setVisible(false);
-				checkEmailWarning.setVisible(false);
-
-				if(!DatabaseHandler.filterEmails(email))
-				{
-					emailFilterWarning.setVisible(true);
-				}
-				if(DatabaseHandler.checkEmail(email))
-				{
-					checkEmailWarning.setVisible(true);
-				}
-			}
-				//User newUser = new User(email,password,fullName);
+			emailFilterWarning.setVisible(true);
 		}
-		catch(Exception ex) 
+		else if(DatabaseHandler.checkEmail(email))
 		{
-			ex.printStackTrace();
+			checkEmailWarning.setVisible(true);
 		}
+		else if(fullName.equals(""))
+		{
+			emptyFieldWarning.setVisible(true);
+		}
+		else if(password.length() < 5) {
+			shortPasswordWarning.setVisible(true);
+		}
+		//if every input is valid, put in database
+		else
+		{
+			User newUser = new User(email,fullName);
+			newUser.addToDatabase(password);
+			ApplicationFactory.setCurrentUser(email);
+			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
+			app.start(primaryStage);
+		}
+				
 	}
+	
+	
 }
 
 

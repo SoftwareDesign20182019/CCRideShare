@@ -19,9 +19,7 @@ public class LogInApplication extends Application {
 			Parent root = loader.load();
 			LogInController controller = loader.getController();
 			controller.setPrimaryStage(primaryStage);
-			//Parent root = FXMLLoader.load(getClass().getResource("/ui/RideListGUI.fxml"));
 			Scene scene = new Scene(root);
-//			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} 
@@ -32,4 +30,12 @@ public class LogInApplication extends Application {
 		}
 	}
 	
+	/**
+	 * main method
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		DatabaseHandler.initialize();
+		launch(args);
+	}
 }
