@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 public class GeneralApplication extends Application{
 	
 	private String guiPath;
-	private Controller controller;
 	
 	/**
 	 * Set up stage for the GUI
@@ -27,7 +26,7 @@ public class GeneralApplication extends Application{
 		
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(guiPath));
 			Parent root = loader.load();
-			controller = loader.getController();
+			Controller controller = loader.getController();
 			controller.setStage(primaryStage);
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
@@ -41,8 +40,8 @@ public class GeneralApplication extends Application{
 	/**
 	 * For Unit Testing purposes
 	 */
-	public Controller getController(){
-		return controller;
+	public String getGUIPath(){
+		return guiPath;
 	}
 
 }
