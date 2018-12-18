@@ -1,5 +1,5 @@
 package application;
-import ui.CreateAccountController;
+import ui.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -13,7 +13,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class CreateAccountApplication extends Application{
+public class GeneralApplication extends Application{
+	
+	private String guiPath;
+	private Controller controller;
+	
 	/**
 	 * Set up stage for the GUI
 	 * @param primaryStage - the primary stage
@@ -21,13 +25,24 @@ public class CreateAccountApplication extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception{
 		
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/CreateAccountGUI.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(guiPath));
 			Parent root = loader.load();
-			CreateAccountController controller = loader.getController();
-			controller.setPrimaryStage(primaryStage);
+			controller = loader.getController();
+			controller.setStage(primaryStage);
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 	} 
+	
+	public void setGUIPath(String guiPath) {
+		this.guiPath = guiPath;
+	}
+	
+	/**
+	 * For Unit Testing purposes
+	 */
+	public Controller getController(){
+		return controller;
+	}
 
 }

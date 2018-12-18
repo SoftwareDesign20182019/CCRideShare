@@ -2,40 +2,53 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import application.AddRidePostApplication;
-import application.AddRideRequestApplication;
+import javafx.stage.Stage;
+import ui.RideListController;
+import ui.AddRidePostController;
+import ui.AddRideRequestController;
+import ui.LogInController;
+import ui.CreateAccountController;
 import application.ApplicationFactory;
 import application.ApplicationFactory.ApplicationType;
-import application.CreateAccountApplication;
-import application.LogInApplication;
-import application.RideListApplication;
+import application.GeneralApplication;
 
 public class ApplicationFactoryTest {
 
 	@Test
 	public void testGetApplicationRidelist() {
-		ApplicationType testType = ApplicationFactory.ApplicationType.RIDE_LIST;
-		assertTrue(ApplicationFactory.getApplication(testType) instanceof RideListApplication);		
+		ApplicationType testType = ApplicationType.RIDE_LIST;
+		GeneralApplication testApp = ApplicationFactory.getApplication(testType);
+		try{
+			testApp.start(new Stage());
+			assertTrue(testApp.getController() instanceof RideListController);		
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			fail("Exception thrown");
+		}
 	}
 	@Test
 	public void testGetApplicationAddridepost() {
 		ApplicationType testType = ApplicationFactory.ApplicationType.ADD_RIDE_POST;
-		assertTrue(ApplicationFactory.getApplication(testType) instanceof AddRidePostApplication);		
+		GeneralApplication testApp = ApplicationFactory.getApplication(testType);
+		assertTrue(testApp.getController() instanceof AddRidePostController);		
 	}
 	@Test
 	public void testGetApplicationAddriderequest() {
 		ApplicationType testType = ApplicationFactory.ApplicationType.ADD_RIDE_REQUEST;
-		assertTrue(ApplicationFactory.getApplication(testType) instanceof AddRideRequestApplication);		
+		GeneralApplication testApp = ApplicationFactory.getApplication(testType);
+		assertTrue(testApp.getController() instanceof AddRideRequestController);			
 	}
 	@Test
 	public void testGetApplicationCreateaccount() {
 		ApplicationType testType = ApplicationFactory.ApplicationType.CREATE_ACCOUNT;
-		assertTrue(ApplicationFactory.getApplication(testType) instanceof CreateAccountApplication);		
+		GeneralApplication testApp = ApplicationFactory.getApplication(testType);
+		assertTrue(testApp.getController() instanceof CreateAccountController);		
 	}
 	@Test
 	public void testGetApplicationLogin() {
 		ApplicationType testType = ApplicationFactory.ApplicationType.LOG_IN;
-		assertTrue(ApplicationFactory.getApplication(testType) instanceof LogInApplication);		
+		GeneralApplication testApp = ApplicationFactory.getApplication(testType);
+		assertTrue(testApp.getController() instanceof LogInController);		
 	}
 	
 	

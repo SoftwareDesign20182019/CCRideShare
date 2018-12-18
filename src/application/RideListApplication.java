@@ -34,7 +34,7 @@ public class RideListApplication extends Application {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/RideListGUI.fxml"));
 			Parent root = loader.load();
 			controller = loader.getController();
-			controller.setPrimaryStage(primaryStage);
+			controller.setStage(primaryStage);
 			//Parent root = FXMLLoader.load(getClass().getResource("/ui/RideListGUI.fxml"));
 			Scene scene = new Scene(root);
 //			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

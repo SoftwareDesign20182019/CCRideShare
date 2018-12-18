@@ -1,6 +1,5 @@
 package application;
 
-import javafx.stage.Stage;
 import javafx.application.Application;
 import java.util.ArrayList;
 /**
@@ -23,30 +22,34 @@ public class ApplicationFactory {
 	 * @param typeDesired - the type of Application needed
 	 * @return
 	 */
-	public static Application getApplication(ApplicationType typeDesired) {
+	public static GeneralApplication getApplication(ApplicationType typeDesired) {
 		for(ApplicationWithType applicationWithType : applications) {
 			if(applicationWithType.getType() == typeDesired) {
 				return applicationWithType.getApplication();
 			}
 		}
 		
-		Application newApplication;
+		GeneralApplication newApplication;
 		switch(typeDesired) {
 			case RIDE_LIST:
-				newApplication = new RideListApplication();
-
+				newApplication = new GeneralApplication();
+				newApplication.setGUIPath("/ui/RideListGUI.fxml");
 				break;
 			case ADD_RIDE_POST:
-				newApplication = new AddRidePostApplication();
+				newApplication = new GeneralApplication();
+				newApplication.setGUIPath("/ui/AddRidePostGUI.fxml");
 				break;
 			case ADD_RIDE_REQUEST:
-				newApplication = new AddRideRequestApplication();
+				newApplication = new GeneralApplication();
+				newApplication.setGUIPath("/ui/AddRideRequestGUI.fxml");
 				break;
 			case CREATE_ACCOUNT:
-				newApplication = new CreateAccountApplication();
+				newApplication = new GeneralApplication();
+				newApplication.setGUIPath("/ui/CreateAccountGUI.fxml");
 				break;
 			case LOG_IN:
-				newApplication = new LogInApplication();
+				newApplication = new GeneralApplication();
+				newApplication.setGUIPath("/ui/LogInGUI.fxml");
 				break;
 			default: 
 				return null;
@@ -77,15 +80,15 @@ public class ApplicationFactory {
 	}
 	
 	private static class ApplicationWithType{
-		private Application application;
+		private GeneralApplication application;
 		private ApplicationType type;
 		
-		public ApplicationWithType(Application application, ApplicationType type) {
+		public ApplicationWithType(GeneralApplication application, ApplicationType type) {
 			this.application = application;
 			this.type = type;
 		}
 		
-		public Application getApplication() {
+		public GeneralApplication getApplication() {
 			return application;
 		}
 		

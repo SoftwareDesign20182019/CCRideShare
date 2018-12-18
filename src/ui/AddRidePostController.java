@@ -31,9 +31,9 @@ import java.lang.NumberFormatException;
  * Connects the AddRidePost FXML GUI file with the backend operations
  * @author elysamuel16
  */
-public class AddRidePostController{
+public class AddRidePostController implements Controller {
 
-	private Stage primaryStage;
+	private Stage stage;
 	private DatabaseHandler databaseHandler;
 	
 	@FXML
@@ -154,8 +154,8 @@ public class AddRidePostController{
 		locationComboBox.getItems().add(ADD_NEW_LOCATION_OPTION);
 	}
 	
-	public void setPrimaryStage(Stage primaryStage) {
-		this.primaryStage = primaryStage;
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
 	/**
 	 * reopens the main window displaying the list of rides
@@ -164,7 +164,7 @@ public class AddRidePostController{
 	public void reopenRideListApp() {
 		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
 		try{
-			app.start(primaryStage);
+			app.start(stage);
 			
 		}catch(Exception ex) {
 			ex.printStackTrace();

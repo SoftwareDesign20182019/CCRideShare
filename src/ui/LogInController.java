@@ -26,9 +26,9 @@ import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 
-public class LogInController 
+public class LogInController implements Controller
 {
-	private Stage primaryStage;
+	private Stage stage;
 	private DatabaseHandler databaseHandler;
 
 	@FXML
@@ -67,7 +67,7 @@ public class LogInController
 		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.CREATE_ACCOUNT);
 		try
 		{
-			app.start(primaryStage);
+			app.start(stage);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
@@ -84,7 +84,7 @@ public class LogInController
 			{
 				ApplicationFactory.setCurrentUser(email);
 				Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
-				app.start(primaryStage);
+				app.start(stage);
 				//TODO: Tell main GUI that this is the person logged in
 				
 			}
@@ -109,8 +109,8 @@ public class LogInController
 		}
 	}
 
-	public void setPrimaryStage(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-		this.primaryStage.setResizable(false);
+	public void setStage(Stage stage) {
+		this.stage = stage;
+		this.stage.setResizable(false);
 	}
 }

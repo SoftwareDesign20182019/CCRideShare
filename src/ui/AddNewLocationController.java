@@ -16,7 +16,7 @@ import javafx.scene.control.Label;
  * Connects the AddRidePost FXML GUI file with the backend operations
  * @author elysamuel16
  */
-public class AddNewLocationController{
+public class AddNewLocationController implements Controller {
 
 	private AddNewLocationApplication application;
 	private Stage stage;

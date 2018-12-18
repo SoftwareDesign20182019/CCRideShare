@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ResourceBundle;
 
-import application.AddRidePostApplication;
 import application.ApplicationFactory;
 import application.DatabaseHandler;
 import application.RideListApplication;
@@ -31,13 +30,13 @@ import javafx.stage.Stage;
 import javafx.application.Application;
 
 
-public class CreateAccountController {
+public class CreateAccountController implements Controller {
 
 	/**
 	 * Connects the .fxml GUI file with the backend operations
 	 * @author arehorst
 	 */
-	private Stage primaryStage;
+	private Stage stage;
 	private DatabaseHandler databaseHandler;
 
 	// Ride Tab
@@ -86,9 +85,9 @@ public class CreateAccountController {
 		
 	}
 
-	public void setPrimaryStage(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-		this.primaryStage.setResizable(false);
+	public void setStage(Stage stage) {
+		this.stage = stage;
+		this.stage.setResizable(false);
 	}
 	/**
 	 * when the login button is pressed
@@ -97,7 +96,7 @@ public class CreateAccountController {
 	public void logInButton() {
 		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.LOG_IN);
 		try{
-			app.start(primaryStage);
+			app.start(stage);
 
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -131,7 +130,7 @@ public class CreateAccountController {
 			newUser.addToDatabase(password);
 			ApplicationFactory.setCurrentUser(email);
 			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
-			app.start(primaryStage);
+			app.start(stage);
 			
 		}
 		else if(databaseHandler.checkEmail(email))

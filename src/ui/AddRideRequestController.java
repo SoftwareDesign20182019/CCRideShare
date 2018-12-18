@@ -23,12 +23,12 @@ import java.util.ArrayList;
  * Connects the AddRidePost FXML GUI file with the backend operations
  * @author elysamuel16
  */
-public class AddRideRequestController{
+public class AddRideRequestController implements Controller {
 
 	@FXML
 	private static final String ADD_NEW_LOCATION_OPTION = "Add a New Location...";
 	
-	private Stage primaryStage;
+	private Stage stage;
 	private DatabaseHandler databaseHandler;
 	
 	@FXML
@@ -99,8 +99,8 @@ public class AddRideRequestController{
 		locationComboBox.getItems().add(ADD_NEW_LOCATION_OPTION);
 	}
 	
-	public void setPrimaryStage(Stage primaryStage) {
-		this.primaryStage = primaryStage;
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
 	
 	
@@ -134,7 +134,7 @@ public class AddRideRequestController{
 		RideListApplication app = new RideListApplication(); // Can't use the factory this time because we need to call a method specific to RideListApplication
 		app.setTab(tabDesired);
 		try{
-			app.start(primaryStage);
+			app.start(stage);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}

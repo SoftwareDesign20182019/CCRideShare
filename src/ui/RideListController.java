@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ResourceBundle;
 
-import application.AddRidePostApplication;
 import application.ApplicationFactory;
 import application.DatabaseHandler;
 import application.RideListApplication;
@@ -35,9 +34,9 @@ import javafx.scene.control.TabPane;
  * Connects the .fxml GUI file with the backend operations
  * @author viktorkelemen & elymerenstein & arehorst
  */
-public class RideListController{
+public class RideListController implements Controller{
 	
-	private Stage primaryStage;
+	private Stage stage;
 	private DatabaseHandler databaseHandler;
 	
 	@FXML
@@ -172,9 +171,9 @@ public class RideListController{
 		}
 	}
 	
-	public void setPrimaryStage(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-		this.primaryStage.setResizable(false);
+	public void setStage(Stage stage) {
+		this.stage = stage;
+		this.stage.setResizable(false);
 	}
 	
 	private class AddRidePostButtonHandler implements EventHandler<ActionEvent>{
@@ -183,7 +182,7 @@ public class RideListController{
 		public void handle(ActionEvent event) {
 			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.ADD_RIDE_POST);
 			try{
-				app.start(primaryStage);
+				app.start(stage);
 				
 			}catch(Exception ex) {
 				ex.printStackTrace();
@@ -197,7 +196,7 @@ public class RideListController{
 		public void handle(ActionEvent event) {
 			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.ADD_RIDE_REQUEST);
 			try{
-				app.start(primaryStage);
+				app.start(stage);
 				
 			}
 			catch(Exception ex) {
