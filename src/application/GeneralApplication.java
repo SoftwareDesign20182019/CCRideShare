@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 public class GeneralApplication extends Application{
 	
 	private String guiPath;
+	private ApplicationFactory appFactory;
 	
 	/**
 	 * Set up stage for the GUI
@@ -28,6 +29,7 @@ public class GeneralApplication extends Application{
 			Parent root = loader.load();
 			Controller controller = loader.getController();
 			controller.setStage(primaryStage);
+			controller.setAppFactory(appFactory);
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -42,6 +44,10 @@ public class GeneralApplication extends Application{
 	 */
 	public String getGUIPath(){
 		return guiPath;
+	}
+	
+	public void setAppFactory(ApplicationFactory factory) {
+		this.appFactory = factory;
 	}
 
 }

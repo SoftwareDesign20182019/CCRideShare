@@ -20,8 +20,9 @@ public class RideListApplication extends Application {
 		RIDES, RIDE_REQUESTS
 	}
 	
-	RideListController controller;
-	ListTab tab;
+	private RideListController controller;
+	private ListTab tab;
+	private ApplicationFactory appFactory;
 	
 	/**
 	 * Set up stage for the GUI
@@ -35,6 +36,7 @@ public class RideListApplication extends Application {
 			Parent root = loader.load();
 			controller = loader.getController();
 			controller.setStage(primaryStage);
+			controller.setAppFactory(appFactory);
 			//Parent root = FXMLLoader.load(getClass().getResource("/ui/RideListGUI.fxml"));
 			Scene scene = new Scene(root);
 //			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -56,5 +58,9 @@ public class RideListApplication extends Application {
 		if(this.controller != null) {
 			controller.setTab(tab);
 		}
+	}
+	
+	public void setAppFactory(ApplicationFactory factory) {
+		this.appFactory = factory;
 	}
 }

@@ -30,6 +30,7 @@ public class LogInController implements Controller
 {
 	private Stage stage;
 	private DatabaseHandler databaseHandler;
+	private ApplicationFactory appFactory;
 
 	@FXML
 	private PasswordField passwordfield;
@@ -64,7 +65,7 @@ public class LogInController implements Controller
 	}
 
 	public void createAccountButton(){
-		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.CREATE_ACCOUNT);
+		Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.CREATE_ACCOUNT);
 		try
 		{
 			app.start(stage);
@@ -82,8 +83,8 @@ public class LogInController implements Controller
 		{
 			if(databaseHandler.checkEmail(email) && databaseHandler.isRightPassword(email,password))
 			{
-				ApplicationFactory.setCurrentUser(email);
-				Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
+				databaseHandler.setCurrentUser(email);
+				Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
 				app.start(stage);
 				//TODO: Tell main GUI that this is the person logged in
 				
@@ -112,5 +113,9 @@ public class LogInController implements Controller
 	public void setStage(Stage stage) {
 		this.stage = stage;
 		this.stage.setResizable(false);
+	}
+	
+	public void setAppFactory(ApplicationFactory factory) {
+		this.appFactory = factory;
 	}
 }

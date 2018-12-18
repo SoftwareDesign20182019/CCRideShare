@@ -24,6 +24,7 @@ public class LogInApplication extends Application {
 			Parent root = loader.load();
 			LogInController controller = loader.getController();
 			controller.setStage(primaryStage);
+			controller.setAppFactory(new ApplicationFactory());
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.show();

@@ -6,11 +6,13 @@ public class User
 {
 	private String email;
 	private String fullName;
+	private DatabaseHandler databaseHandler;
 	
 	public User(String email, String fullName)
 	{
 		this.email = email;
 		this.fullName = fullName;
+		this.databaseHandler = DatabaseHandler.getInstance();
 	}
 	
 	public String getEmail() {
@@ -34,10 +36,9 @@ public class User
 	 * @return number of rows added
 	 */
 	public boolean addToDatabase(String password) {
-		DatabaseHandler dbHandler = DatabaseHandler.getInstance();
-		if(dbHandler.filterEmails(email) && !dbHandler.checkEmail(email))
+		if(databaseHandler.filterEmails(email) && !databaseHandler.checkEmail(email))
 		{
-			dbHandler.addAccount(this,password);
+			databaseHandler.addAccount(this,password);
 			return true;
 		}
 		else

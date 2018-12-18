@@ -35,6 +35,7 @@ public class AddRidePostController implements Controller {
 
 	private Stage stage;
 	private DatabaseHandler databaseHandler;
+	private ApplicationFactory appFactory;
 	
 	@FXML
 	private static final String ADD_NEW_LOCATION_OPTION = "Add a New Location..."; 
@@ -157,12 +158,17 @@ public class AddRidePostController implements Controller {
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
+	
+	public void setAppFactory(ApplicationFactory factory) {
+		this.appFactory = factory;
+	}
+	
 	/**
 	 * reopens the main window displaying the list of rides
 	 * called by the 'cancel' and 'submit' buttons
 	 */
 	public void reopenRideListApp() {
-		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
+		Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
 		try{
 			app.start(stage);
 			
@@ -197,6 +203,7 @@ public class AddRidePostController implements Controller {
 			}
 			// Can't use the ApplicationFactory because we need to call a method specific to AddNewLocationApplication
 			AddNewLocationApplication newLocationApp = new AddNewLocationApplication(); 
+			newLocationApp.setAppFactory(appFactory);
 			newLocationApp.start(new Stage());
 			String newLocation = newLocationApp.getNewLocation();
 			// The user clicked cancel in the AddNewLocationGUI

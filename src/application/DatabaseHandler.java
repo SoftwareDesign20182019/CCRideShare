@@ -24,6 +24,7 @@ public class DatabaseHandler {
 	
 	// Instance variables:
 	private Statement databaseStatement; // Does this need to be closed ever?
+	private User currentUser;
 	
 	// Singleton method: 
 	public static DatabaseHandler getInstance() {
@@ -376,5 +377,30 @@ public class DatabaseHandler {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	/**
+	 * returns the object corresponding to an email address
+	 * @param email of user
+	 * @return the user object that has the email 
+	 */
+	public User setCurrentUser(String email)
+	{
+		ArrayList<User> users = this.getUser(email);
+		if(!users.isEmpty())
+		{
+			currentUser = users.get(0);
+			return currentUser;
+		}
+		else
+		{
+			System.out.println("Not a current user: "+email);
+			return new User("","");
+		}
+	}
+	
+	public User getCurrentUser()
+	{
+		return currentUser;
 	}
 }

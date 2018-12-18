@@ -7,22 +7,20 @@ import java.util.ArrayList;
  * @author emerenstein
  */
 public class ApplicationFactory {
-
-	private static User currentUser;
 	
 	public static enum ApplicationType
 	{
 		RIDE_LIST, ADD_RIDE_POST, ADD_RIDE_REQUEST, CREATE_ACCOUNT, LOG_IN
 	}
 	
-	private static ArrayList<ApplicationWithType> applications = new ArrayList<ApplicationWithType>();
+	private ArrayList<ApplicationWithType> applications = new ArrayList<ApplicationWithType>();
 	
 	/**
 	 * creates the desired type of application and returns it (just like a good factory does)
 	 * @param typeDesired - the type of Application needed
 	 * @return
 	 */
-	public static GeneralApplication getApplication(ApplicationType typeDesired) {
+	public GeneralApplication getApplication(ApplicationType typeDesired) {
 		for(ApplicationWithType applicationWithType : applications) {
 			if(applicationWithType.getType() == typeDesired) {
 				return applicationWithType.getApplication();
@@ -54,32 +52,13 @@ public class ApplicationFactory {
 			default: 
 				return null;
 		}
+		newApplication.setAppFactory(this);
 		ApplicationWithType newApplicationWithType = new ApplicationWithType(newApplication, typeDesired);
 		applications.add(newApplicationWithType);
 		return newApplication;
 	}
-	/**
-	 * returns the object corresponding to an email address
-	 * @param email of user
-	 * @return the user object that has the email 
-	 */
-	public static User setCurrentUser(String email)
-	{
-		DatabaseHandler dbHandler = DatabaseHandler.getInstance();
-		ArrayList<User> users = dbHandler.getUser(email);
-		if(!users.isEmpty())
-		{
-			currentUser = users.get(0);
-			return currentUser;
-		}
-		else
-		{
-			System.out.println("Not a current user: "+email);
-			return new User("","");
-		}
-	}
 	
-	private static class ApplicationWithType{
+	private class ApplicationWithType{
 		private GeneralApplication application;
 		private ApplicationType type;
 		
@@ -95,10 +74,5 @@ public class ApplicationFactory {
 		public ApplicationType getType() {
 			return type;
 		}
-	}
-	
-	public static User getCurrentUser()
-	{
-		return currentUser;
 	}
 }

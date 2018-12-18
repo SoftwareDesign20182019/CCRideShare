@@ -38,6 +38,7 @@ public class RideListController implements Controller{
 	
 	private Stage stage;
 	private DatabaseHandler databaseHandler;
+	private ApplicationFactory appFactory;
 	
 	@FXML
     private Label currentDateLabel;
@@ -176,11 +177,15 @@ public class RideListController implements Controller{
 		this.stage.setResizable(false);
 	}
 	
+	public void setAppFactory(ApplicationFactory factory) {
+		this.appFactory = factory;
+	}
+	
 	private class AddRidePostButtonHandler implements EventHandler<ActionEvent>{
 		
 		@Override
 		public void handle(ActionEvent event) {
-			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.ADD_RIDE_POST);
+			Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.ADD_RIDE_POST);
 			try{
 				app.start(stage);
 				
@@ -194,7 +199,7 @@ public class RideListController implements Controller{
 		
 		@Override
 		public void handle(ActionEvent event) {
-			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.ADD_RIDE_REQUEST);
+			Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.ADD_RIDE_REQUEST);
 			try{
 				app.start(stage);
 				

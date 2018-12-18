@@ -30,6 +30,7 @@ public class AddRideRequestController implements Controller {
 	
 	private Stage stage;
 	private DatabaseHandler databaseHandler;
+	private ApplicationFactory appFactory;
 	
 	@FXML
 	private URL location;
@@ -103,6 +104,9 @@ public class AddRideRequestController implements Controller {
 		this.stage = stage;
 	}
 	
+	public void setAppFactory(ApplicationFactory factory) {
+		this.appFactory = factory;
+	}
 	
 	@FXML
 	private void createRideRequest() {
@@ -132,6 +136,7 @@ public class AddRideRequestController implements Controller {
 	
 	private void reopenRideListApp(RideListApplication.ListTab tabDesired) {
 		RideListApplication app = new RideListApplication(); // Can't use the factory this time because we need to call a method specific to RideListApplication
+		app.setAppFactory(appFactory);
 		app.setTab(tabDesired);
 		try{
 			app.start(stage);
@@ -166,6 +171,7 @@ public class AddRideRequestController implements Controller {
 			}
 			// Can't use the ApplicationFactory because we need to call a method specific to AddNewLocationApplication
 			AddNewLocationApplication newLocationApp = new AddNewLocationApplication(); 
+			newLocationApp.setAppFactory(appFactory);
 			newLocationApp.start(new Stage());
 			String newLocation = newLocationApp.getNewLocation();
 			// The user clicked cancel in the AddNewLocationGUI

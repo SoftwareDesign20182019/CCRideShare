@@ -38,6 +38,7 @@ public class CreateAccountController implements Controller {
 	 */
 	private Stage stage;
 	private DatabaseHandler databaseHandler;
+	private ApplicationFactory appFactory;
 
 	// Ride Tab
 	@FXML
@@ -89,12 +90,17 @@ public class CreateAccountController implements Controller {
 		this.stage = stage;
 		this.stage.setResizable(false);
 	}
+	
+	public void setAppFactory(ApplicationFactory factory) {
+		this.appFactory = factory;
+	}
+	
 	/**
 	 * when the login button is pressed
 	 * brings up the login window
 	 */
 	public void logInButton() {
-		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.LOG_IN);
+		Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.LOG_IN);
 		try{
 			app.start(stage);
 
@@ -128,8 +134,8 @@ public class CreateAccountController implements Controller {
 		{
 			User newUser = new User(email,fullName);
 			newUser.addToDatabase(password);
-			ApplicationFactory.setCurrentUser(email);
-			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
+			databaseHandler.setCurrentUser(email);
+			Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
 			app.start(stage);
 			
 		}

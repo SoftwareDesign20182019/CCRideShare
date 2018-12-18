@@ -16,6 +16,7 @@ import ui.AddRidePostController;
 public class AddNewLocationApplication extends Application {
 	
 	private String newLocation;
+	private ApplicationFactory appFactory;
 	
 	/**
 	 * Set up stage for the GUI
@@ -30,6 +31,7 @@ public class AddNewLocationApplication extends Application {
 			ui.AddNewLocationController controller = loader.getController();
 			controller.setApplication(this);
 			controller.setStage(primaryStage);
+			controller.setAppFactory(appFactory);
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.showAndWait();
@@ -56,5 +58,9 @@ public class AddNewLocationApplication extends Application {
 	 */
 	public void setNewLocation(String newLocation) {
 		this.newLocation = newLocation;
+	}
+	
+	public void setAppFactory(ApplicationFactory factory) {
+		this.appFactory = factory;
 	}
 }
