@@ -8,9 +8,31 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="233.0" prefWidth="999.0" scaleShape="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="2.0" prefHeight="233.0" prefWidth="999.0">
+      <Pane layoutX="-5.0" prefHeight="233.0" prefWidth="1006.0" style="-fx-background-color: lightgrey; -fx-border-color: yellowgreen; -fx-border-width: 5;">
          <children>
-            <Text layoutX="759.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="apfjja'psfa'pfa'psjfp'Jsd.djlfgnlfnalfng'aerknfeakirmfekrmg'kramv'kenrv'pknerv'pkqrnmv'pnkrwqvF" wrappingWidth="171.6708984375" />
+            <Text fx:id="comments" layoutX="535.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="apfjjadfghsfgbdfefgsdfg'psfa'pfsfgsfdgwefgwergwsregwsrtgswtrgsrtgsrtgsrstgsrtgsdfbdfbsebwtbhwergwesgwerrgsergsergsegsdfgsgegae0rgjqeriijgq[0rwjf[0q0rjfq[weijpfqwepifjq[w0ieghq[rehq[weoufihj'psjfp'Jsd.djlfgnlfnalfng'aerknfeakirmfekrmg'kramv'kenrv'pknerv'pkqrnmggggfdgsdfgsefgwegsefggsgv'pnkrwqvF" textAlignment="JUSTIFY" wrappingWidth="420.6708984375">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#979797" layoutX="689.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Text>
+            <Label fx:id="date" layoutX="34.0" layoutY="19.0" prefHeight="28.0" prefWidth="129.0" text="Date">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="time" layoutX="268.0" layoutY="23.0" text="Time" />
+            <Label layoutX="33.0" layoutY="67.0" text="From" />
+            <Label layoutX="268.0" layoutY="67.0" text="To" />
+            <Label layoutX="33.0" layoutY="128.0" text="Spots available" />
+            <Label fx:id="price" layoutX="32.0" layoutY="183.0" text="priceValue" />
+            <Label fx:id="to" layoutX="33.0" layoutY="88.0" text="toValue" />
+            <Label fx:id="from" layoutX="268.0" layoutY="88.0" text="fromValue" />
+            <Label fx:id="spots" layoutX="33.0" layoutY="149.0" text="spotsValue" />
          </children>
       </Pane>
    </children>
