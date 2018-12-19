@@ -100,8 +100,14 @@ public class RideListController{
     private ChoiceBox<String> seatsAvailableFilter;
     @FXML 
     private Button searchButton;
-	
+    @FXML
+    private Button nextDayRequest;
+    @FXML
+    private Button previousDayRequest;
+	@FXML
 	private LocalDate displayDate;
+	@FXML
+	private Label currentDateRequest;
 	
 	public RideListController() {
 		// Non-GUI
@@ -134,6 +140,9 @@ public class RideListController{
 		seatsAvailableFilter = new ChoiceBox<String>();
 		dateFilter = new DatePicker();
 		searchButton = new Button();
+		previousDayRequest = new Button();
+		nextDayRequest = new Button();
+		currentDateRequest = new Label();
 		
 	}
 	
@@ -151,8 +160,6 @@ public class RideListController{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate localDate = LocalDate.now();
 		Date date = Date.valueOf(localDate);
-
-		
 		
 		time_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("time"));
 
@@ -168,6 +175,7 @@ public class RideListController{
 		//String currDate = formatter.format(currentDate());
 		displayDate = currentDate();
 		rideData.addAll(databaseHandler.filterRidePosts(displayDate,null,null,null));
+		requestData.addAll(databaseHandler.filterRequestPosts(displayDate,null,null));
 		
 		
 		//Ride Request Tab
@@ -180,7 +188,6 @@ public class RideListController{
 		riderequestpost_table.setItems(requestData);
 
 		ArrayList<RideRequestPost> riderequestPosts = databaseHandler.getRideRequestPosts();
-		requestData.addAll(riderequestPosts);
 		
 		addRidePostButton.setOnAction(new AddRidePostButtonHandler());
 		
@@ -188,12 +195,13 @@ public class RideListController{
 		
 		String dateLabel = formatter.format(localDate);
 		currentDateLabel.setText(dateLabel);
-		
+		currentDateRequest.setText(dateLabel);
 	}
 	
 	public void clickedSearchButton()
 	{
 		applyFilters();
+		
 	}
 	
 	public void setTab(RideListApplication.ListTab tab) {
@@ -247,6 +255,36 @@ public class RideListController{
 		rideData.addAll(databaseHandler.filterRidePosts(displayDate, destination, from, seats));
 	}
 	
+	public void nextDayButtonRequest()
+	{
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		displayDate = displayDate.plusDays(1);
+		String nextDate = formatter.format(displayDate);
+		currentDateRequest.setText(nextDate);
+		
+		requestData.clear();
+		
+		String destination = toLocationFilter.getValue();
+		String from = fromLocationFilter.getValue();
+		
+		requestData.addAll(databaseHandler.filterRequestPosts(displayDate, destination, from));
+	}
+	
+	public void previousDayButtonRequest()
+	{
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		displayDate = displayDate.minusDays(1);
+		String nextDate = formatter.format(displayDate);
+		currentDateRequest.setText(nextDate);
+		
+		requestData.clear();
+		
+		String destination = toLocationFilter.getValue();
+		String from = fromLocationFilter.getValue();
+		
+		requestData.addAll(databaseHandler.filterRequestPosts(displayDate, destination, from));
+	}
+	
 	public void applyFilters()
 	{
 		LocalDate date = dateFilter.getValue();
@@ -254,19 +292,23 @@ public class RideListController{
 		String destination = toLocationFilter.getValue();
 		String from = fromLocationFilter.getValue();
 		ArrayList<RidePost> addRides;
+		ArrayList<RideRequestPost> addRequests;
 		
 		if(date==null)
 		{
-			addRides = databaseHandler.filterRidePosts(currentDate(), destination, from, seats);
+			addRides = databaseHandler.filterRidePosts(displayDate, destination, from, seats);
+			addRequests = databaseHandler.filterRequestPosts(displayDate, destination, from);
 		}
 		else
 		{
 			addRides = databaseHandler.filterRidePosts(date,destination,from,seats);
+			addRequests = databaseHandler.filterRequestPosts(date, destination, from);
 		}
 		
 		rideData.clear();
 		rideData.addAll(addRides);
-		
+		requestData.clear();
+		requestData.addAll(addRequests);
 	}
 	
 	private class AddRidePostButtonHandler implements EventHandler<ActionEvent>{
