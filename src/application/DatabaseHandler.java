@@ -123,10 +123,13 @@ public class DatabaseHandler {
 		String date = ridePost.getDate();
 		String sqlInsert = String.format("INSERT INTO RidePosts values (null, %s, '%s', '%s', '%s', %d, '%s', '%s')", 
 				"STR_TO_DATE('"+date+"', '%Y-%m-%d')", ridePost.getTime(), ridePost.getToLocation(), ridePost.getFromLocation(), ridePost.getNumSpots(), ridePost.getPrice(), ridePost.getComments());
-		try{
+		try
+		{
 			int rowsAdded = databaseStatement.executeUpdate(sqlInsert);
 			return rowsAdded;
-		}catch(SQLException ex) {
+		}
+		catch(SQLException ex) 
+		{
 			ex.printStackTrace();
 			return 0;
 		}
@@ -142,10 +145,13 @@ public class DatabaseHandler {
 		String sqlInsert = String.format("INSERT INTO RideRequestPosts values (null, %s, '%s', '%s', '%s')", 
 				 "STR_TO_DATE('"+date+"','%Y-%m-%d')", riderequestPost.getTime(), riderequestPost.getToLocation(), riderequestPost.getFromLocation());
 
-		try{
+		try
+		{
 			int rowsAdded = databaseStatement.executeUpdate(sqlInsert);
 			return rowsAdded;
-		}catch(SQLException ex) {
+		}
+		catch(SQLException ex) 
+		{
 			ex.printStackTrace();
 			return 0;
 		}
@@ -193,7 +199,6 @@ public class DatabaseHandler {
 		RideListController rideListController = new RideListController();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String date = dtf.format(dateFilter);
-		
 		String sqlQuery = "SELECT * FROM RidePosts WHERE date = STR_TO_DATE('"+date+"','%Y-%m-%d')";
 		try
 		{
@@ -208,7 +213,8 @@ public class DatabaseHandler {
 			}
 			
 			ResultSet rset = databaseStatement.executeQuery(sqlQuery);
-			ArrayList<RidePost> SearchedPosts = new ArrayList<RidePost>();
+			ArrayList<RidePost> SearchedPostsByDate = new ArrayList<RidePost>();
+			SearchedPostsByDate.clear();
 			
 			while(rset.next())
 			{
@@ -221,12 +227,53 @@ public class DatabaseHandler {
 				String comments = rset.getString("comments");
 				RidePost RidePosts = new RidePost(StringDate, time, toLocation, fromLocation, numSpots, price, comments);	
 			
-				SearchedPosts.add(RidePosts);	
+				SearchedPostsByDate.add(RidePosts);	
 			}
 			
 			rset.close();
 			
-			return SearchedPosts;
+			return SearchedPostsByDate;
+		}
+		
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public ArrayList<RideRequestPost> filterRequestPosts(LocalDate dateFilter, String toLocationFilter, String fromLocationFilter)
+	{		
+		RideListController rideListController = new RideListController();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String date = dtf.format(dateFilter);
+		String sqlQuery = "SELECT * FROM RideRequestPosts WHERE date = STR_TO_DATE('"+date+"','%Y-%m-%d')";
+		try
+		{
+			if(toLocationFilter!=null){
+				sqlQuery += " AND toLocation = '"+toLocationFilter+"'";
+			}
+			if(fromLocationFilter!=null) {	
+				sqlQuery += " AND fromLocation = '"+fromLocationFilter+"'";
+			}
+			
+			ResultSet rset = databaseStatement.executeQuery(sqlQuery);
+			ArrayList<RideRequestPost> searchedPosts = new ArrayList<RideRequestPost>();
+			
+			while(rset.next())
+			{
+				String StringDate = rset.getString("date");
+				String time = rset.getString("time");
+				String toLocation = rset.getString("toLocation");
+				String fromLocation = rset.getString("fromLocation");
+				RideRequestPost RidePosts = new RideRequestPost(StringDate, time, toLocation, fromLocation);	
+			
+				searchedPosts.add(RidePosts);	
+			}
+			
+			rset.close();
+			
+			return searchedPosts;
 		}
 		
 		catch(SQLException e)
