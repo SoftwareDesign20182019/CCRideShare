@@ -20,8 +20,8 @@ public class DatabaseHandler {
 	private static DatabaseHandler databaseHandlerInstance;
 	
 	// Constants:
-//	private static final String PORT_NUMBER = "3306"; // Most people seem to use this port
-	private static final String PORT_NUMBER = "8889"; // Ely uses this port
+	private static final String PORT_NUMBER = "3306"; // Most people seem to use this port
+//	private static final String PORT_NUMBER = "8889"; // Ely uses this port
 	private static final String CC_DOMAIN = "@coloradocollege.edu";
 	
 	// Instance variables:
