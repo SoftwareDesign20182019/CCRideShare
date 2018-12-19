@@ -113,7 +113,7 @@
                                     <Label text=" Other comments:" />
                                     <Pane prefHeight="37.0" prefWidth="465.0">
                                        <children>
-                                          <Label fx:id="empty_box_errormessage" layoutX="235.0" layoutY="6.0" text="You forgot to fill out a field!" textFill="RED" visible="false">
+                                          <Label fx:id="empty_box_errormessage" layoutX="180.0" layoutY="6.0" textFill="RED">
                                              <font>
                                                 <Font name="System Bold" size="17.0" />
                                              </font>

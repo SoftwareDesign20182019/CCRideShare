@@ -91,14 +91,42 @@ public class AddRidePostController implements Controller {
 	 */
 	public void createRidePost() {
 		spots_price_errormessage.setVisible(false);
-		empty_box_errormessage.setVisible(false);
+		empty_box_errormessage.setVisible(true);
 		
-		if(date.getValue() != null && (time_hours.getValue() != null) && (time_minutes.getValue() != null) && 
-				(time_ampm.getValue() != null) && (to_location_combo_box.getValue() != null) && 
-				(from_location_combo_box.getValue() != null) && !(num_available_spots.getText().equals("")) &&  
-				!(price.getText().equals("")))
-		{
-			try {								
+		if(date.getValue() == null) {
+			empty_box_errormessage.setText("You forgot to fill out the 'date' field!");
+		}		
+		else if((time_hours.getValue() == null)) {
+			empty_box_errormessage.setText("You forgot to fill out the 'hours' field!");
+		}
+		else if(time_minutes.getValue() == null){
+			empty_box_errormessage.setText("You forgot to fill out the 'minutes' field!");
+		}
+		else if(time_ampm.getValue() == null) {
+			empty_box_errormessage.setText("You forgot to fill out the 'am/pm' field!");
+		}
+		else if(to_location_combo_box.getValue() == null) {
+			empty_box_errormessage.setText("You forgot to fill out the 'to location' field!");
+		}
+		else if(from_location_combo_box.getValue() == null) {
+			empty_box_errormessage.setText("You forgot to fill out the 'from location' field!");
+		}
+		else if(num_available_spots.getText().equals("")) {
+			empty_box_errormessage.setText("You forgot to fill out the 'spots' field!");
+		}
+		else if(price.getText().equals("")) {
+			empty_box_errormessage.setText("You forgot to fill out the 'price' field!");
+		}
+		
+		
+//		if(date.getValue() != null && (time_hours.getValue() != null) && (time_minutes.getValue() != null) && 
+//				(time_ampm.getValue() != null) && (to_location_combo_box.getValue() != null) && 
+//				(from_location_combo_box.getValue() != null) && !(num_available_spots.getText().equals("")) &&  
+//				!(price.getText().equals("")))
+//		{
+		else {
+			try {
+				empty_box_errormessage.setVisible(false);
 				String time = "" + time_hours.getValue() + ":" + time_minutes.getValue() + time_ampm.getValue();
 				
 				RidePost newRidePost = new RidePost(date.getValue().toString(), time, to_location_combo_box.getValue(), 
@@ -112,9 +140,10 @@ public class AddRidePostController implements Controller {
 				spots_price_errormessage.setVisible(true);
 			}
 		}
-		else {
-			empty_box_errormessage.setVisible(true);
-		}
+		
+//		else {
+//			empty_box_errormessage.setVisible(true);
+//		}
 	}
 	
 	/**
@@ -126,7 +155,7 @@ public class AddRidePostController implements Controller {
 		time_minutes.getItems().addAll("00", "15", "30", "45");
 		time_ampm.getItems().addAll("am","pm");
 		spots_price_errormessage.setVisible(false);
-		empty_box_errormessage.setVisible(false);		
+//		empty_box_errormessage.setVisible(false);		
 		initializeLocationComboBoxes();		
 	}
 	

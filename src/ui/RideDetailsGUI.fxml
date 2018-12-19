@@ -20,45 +20,46 @@
                   <Font size="21.0" />
                </font>
             </Text>
-            <Label fx:id="date" layoutX="32.0" layoutY="30.0" prefHeight="28.0" prefWidth="129.0" text="Date">
+            <Label fx:id="date" layoutX="32.0" layoutY="19.0" prefHeight="28.0" prefWidth="129.0" text="Date">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="time" layoutX="161.0" layoutY="31.0" text="Time">
+            <Label fx:id="time" layoutX="161.0" layoutY="20.0" text="Time">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font></Label>
-            <Label layoutX="33.0" layoutY="67.0" text="From" />
+            <Label layoutX="32.0" layoutY="56.0" text="From" />
             <Label layoutX="268.0" layoutY="67.0" text="To" />
-            <Label layoutX="33.0" layoutY="128.0" text="Spots available" />
-            <Label fx:id="price" layoutX="52.0" layoutY="186.0" text="priceValue">
+            <Label layoutX="33.0" layoutY="116.0" text="Spots available" />
+            <Label fx:id="price" layoutX="55.0" layoutY="186.0" text="priceValue">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font></Label>
-            <Label fx:id="to" layoutX="46.0" layoutY="88.0" text="toValue">
+            <Label fx:id="to" layoutX="50.0" layoutY="75.0" text="toValue">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font></Label>
-            <Label fx:id="from" layoutX="277.0" layoutY="88.0" text="fromValue">
+            <Label fx:id="from" layoutX="282.0" layoutY="88.0" text="fromValue">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font></Label>
-            <Label fx:id="spots" layoutX="46.0" layoutY="149.0" text="spotsValue">
+            <Label fx:id="spots" layoutX="50.0" layoutY="133.0" text="spotsValue">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font></Label>
-            <Label layoutX="267.0" layoutY="166.0" text="Contact" />
+            <Label layoutX="268.0" layoutY="166.0" text="Contact" />
             <Label fx:id="email" layoutX="282.0" layoutY="186.0" text="email">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="41.0" layoutY="186.0" text="\$">
+            <Label layoutX="45.0" layoutY="186.0" text="\$">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
+            <Label layoutX="33.0" layoutY="166.0" text="Price" />
          </children>
       </Pane>
    </children>

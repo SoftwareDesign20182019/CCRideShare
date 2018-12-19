@@ -1,12 +1,6 @@
 package application;
 
 import java.util.ArrayList;
-/**
- * 
- * @author kbhat
- * constructs the user class with email and name as attributes and allows passing of user contact
- *
- */
 
 public class User 
 {
