@@ -193,7 +193,7 @@ public class DatabaseHandler {
 		RideListController rideListController = new RideListController();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String date = dtf.format(dateFilter);
-		System.out.println(date);
+		
 		String sqlQuery = "SELECT * FROM RidePosts WHERE date = STR_TO_DATE('"+date+"','%Y-%m-%d')";
 		try
 		{
@@ -208,8 +208,7 @@ public class DatabaseHandler {
 			}
 			
 			ResultSet rset = databaseStatement.executeQuery(sqlQuery);
-			ArrayList<RidePost> SearchedPostsByDate = new ArrayList<RidePost>();
-			SearchedPostsByDate.clear();
+			ArrayList<RidePost> SearchedPosts = new ArrayList<RidePost>();
 			
 			while(rset.next())
 			{
@@ -222,12 +221,12 @@ public class DatabaseHandler {
 				String comments = rset.getString("comments");
 				RidePost RidePosts = new RidePost(StringDate, time, toLocation, fromLocation, numSpots, price, comments);	
 			
-				SearchedPostsByDate.add(RidePosts);	
+				SearchedPosts.add(RidePosts);	
 			}
 			
 			rset.close();
 			
-			return SearchedPostsByDate;
+			return SearchedPosts;
 		}
 		
 		catch(SQLException e)

@@ -35,7 +35,7 @@ import javafx.scene.control.TabPane;
 
 /**
  * Connects the .fxml GUI file with the backend operations
- * @author viktorkelemen & elymerenstein & arehorst
+ * @author viktorkelemen & elymerenstein & arehorst & kbhat
  */
 public class RideListController{
 	
@@ -145,14 +145,13 @@ public class RideListController{
 		
 		toLocationFilter.getItems().addAll(databaseHandler.getLocations());
 		fromLocationFilter.getItems().addAll(databaseHandler.getLocations());
-		seatsAvailableFilter.getItems().addAll("0","1", "2", "3", "4", "5", "6", "7", "8", "9" , "10");
+		seatsAvailableFilter.getItems().addAll("0","1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
 		// Ride Tab
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate localDate = LocalDate.now();
 		Date date = Date.valueOf(localDate);
 
-		
 		
 		time_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("time"));
 
@@ -164,8 +163,6 @@ public class RideListController{
 
 		ridepost_table.setItems(rideData);
 
-//		ArrayList<RidePost> ridePosts = DatabaseHandler.getRidePosts();
-		//String currDate = formatter.format(currentDate());
 		displayDate = currentDate();
 		rideData.addAll(databaseHandler.filterRidePosts(displayDate,null,null,null));
 		
