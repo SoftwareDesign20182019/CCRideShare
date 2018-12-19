@@ -213,8 +213,8 @@ public class DatabaseHandler {
 			}
 			
 			ResultSet rset = databaseStatement.executeQuery(sqlQuery);
-			ArrayList<RidePost> SearchedPostsByDate = new ArrayList<RidePost>();
-			SearchedPostsByDate.clear();
+			ArrayList<RidePost> SearchedPosts = new ArrayList<RidePost>();
+			SearchedPosts.clear();
 			
 			while(rset.next())
 			{
@@ -227,12 +227,12 @@ public class DatabaseHandler {
 				String comments = rset.getString("comments");
 				RidePost RidePosts = new RidePost(StringDate, time, toLocation, fromLocation, numSpots, price, comments);	
 			
-				SearchedPostsByDate.add(RidePosts);	
+				SearchedPosts.add(RidePosts);	
 			}
 			
 			rset.close();
 			
-			return SearchedPostsByDate;
+			return SearchedPosts;
 		}
 		
 		catch(SQLException e)
@@ -242,6 +242,10 @@ public class DatabaseHandler {
 		}
 	}
 	
+	/**
+	 * Retrieves a list of all RideRequestPost rows in the RideRequestPosts table and queries attributes of a ride post received from RideListController
+	 * @return ArrayList of filtered RideRequestPosts
+	 */
 	public ArrayList<RideRequestPost> filterRequestPosts(LocalDate dateFilter, String toLocationFilter, String fromLocationFilter)
 	{		
 		RideListController rideListController = new RideListController();
@@ -266,9 +270,9 @@ public class DatabaseHandler {
 				String time = rset.getString("time");
 				String toLocation = rset.getString("toLocation");
 				String fromLocation = rset.getString("fromLocation");
-				RideRequestPost RidePosts = new RideRequestPost(StringDate, time, toLocation, fromLocation);	
+				RideRequestPost RideRequestPosts = new RideRequestPost(StringDate, time, toLocation, fromLocation);	
 			
-				searchedPosts.add(RidePosts);	
+				searchedPosts.add(RideRequestPosts);	
 			}
 			
 			rset.close();
@@ -279,34 +283,6 @@ public class DatabaseHandler {
 		catch(SQLException e)
 		{
 			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	/**
-	 * Retrieves a list of all RideRequestPost rows in the RideRequestPosts table
-	 * @return ArrayList of RideRequestPost
-	 */
-	public ArrayList<RideRequestPost> getRideRequestPosts() {
-		String sqlSelect = "select * from RideRequestPosts";
-		try{
-			ResultSet rset = databaseStatement.executeQuery(sqlSelect);
-			ArrayList<RideRequestPost> riderequestPosts = new ArrayList<RideRequestPost>();
-			while(rset.next()) {
-				String date = rset.getString("date");
-				String time = rset.getString("time");
-				String toLocation = rset.getString("toLocation");
-				String fromLocation = rset.getString("fromLocation");
-				RideRequestPost currRideRequestPost = new RideRequestPost(date, time, toLocation, fromLocation);
-				
-				riderequestPosts.add(currRideRequestPost);
-			}
-			
-			rset.close();
-			return riderequestPosts;
-		}catch(SQLException ex) {
-			ex.printStackTrace();
-			System.exit(-1);
 			return null;
 		}
 	}
