@@ -198,8 +198,13 @@ public class RideListController{
 	
 	public void clickedSearchButton()
 	{
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date = dateFilter.getValue();
+		String dateLabel = formatter.format(date);
+		currentDateLabel.setText(dateLabel);
+		currentDateRequest.setText(dateLabel);
+		displayDate = date;
 		applyFilters();
-		
 	}
 	
 	public void setTab(RideListApplication.ListTab tab) {
