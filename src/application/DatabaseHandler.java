@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import ui.RideListController;
 /**
  * class for DatabaseHandler - responsible for creating database and tables (if they don't already exist) and for adding rides to the database
  * @author kbhat and arehorst
@@ -20,7 +22,7 @@ public class DatabaseHandler {
 	// Constants:
 //	private static final String PORT_NUMBER = "3306"; // Most people seem to use this port
 	private static final String PORT_NUMBER = "8889"; // Ely uses this port
-	private static final String CC_DOMAIN = "coloradocollege.edu";
+	private static final String CC_DOMAIN = "@coloradocollege.edu";
 	
 	// Instance variables:
 	private Statement databaseStatement; // Does this need to be closed ever?
@@ -33,6 +35,7 @@ public class DatabaseHandler {
 		}
 		return databaseHandlerInstance;
 	}
+	
 	private DatabaseHandler() {
 		this.initialize();
 	}
@@ -169,16 +172,34 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * Retrieves a list of all RidePost rows in the RidePosts table
-	 * @return ArrayList of RidePost
+	 * Retrieves a list of all RidePost rows in the RidePosts table and queries attributes of a ride post received from RideListController
+	 * @return ArrayList of filtered RidePosts
 	 */
-	public ArrayList<RidePost> getRidePosts() {
-		String sqlSelect = "select * from RidePosts";
-		try{
-			ResultSet rset = databaseStatement.executeQuery(sqlSelect);
-			ArrayList<RidePost> ridePosts = new ArrayList<RidePost>();
-			while(rset.next()) {
-				String date = rset.getString("date");
+	public ArrayList<RidePost> filterRidePosts(LocalDate dateFilter, String toLocationFilter, String fromLocationFilter, String numSpotsFilter)
+	{
+		RideListController rideListController = new RideListController();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String date = dtf.format(dateFilter);
+		String sqlQuery = "SELECT * FROM RidePosts WHERE date = STR_TO_DATE('"+date+"','%Y-%m-%d')";
+		try
+		{
+			if(toLocationFilter!=null){
+				sqlQuery += " AND toLocation = '"+toLocationFilter+"'";
+			}
+			if(fromLocationFilter!=null) {	
+				sqlQuery += " AND fromLocation = '"+fromLocationFilter+"'";
+			}
+			if(numSpotsFilter!=null) {
+				sqlQuery += " AND numSpots >= '"+numSpotsFilter+"'";
+			}
+			
+			ResultSet rset = databaseStatement.executeQuery(sqlQuery);
+			ArrayList<RidePost> searchedPosts = new ArrayList<RidePost>();
+			searchedPosts.clear();
+			
+			while(rset.next())
+			{
+				String stringDate = rset.getString("date");
 				String time = rset.getString("time");
 				String toLocation = rset.getString("toLocation");
 				String fromLocation = rset.getString("fromLocation");
@@ -186,13 +207,13 @@ public class DatabaseHandler {
 				int price = rset.getInt("price");
 				String comments = rset.getString("comments");
 				String email = rset.getString("email");
-				RidePost currRidePost = new RidePost(date, time, toLocation, fromLocation, numSpots, price, comments, email);
+				RidePost currRidePost = new RidePost(stringDate, time, toLocation, fromLocation, numSpots, price, comments, email);
 				
-				ridePosts.add(currRidePost);
+				searchedPosts.add(currRidePost);
 			}
 			
 			rset.close();
-			return ridePosts;
+			return searchedPosts;
 		}catch(SQLException ex) {
 			ex.printStackTrace();
 			System.exit(-1);
@@ -201,27 +222,41 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * Retrieves a list of all RideRequestPost rows in the RideRequestPosts table
-	 * @return ArrayList of RideRequestPost
+	 * Retrieves a list of all RideRequestPost rows in the RideRequestPosts table and queries attributes of a ride post received from RideListController
+	 * @return ArrayList of filtered RideRequestPosts
 	 */
-	public ArrayList<RideRequestPost> getRideRequestPosts() {
-		String sqlSelect = "select * from RideRequestPosts";
-		try{
-			ResultSet rset = databaseStatement.executeQuery(sqlSelect);
-			ArrayList<RideRequestPost> riderequestPosts = new ArrayList<RideRequestPost>();
-			while(rset.next()) {
-				String date = rset.getString("date");
+	public ArrayList<RideRequestPost> filterRequestPosts(LocalDate dateFilter, String toLocationFilter, String fromLocationFilter)
+	{		
+		RideListController rideListController = new RideListController();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String date = dtf.format(dateFilter);
+		String sqlQuery = "SELECT * FROM RideRequestPosts WHERE date = STR_TO_DATE('"+date+"','%Y-%m-%d')";
+		try
+		{
+			if(toLocationFilter!=null){
+				sqlQuery += " AND toLocation = '"+toLocationFilter+"'";
+			}
+			if(fromLocationFilter!=null) {	
+				sqlQuery += " AND fromLocation = '"+fromLocationFilter+"'";
+			}
+			
+			ResultSet rset = databaseStatement.executeQuery(sqlQuery);
+			ArrayList<RideRequestPost> searchedPosts = new ArrayList<RideRequestPost>();
+			
+			while(rset.next())
+			{
+				String stringDate = rset.getString("date");
 				String time = rset.getString("time");
 				String toLocation = rset.getString("toLocation");
 				String fromLocation = rset.getString("fromLocation");
 				String email = rset.getString("email");
-				RideRequestPost currRideRequestPost = new RideRequestPost(date, time, toLocation, fromLocation, email);
+				RideRequestPost currRideRequestPost = new RideRequestPost(stringDate, time, toLocation, fromLocation, email);
 				
-				riderequestPosts.add(currRideRequestPost);
+				searchedPosts.add(currRideRequestPost);
 			}
 			
 			rset.close();
-			return riderequestPosts;
+			return searchedPosts;
 		}catch(SQLException ex) {
 			ex.printStackTrace();
 			System.exit(-1);
@@ -325,45 +360,6 @@ public class DatabaseHandler {
 		{
 			e.printStackTrace();
 			return false;
-		}
-	}
-	
-	public ArrayList<RidePost> RidesofDate()
-	{
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate localDate = LocalDate.now();
-//		Date desiredDate = Date.valueOf(localDate);
-		String nowDate = formatter.format(localDate);
-		
-		String sqlQuery = "SELECT * FROM RidePosts WHERE date = STR_TO_DATE('"+nowDate+"','%Y-%m-%d');";
-		try
-		{
-			ResultSet rset = databaseStatement.executeQuery(sqlQuery);
-			ArrayList<RidePost> SearchedPostsByDate = new ArrayList<RidePost>();
-			
-			while(rset.next())
-			{
-				String StringDate = rset.getString("date");
-				String time = rset.getString("time");
-				String toLocation = rset.getString("toLocation");
-				String fromLocation = rset.getString("fromLocation");
-				int numSpots = rset.getInt("numSpots");
-				int price = rset.getInt("price");
-				String comments = rset.getString("comments");
-				String email = rset.getString("email");
-				RidePost RidePosts = new RidePost(StringDate, time, toLocation, fromLocation, numSpots, price, comments, email);	
-			
-				SearchedPostsByDate.add(RidePosts);	
-			}
-			rset.close();
-			
-			return SearchedPostsByDate;
-		}
-		
-		catch(SQLException e)
-		{
-			e.printStackTrace();
-			return null;
 		}
 	}
 	
