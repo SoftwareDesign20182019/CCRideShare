@@ -26,10 +26,6 @@ public class RideListApplication extends Application {
 	private ListTab tab;
 	private ApplicationFactory appFactory;
 	
-	//stage positioning constants
-	private static final Screen PRIMARY_SCREEN = Screen.getPrimary();
-	private static final Rectangle2D PRIMARY_SCREEN_BOUNDS = PRIMARY_SCREEN.getVisualBounds();
-	
 	/**
 	 * Set up stage for the GUI
 	 * @param primaryStage - the primary stage
@@ -45,8 +41,10 @@ public class RideListApplication extends Application {
 			controller.setAppFactory(appFactory);
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
-			double stageX = PRIMARY_SCREEN_BOUNDS.getMinX() + (PRIMARY_SCREEN_BOUNDS.getWidth() - primaryStage.getWidth()) / 2;
-			double stageY = PRIMARY_SCREEN_BOUNDS.getMinY() + (PRIMARY_SCREEN_BOUNDS.getHeight() - primaryStage.getHeight()) / 2;
+			Screen primaryScreen = Screen.getPrimary();
+			Rectangle2D primaryScreenBounds = primaryScreen.getVisualBounds();
+			double stageX = primaryScreenBounds.getMinX() + (primaryScreenBounds.getWidth() - primaryStage.getWidth()) / 2;
+			double stageY = primaryScreenBounds.getMinY() + (primaryScreenBounds.getHeight() - primaryStage.getHeight()) / 2;
 			primaryStage.setX(stageX);
 			primaryStage.setY(stageY);
 			primaryStage.show();

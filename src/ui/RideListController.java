@@ -196,6 +196,10 @@ public class RideListController implements Controller{
 		currentDateRequest.setText(dateLabel);
 	}
 	
+	/**
+	 * called when user clicks search button
+	 * sets date as the displayed date if date filter is null
+	 */
 	public void clickedSearchButton()
 	{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -204,15 +208,11 @@ public class RideListController implements Controller{
 		
 		if(date!= null) {
 		displayDate = date;
-		dateLabel = formatter.format(date);
+		}
+		
+		dateLabel = formatter.format(displayDate);
 		currentDateLabel.setText(dateLabel);
 		currentDateRequest.setText(dateLabel);
-		}
-		else {
-			dateLabel = formatter.format(displayDate);
-			currentDateLabel.setText(dateLabel);
-			currentDateRequest.setText(dateLabel);
-		}
 		
 		applyFilters();
 	}
@@ -242,6 +242,10 @@ public class RideListController implements Controller{
 		return localDate;
 	}
 	
+	/**
+	 * Called when next day button is clicked
+	 * increments displayed date by one and updates list of ride posts according to the filter combo boxes
+	 */
 	public void nextDayButton() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		displayDate = displayDate.plusDays(1);
@@ -257,6 +261,10 @@ public class RideListController implements Controller{
 		rideData.addAll(databaseHandler.filterRidePosts(displayDate, destination, from, seats));
 	}
 	
+	/**
+	 * Called when previous day button is clicked
+	 * decrements displayed date by one and updates list of ride posts according to the filter combo boxes
+	 */
 	public void previousDayButton() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		displayDate = displayDate.minusDays(1);
@@ -272,6 +280,10 @@ public class RideListController implements Controller{
 		rideData.addAll(databaseHandler.filterRidePosts(displayDate, destination, from, seats));
 	}
 	
+	/**
+	 * Called when next day button is clicked
+	 * increments displayed date by one and updates list of request posts according to the filter combo boxes
+	 */
 	public void nextDayButtonRequest()
 	{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -287,6 +299,10 @@ public class RideListController implements Controller{
 		requestData.addAll(databaseHandler.filterRequestPosts(displayDate, destination, from));
 	}
 	
+	/**
+	 * Called when previous day button is clicked
+	 * decrements displayed date by one and updates list of request posts according to the filter combo boxes
+	 */
 	public void previousDayButtonRequest()
 	{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -302,6 +318,11 @@ public class RideListController implements Controller{
 		requestData.addAll(databaseHandler.filterRequestPosts(displayDate, destination, from));
 	}
 	
+	/**
+	 * called by clickedSearchButton
+	 * applies filters based on what is or isn't filled out in combo boxes by creating a new array list of posts that is copied from the arraylist of posts in 
+	 * databaseHandler.filterRidePosts and databaseHandler.filterRideRequestPosts 
+	 */
 	public void applyFilters()
 	{
 		LocalDate date = dateFilter.getValue();

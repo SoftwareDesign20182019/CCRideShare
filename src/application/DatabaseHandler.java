@@ -20,8 +20,8 @@ public class DatabaseHandler {
 	private static DatabaseHandler databaseHandlerInstance;
 	
 	// Constants:
-	private static final String PORT_NUMBER = "3306"; // Most people seem to use this port
-//	private static final String PORT_NUMBER = "8889"; // Ely uses this port
+//	private static final String PORT_NUMBER = "3306"; // Most people seem to use this port
+	private static final String PORT_NUMBER = "8889"; // Ely uses this port
 	private static final String CC_DOMAIN = "@coloradocollege.edu";
 	
 	// Instance variables:
@@ -264,6 +264,10 @@ public class DatabaseHandler {
 		}
 	}
 	
+	/**
+	 * Retrieves a list of all User rows in the Accounts table
+	 * @return ArrayList of users
+	 */
 	public ArrayList<User> getUser(String email) {
 		String sqlSelect = "SELECT * FROM Accounts WHERE email = '"+email+"';";
 		ArrayList<User> users = new ArrayList<User>();
@@ -313,11 +317,21 @@ public class DatabaseHandler {
 		}
 	}
 	
+	/**
+	 * Checks if user is creating an account with a valid CC email
+	 * @param email
+	 * @return true if the input contains the CC domain
+	 */
 	public boolean filterEmails(String email)
 	{
 		return email.contains(CC_DOMAIN);
 	}
 	
+	/**
+	 * Checks if the email inputted already exists or not
+	 * @param email
+	 * @return true if the email already exists
+	 */
 	public boolean checkEmail(String email)
 	{
 		String sqlQuery = "SELECT email FROM Accounts WHERE email = '"+email+"'";
@@ -341,6 +355,12 @@ public class DatabaseHandler {
 		}
 	}
 	
+	/**
+	 * checks if the inputed log in information are accurate
+	 * @param email
+	 * @param password
+	 * @return true if email and password are in the same row in Accounts table
+	 */
 	public boolean isRightPassword(String email, String password)
 	{
 		String sqlQuery = "SELECT email FROM Accounts WHERE email = '"+email+"' AND password = '"+password+"';";
