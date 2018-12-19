@@ -83,12 +83,12 @@
                               <Button fx:id="nextDayRequest" layoutX="837.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#nextDayButtonRequest" prefHeight="26.0" prefWidth="201.0" text="Next Day" />
                               <ImageView fitHeight="26.0" fitWidth="39.0" layoutX="83.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../Downloads/arrow_outline_red_left_T.png" />
+                                    <Image url="@arrow_outline_red_left_T.png" />
                                  </image>
                               </ImageView>
                               <ImageView fitHeight="26.0" fitWidth="35.0" layoutX="986.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../Pictures/arrow_outline_red_right_T.png" />
+                                    <Image url="@arrow_outline_red_right_T.png" />
                                  </image>
                               </ImageView>
                            </children>
