@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ResourceBundle;
 
-import application.AddRidePostApplication;
 import application.ApplicationFactory;
 import application.DatabaseHandler;
 import application.RideListApplication;
@@ -30,14 +29,15 @@ import javafx.stage.Stage;
 
 import javafx.application.Application;
 
+/**
+ * Connects the .fxml GUI file with the backend operations
+ * @author arehorst
+ */
+public class CreateAccountController implements Controller {
 
-public class CreateAccountController {
-
-	/**
-	 * Connects the .fxml GUI file with the backend operations
-	 * @author arehorst
-	 */
-	private Stage primaryStage;
+	private Stage stage;
+	private DatabaseHandler databaseHandler;
+	private ApplicationFactory appFactory;
 
 	// Ride Tab
 	@FXML
@@ -65,6 +65,7 @@ public class CreateAccountController {
 
 
 	public CreateAccountController() {
+		databaseHandler = DatabaseHandler.getInstance();
 		passwordfield = new PasswordField();
 		emailfield = new TextField();
 		namefield = new TextField();
@@ -84,18 +85,23 @@ public class CreateAccountController {
 		
 	}
 
-	public void setPrimaryStage(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-		this.primaryStage.setResizable(false);
+	public void setStage(Stage stage) {
+		this.stage = stage;
+		this.stage.setResizable(false);
 	}
+	
+	public void setAppFactory(ApplicationFactory factory) {
+		this.appFactory = factory;
+	}
+	
 	/**
 	 * when the login button is pressed
 	 * brings up the login window
 	 */
 	public void logInButton() {
-		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.LOG_IN);
+		Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.LOG_IN);
 		try{
-			app.start(primaryStage);
+			app.start(stage);
 
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -123,15 +129,20 @@ public class CreateAccountController {
 		shortPasswordWarning.setVisible(false);
 		
 		//handling invalid and empty inputs
-		if(!(DatabaseHandler.filterEmails(email)))
+		if((databaseHandler.filterEmails(email)) && !(databaseHandler.checkEmail(email)) && !fullName.equals("") && !(password.length() < 5))
 		{
-			emailFilterWarning.setVisible(true);
+			User newUser = new User(email,fullName);
+			newUser.addToDatabase(password);
+			databaseHandler.setCurrentUser(email);
+			Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
+			app.start(stage);
+			
 		}
-		else if(DatabaseHandler.checkEmail(email))
+		else if(databaseHandler.checkEmail(email))
 		{
 			checkEmailWarning.setVisible(true);
 		}
-		else if(fullName.equals(""))
+		else if(fullName.equals("") || fullName.equals(null))
 		{
 			emptyFieldWarning.setVisible(true);
 		}
@@ -139,13 +150,9 @@ public class CreateAccountController {
 			shortPasswordWarning.setVisible(true);
 		}
 		//if every input is valid, put in database
-		else
+		else if(!(databaseHandler.filterEmails(email)))
 		{
-			User newUser = new User(email,fullName);
-			newUser.addToDatabase(password);
-			ApplicationFactory.setCurrentUser(email);
-			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
-			app.start(primaryStage);
+			emailFilterWarning.setVisible(true);	
 		}
 				
 	}

@@ -26,9 +26,14 @@ import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 
-public class LogInController 
+/**
+ * Connects the .fxml GUI file with the backend operations
+ */
+public class LogInController implements Controller
 {
-	private Stage primaryStage;
+	private Stage stage;
+	private DatabaseHandler databaseHandler;
+	private ApplicationFactory appFactory;
 
 	@FXML
 	private PasswordField passwordfield;
@@ -42,11 +47,10 @@ public class LogInController
     private Label emailNotExist;
     @FXML
     private Label wrongEmailPassword;
-    private DatabaseHandler database;
 
 	public LogInController()
 	{
-		database = new DatabaseHandler();
+		databaseHandler = DatabaseHandler.getInstance();
 		passwordfield = new PasswordField();
 		emailfield = new TextField();
 		login = new Button();
@@ -63,16 +67,23 @@ public class LogInController
 
 	}
 
+	/**
+	 * launches create account GUI
+	 */
 	public void createAccountButton(){
-		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.CREATE_ACCOUNT);
+		Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.CREATE_ACCOUNT);
 		try
 		{
-			app.start(primaryStage);
+			app.start(stage);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 	
+	/**
+	 * logs in user by calling filter and check email methods to ensure credentials are correct
+	 * launches ridelist gui if successful	
+	 */
 	public void logInButton()
 	{
 		String email = emailfield.getText();
@@ -80,11 +91,11 @@ public class LogInController
 		
 		try
 		{
-			if(DatabaseHandler.checkEmail(email) && DatabaseHandler.isRightPassword(email,password))
+			if(databaseHandler.checkEmail(email) && databaseHandler.isRightPassword(email,password))
 			{
-				ApplicationFactory.setCurrentUser(email);
-				Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
-				app.start(primaryStage);
+				databaseHandler.setCurrentUser(email);
+				Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
+				app.start(stage);
 				//TODO: Tell main GUI that this is the person logged in
 				
 			}
@@ -93,11 +104,11 @@ public class LogInController
 				emailNotExist.setVisible(false);
 				wrongEmailPassword.setVisible(false);
 				
-				if(!DatabaseHandler.checkEmail(email))
+				if(!databaseHandler.checkEmail(email))
 				{
 					emailNotExist.setVisible(true);
 				}
-				if(!DatabaseHandler.isRightPassword(email,password) && DatabaseHandler.checkEmail(email))
+				if(!databaseHandler.isRightPassword(email,password) && databaseHandler.checkEmail(email))
 				{
 					wrongEmailPassword.setVisible(true);
 				}
@@ -109,8 +120,12 @@ public class LogInController
 		}
 	}
 
-	public void setPrimaryStage(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-		this.primaryStage.setResizable(false);
+	public void setStage(Stage stage) {
+		this.stage = stage;
+		this.stage.setResizable(false);
+	}
+	
+	public void setAppFactory(ApplicationFactory factory) {
+		this.appFactory = factory;
 	}
 }

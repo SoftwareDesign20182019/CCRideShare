@@ -1,5 +1,6 @@
 package ui;
 import java.net.URL;
+import application.ApplicationFactory;
 
 import javafx.stage.Stage;
 
@@ -16,10 +17,11 @@ import javafx.scene.control.Label;
  * Connects the AddRidePost FXML GUI file with the backend operations
  * @author elysamuel16
  */
-public class AddNewLocationController{
+public class AddNewLocationController implements Controller {
 
 	private AddNewLocationApplication application;
 	private Stage stage;
+	private ApplicationFactory appFactory;
 	
 	@FXML
 	private URL location;
@@ -49,6 +51,10 @@ public class AddNewLocationController{
 	
 	public void setStage(Stage stage) {
 		this.stage = stage;
+	}
+	
+	public void setAppFactory(ApplicationFactory factory) {
+		this.appFactory = factory;
 	}
 	
 	/**

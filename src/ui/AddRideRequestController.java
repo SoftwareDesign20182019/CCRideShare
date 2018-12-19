@@ -23,12 +23,14 @@ import java.util.ArrayList;
  * Connects the AddRidePost FXML GUI file with the backend operations
  * @author elysamuel16
  */
-public class AddRideRequestController{
+public class AddRideRequestController implements Controller {
 
 	@FXML
 	private static final String ADD_NEW_LOCATION_OPTION = "Add a New Location...";
 	
-	private Stage primaryStage;
+	private Stage stage;
+	private DatabaseHandler databaseHandler;
+	private ApplicationFactory appFactory;
 	
 	@FXML
 	private URL location;
@@ -50,6 +52,7 @@ public class AddRideRequestController{
 	private Label empty_box_errormessage;
 	
 	public AddRideRequestController() {
+		databaseHandler = DatabaseHandler.getInstance();
 		from_location_combo_box = new ComboBox<>();
 		to_location_combo_box = new ComboBox<>();
 		date = new DatePicker();
@@ -77,7 +80,7 @@ public class AddRideRequestController{
 	 */
 	@FXML
 	private void initializeLocationComboBoxes() {
-		ArrayList<String> locations = DatabaseHandler.getLocations();
+		ArrayList<String> locations = databaseHandler.getLocations();
 		resetComboBoxValues(from_location_combo_box, locations);
 		resetComboBoxValues(to_location_combo_box, locations);
 		// The following listeners are added so that we can immediately know when the user selects the "Add a New Location..." option 
@@ -97,10 +100,13 @@ public class AddRideRequestController{
 		locationComboBox.getItems().add(ADD_NEW_LOCATION_OPTION);
 	}
 	
-	public void setPrimaryStage(Stage primaryStage) {
-		this.primaryStage = primaryStage;
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
 	
+	public void setAppFactory(ApplicationFactory factory) {
+		this.appFactory = factory;
+	}
 	
 	@FXML
 	private void createRideRequest() {
@@ -113,9 +119,9 @@ public class AddRideRequestController{
 			String time = "" + time_hours.getValue() + ":" + time_minutes.getValue() + time_ampm.getValue();
 			
 			RideRequestPost newRideRequest = new RideRequestPost(date.getValue().toString(), time, to_location_combo_box.getValue(), 
-					from_location_combo_box.getValue());	
+					from_location_combo_box.getValue(), databaseHandler.getCurrentUser().getEmail());
 			
-			DatabaseHandler.addRideRequestPost(newRideRequest);
+			databaseHandler.addRideRequestPost(newRideRequest);
 			reopenRideListApp(RideListApplication.ListTab.RIDE_REQUESTS);
 		}
 		else {
@@ -130,9 +136,10 @@ public class AddRideRequestController{
 	
 	private void reopenRideListApp(RideListApplication.ListTab tabDesired) {
 		RideListApplication app = new RideListApplication(); // Can't use the factory this time because we need to call a method specific to RideListApplication
+		app.setAppFactory(appFactory);
 		app.setTab(tabDesired);
 		try{
-			app.start(primaryStage);
+			app.start(stage);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
@@ -164,6 +171,7 @@ public class AddRideRequestController{
 			}
 			// Can't use the ApplicationFactory because we need to call a method specific to AddNewLocationApplication
 			AddNewLocationApplication newLocationApp = new AddNewLocationApplication(); 
+			newLocationApp.setAppFactory(appFactory);
 			newLocationApp.start(new Stage());
 			String newLocation = newLocationApp.getNewLocation();
 			// The user clicked cancel in the AddNewLocationGUI
@@ -177,18 +185,18 @@ public class AddRideRequestController{
 				});
 				return;
 			}
-			if(!DatabaseHandler.getLocations().contains(newLocation)) {
-				DatabaseHandler.addLocation(newLocation);
+			if(!databaseHandler.getLocations().contains(newLocation)) {
+				databaseHandler.addLocation(newLocation);
 				// Regardless of in which ComboBox this is happening, we now want to update the items in both ComboBoxes.
 				// But we should preserve the current value of whichever ComboBox isn't involved at the moment!
 				String oldFromValue = from_location_combo_box.getValue();
 				String oldToValue = to_location_combo_box.getValue();
-				resetComboBoxValues(from_location_combo_box, DatabaseHandler.getLocations());
+				resetComboBoxValues(from_location_combo_box, databaseHandler.getLocations());
 				// oldFromValue would be null if the from ComboBox hasn't been touched yet
 				if(oldFromValue != null && !oldFromValue.equals(ADD_NEW_LOCATION_OPTION)) { 
 					from_location_combo_box.setValue(oldFromValue);
 				}
-				resetComboBoxValues(to_location_combo_box, DatabaseHandler.getLocations());
+				resetComboBoxValues(to_location_combo_box, databaseHandler.getLocations());
 				if(oldToValue != null && !oldToValue.equals(ADD_NEW_LOCATION_OPTION)) {
 					to_location_combo_box.setValue(oldToValue);
 				}

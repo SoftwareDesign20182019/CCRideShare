@@ -31,9 +31,11 @@ import java.lang.NumberFormatException;
  * Connects the AddRidePost FXML GUI file with the backend operations
  * @author elysamuel16
  */
-public class AddRidePostController{
+public class AddRidePostController implements Controller {
 
-	private Stage primaryStage;
+	private Stage stage;
+	private DatabaseHandler databaseHandler;
+	private ApplicationFactory appFactory;
 	
 	@FXML
 	private static final String ADD_NEW_LOCATION_OPTION = "Add a New Location..."; 
@@ -68,6 +70,7 @@ public class AddRidePostController{
 	private Label empty_box_errormessage;
 	
 	public AddRidePostController() {
+		databaseHandler = DatabaseHandler.getInstance();
 		cancel_button = new Button();
 		from_location_combo_box = new ComboBox<>();
 		to_location_combo_box = new ComboBox<>();
@@ -88,29 +91,59 @@ public class AddRidePostController{
 	 */
 	public void createRidePost() {
 		spots_price_errormessage.setVisible(false);
-		empty_box_errormessage.setVisible(false);
+		empty_box_errormessage.setVisible(true);
 		
-		if(date.getValue() != null && (time_hours.getValue() != null) && (time_minutes.getValue() != null) && 
-				(time_ampm.getValue() != null) && (to_location_combo_box.getValue() != null) && 
-				(from_location_combo_box.getValue() != null) && !(num_available_spots.getText().equals("")) &&  
-				!(price.getText().equals("")))
-		{
-			try {								
+		if(date.getValue() == null) {
+			empty_box_errormessage.setText("You forgot to fill out the 'date' field!");
+		}		
+		else if((time_hours.getValue() == null)) {
+			empty_box_errormessage.setText("You forgot to fill out the 'hours' field!");
+		}
+		else if(time_minutes.getValue() == null){
+			empty_box_errormessage.setText("You forgot to fill out the 'minutes' field!");
+		}
+		else if(time_ampm.getValue() == null) {
+			empty_box_errormessage.setText("You forgot to fill out the 'am/pm' field!");
+		}
+		else if(to_location_combo_box.getValue() == null) {
+			empty_box_errormessage.setText("You forgot to fill out the 'to location' field!");
+		}
+		else if(from_location_combo_box.getValue() == null) {
+			empty_box_errormessage.setText("You forgot to fill out the 'from location' field!");
+		}
+		else if(num_available_spots.getText().equals("")) {
+			empty_box_errormessage.setText("You forgot to fill out the 'spots' field!");
+		}
+		else if(price.getText().equals("")) {
+			empty_box_errormessage.setText("You forgot to fill out the 'price' field!");
+		}
+		
+		
+//		if(date.getValue() != null && (time_hours.getValue() != null) && (time_minutes.getValue() != null) && 
+//				(time_ampm.getValue() != null) && (to_location_combo_box.getValue() != null) && 
+//				(from_location_combo_box.getValue() != null) && !(num_available_spots.getText().equals("")) &&  
+//				!(price.getText().equals("")))
+//		{
+		else {
+			try {
+				empty_box_errormessage.setVisible(false);
 				String time = "" + time_hours.getValue() + ":" + time_minutes.getValue() + time_ampm.getValue();
 				
 				RidePost newRidePost = new RidePost(date.getValue().toString(), time, to_location_combo_box.getValue(), 
-						from_location_combo_box.getValue(), Integer.parseInt(num_available_spots.getText()), Integer.parseInt(price.getText()), comments.getText());	
+						from_location_combo_box.getValue(), Integer.parseInt(num_available_spots.getText()), Integer.parseInt(price.getText()), 
+						comments.getText(), databaseHandler.getCurrentUser().getEmail());	
 				
-				DatabaseHandler.addRidePost(newRidePost);
+				databaseHandler.addRidePost(newRidePost);
 				reopenRideListApp();
 			}
 			catch(NumberFormatException e) {
 				spots_price_errormessage.setVisible(true);
 			}
 		}
-		else {
-			empty_box_errormessage.setVisible(true);
-		}
+		
+//		else {
+//			empty_box_errormessage.setVisible(true);
+//		}
 	}
 	
 	/**
@@ -122,7 +155,7 @@ public class AddRidePostController{
 		time_minutes.getItems().addAll("00", "15", "30", "45");
 		time_ampm.getItems().addAll("am","pm");
 		spots_price_errormessage.setVisible(false);
-		empty_box_errormessage.setVisible(false);		
+//		empty_box_errormessage.setVisible(false);		
 		initializeLocationComboBoxes();		
 	}
 	
@@ -132,7 +165,7 @@ public class AddRidePostController{
 	 */
 	@FXML
 	private void initializeLocationComboBoxes() {
-		ArrayList<String> locations = DatabaseHandler.getLocations();
+		ArrayList<String> locations = databaseHandler.getLocations();
 		resetComboBoxValues(from_location_combo_box, locations);
 		resetComboBoxValues(to_location_combo_box, locations);
 		// The following listeners are added so that we can immediately know when the user selects the "Add a New Location..." option 
@@ -152,17 +185,22 @@ public class AddRidePostController{
 		locationComboBox.getItems().add(ADD_NEW_LOCATION_OPTION);
 	}
 	
-	public void setPrimaryStage(Stage primaryStage) {
-		this.primaryStage = primaryStage;
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
+	
+	public void setAppFactory(ApplicationFactory factory) {
+		this.appFactory = factory;
+	}
+	
 	/**
 	 * reopens the main window displaying the list of rides
 	 * called by the 'cancel' and 'submit' buttons
 	 */
 	public void reopenRideListApp() {
-		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
+		Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
 		try{
-			app.start(primaryStage);
+			app.start(stage);
 			
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -195,6 +233,7 @@ public class AddRidePostController{
 			}
 			// Can't use the ApplicationFactory because we need to call a method specific to AddNewLocationApplication
 			AddNewLocationApplication newLocationApp = new AddNewLocationApplication(); 
+			newLocationApp.setAppFactory(appFactory);
 			newLocationApp.start(new Stage());
 			String newLocation = newLocationApp.getNewLocation();
 			// The user clicked cancel in the AddNewLocationGUI
@@ -208,18 +247,18 @@ public class AddRidePostController{
 				});
 				return;
 			}
-			if(!DatabaseHandler.getLocations().contains(newLocation)) {
-				DatabaseHandler.addLocation(newLocation);
+			if(!databaseHandler.getLocations().contains(newLocation)) {
+				databaseHandler.addLocation(newLocation);
 				// Regardless of in which ComboBox this is happening, we now want to update the items in both ComboBoxes.
 				// But we should preserve the current value of whichever ComboBox isn't involved at the moment!
 				String oldFromValue = from_location_combo_box.getValue();
 				String oldToValue = to_location_combo_box.getValue();
-				resetComboBoxValues(from_location_combo_box, DatabaseHandler.getLocations());
+				resetComboBoxValues(from_location_combo_box, databaseHandler.getLocations());
 				// oldFromValue would be null if the from ComboBox hasn't been touched yet
 				if(oldFromValue != null && !oldFromValue.equals(ADD_NEW_LOCATION_OPTION)) { 
 					from_location_combo_box.setValue(oldFromValue);
 				}
-				resetComboBoxValues(to_location_combo_box, DatabaseHandler.getLocations());
+				resetComboBoxValues(to_location_combo_box, databaseHandler.getLocations());
 				if(oldToValue != null && !oldToValue.equals(ADD_NEW_LOCATION_OPTION)) {
 					to_location_combo_box.setValue(oldToValue);
 				}

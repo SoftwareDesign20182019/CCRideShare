@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="319.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AddRideRequestController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="319.0" prefWidth="600.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.AddRideRequestController">
    <children>
       <Label alignment="CENTER" prefHeight="89.0" prefWidth="600.0" text="Post a Ride Request" textAlignment="CENTER">
          <font>
@@ -34,7 +34,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="from_location_combo_box" prefHeight="27.0" prefWidth="235.0" promptText="Select a Location..." visibleRowCount="3" />
+                  <ComboBox fx:id="from_location_combo_box" prefHeight="29.0" prefWidth="235.0" promptText="Select a Location..." style="-fx-background-color: grey; -fx-background-radius: 20;" visibleRowCount="3" />
                </children>
             </VBox>
             <VBox prefHeight="55.0" prefWidth="310.0">
@@ -64,7 +64,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="to_location_combo_box" prefHeight="25.0" prefWidth="250.0" promptText="Select a Location..." visibleRowCount="3" />
+                  <ComboBox fx:id="to_location_combo_box" prefHeight="29.0" prefWidth="250.0" promptText="Select a Location..." style="-fx-background-color: grey; -fx-background-radius: 20;" visibleRowCount="3" />
                </children>
             </VBox>
             <VBox prefHeight="100.0" prefWidth="294.0">
@@ -76,17 +76,17 @@
                      </font>
                   </Label>
                   <Pane prefHeight="30.0" prefWidth="300.0" />
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="89.0" prefWidth="294.0">
                      <children>
                         <Pane prefHeight="82.0" prefWidth="37.0" />
-                        <ComboBox fx:id="time_hours" prefHeight="27.0" prefWidth="67.0" promptText="hrs" />
+                        <ComboBox fx:id="time_hours" prefHeight="31.0" prefWidth="79.0" promptText="hrs" style="-fx-background-color: grey; -fx-background-radius: 20;" />
                         <Label text=":">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="time_minutes" prefHeight="27.0" prefWidth="73.0" promptText="min" />
-                        <ComboBox fx:id="time_ampm" prefHeight="27.0" prefWidth="75.0" promptText="sec" />
+                        <ComboBox fx:id="time_minutes" prefHeight="31.0" prefWidth="82.0" promptText="min" style="-fx-background-color: grey; -fx-background-radius: 20;" />
+                        <ComboBox fx:id="time_ampm" prefHeight="31.0" prefWidth="67.0" style="-fx-background-color: grey; -fx-background-radius: 20;" />
                      </children>
                   </HBox>
                </children>

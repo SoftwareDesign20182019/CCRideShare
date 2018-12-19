@@ -2,15 +2,23 @@ package application;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author kbhat
+ * constructs the user class with email and name as attributes and allows passing of user contact
+ *
+ */
 public class User 
 {
 	private String email;
 	private String fullName;
+	private DatabaseHandler databaseHandler;
 	
 	public User(String email, String fullName)
 	{
 		this.email = email;
 		this.fullName = fullName;
+		this.databaseHandler = DatabaseHandler.getInstance();
 	}
 	
 	public String getEmail() {
@@ -34,37 +42,14 @@ public class User
 	 * @return number of rows added
 	 */
 	public boolean addToDatabase(String password) {
-		if(DatabaseHandler.filterEmails(email) && !DatabaseHandler.checkEmail(email))
+		if(databaseHandler.filterEmails(email) && !databaseHandler.checkEmail(email))
 		{
-			DatabaseHandler.addAccount(this,password);
+			databaseHandler.addAccount(this,password);
 			return true;
 		}
 		else
 		{
 			return false;
 		}
-	}
-	
-	/**
-	 * main method
-	 * @param args
-	 */
-	public static void main(String[] args) 
-	{
-		
-		DatabaseHandler.initialize();
-		User user = new User("first.last@coloradocollege.edu","Student");
-		User badUser = new User("first.last@randomemail.com","Bad Guy");
-		System.out.println("user verified: "+DatabaseHandler.filterEmails(user.getEmail()));
-		System.out.println("badUser verified: "+DatabaseHandler.filterEmails(badUser.getEmail()));
-		
-		if(user.addToDatabase("password"))
-			System.out.println("User exists in database");
-		else
-			System.out.println("User does not exist in database");
-		if(badUser.addToDatabase("password"))
-			System.out.println("Bad User exists in database");
-		else
-			System.out.println("Bad User does not exist in database");
 	}
 }

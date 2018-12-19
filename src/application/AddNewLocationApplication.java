@@ -16,6 +16,7 @@ import ui.AddRidePostController;
 public class AddNewLocationApplication extends Application {
 	
 	private String newLocation;
+	private ApplicationFactory appFactory;
 	
 	/**
 	 * Set up stage for the GUI
@@ -30,9 +31,8 @@ public class AddNewLocationApplication extends Application {
 			ui.AddNewLocationController controller = loader.getController();
 			controller.setApplication(this);
 			controller.setStage(primaryStage);
-			//Parent root = FXMLLoader.load(getClass().getResource("/ui/AddRidePostGUI.fxml"));
+			controller.setAppFactory(appFactory);
 			Scene scene = new Scene(root);
-//			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.showAndWait();
 		} 
@@ -58,5 +58,9 @@ public class AddNewLocationApplication extends Application {
 	 */
 	public void setNewLocation(String newLocation) {
 		this.newLocation = newLocation;
+	}
+	
+	public void setAppFactory(ApplicationFactory factory) {
+		this.appFactory = factory;
 	}
 }
