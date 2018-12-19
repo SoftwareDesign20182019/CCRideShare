@@ -25,7 +25,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
-
+/**
+ * Connects the .fxml GUI file with the backend operations
+ */
 public class LogInController implements Controller
 {
 	private Stage stage;
@@ -63,7 +65,9 @@ public class LogInController implements Controller
 	private void initialize() {
 
 	}
-
+/**
+ * launches create account GUI
+ */
 	public void createAccountButton(){
 		Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.CREATE_ACCOUNT);
 		try
@@ -73,7 +77,10 @@ public class LogInController implements Controller
 			ex.printStackTrace();
 		}
 	}
-	
+/**
+ * logs in user by calling filter and check email methods to ensure credentials are correct
+ * launches ridelist gui if successful	
+ */
 	public void logInButton()
 	{
 		String email = emailfield.getText();
