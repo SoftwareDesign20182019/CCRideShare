@@ -200,7 +200,19 @@ public class RideListController implements Controller{
 	{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate date = dateFilter.getValue();
-		String dateLabel = formatter.format(date);
+
+		String dateLabel;
+		
+		if(date!=null)
+		{
+			dateLabel = formatter.format(date);
+		}
+		else
+		{
+			date = currentDate();
+			dateLabel = formatter.format(date);
+		}
+		
 		currentDateLabel.setText(dateLabel);
 		currentDateRequest.setText(dateLabel);
 		displayDate = date;
