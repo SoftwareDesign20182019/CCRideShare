@@ -29,8 +29,8 @@
                <font>
                   <Font name="System Bold" size="18.0" />
                </font></Label>
-            <Label layoutX="32.0" layoutY="56.0" text="From" />
-            <Label layoutX="268.0" layoutY="67.0" text="To" />
+            <Label layoutX="32.0" layoutY="56.0" text="To" />
+            <Label layoutX="268.0" layoutY="67.0" text="From" />
             <Label layoutX="33.0" layoutY="116.0" text="Spots available" />
             <Label fx:id="price" layoutX="55.0" layoutY="186.0" text="priceValue">
                <font>
