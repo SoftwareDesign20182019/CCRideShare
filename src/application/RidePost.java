@@ -16,6 +16,7 @@ public class RidePost {
 	private int numSpots;
 	private int price;
 	private String comments;
+	private String email;
 	
 	// private User driver;
 	// private ArrayList<User> riders;
@@ -29,8 +30,9 @@ public class RidePost {
 	 * @param numSpots - number of available seats in car
 	 * @param price - cost to ride
 	 * @param comments - any additional comments about trunk space for luggage, car coziness, etc.
+	 * @param email - email address of the user that created the post
 	 */
-	public RidePost(String date, String time, String toLocation, String fromLocation, int numSpots, int price, String comments) {
+	public RidePost(String date, String time, String toLocation, String fromLocation, int numSpots, int price, String comments, String email) {
 		this.date = date; 
 		this.time = time;
 		this.toLocation = toLocation;
@@ -38,7 +40,7 @@ public class RidePost {
 		this.numSpots = numSpots;
 		this.price = price;
 		this.comments = comments;
-		// databaseStatement = DatabaseHandler.getStatement();
+		this.email = email;
 	}
 
 	public String getDate() {
@@ -97,6 +99,15 @@ public class RidePost {
 		this.comments = comments;
 	}
 	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+			
+			
 	/**
 	 * adds a RiderPost to the database
 	 * @return number of rows added
@@ -105,20 +116,4 @@ public class RidePost {
 		int rowsAdded = DatabaseHandler.addRidePost(this);
 		return rowsAdded;
 	}
-	
-	/**
-	 * main method
-	 * @param args
-	 */
-//	public static void main(String[] args) {
-//		
-//		DatabaseHandler.initialize();
-//		RidePost post = new RidePost("1/1/19", "11:00PM", "Dover", "Colorado College", 4, "$20", "no comments");
-//		RidePost post2 = new RidePost("1/1/20", "11:00PM", "Denver", "Colorado College", 4, "$20", "");
-//		post.addToDatabase();
-//		post2.addToDatabase();
-//		RideRequestPost post3 = new RideRequestPost("1/1/18", "1:00PM", "Everywhere", "Everywhere else", "all the comments.");
-//		post3.addToDatabase();
-//		ArrayList<RidePost> ridePosts = DatabaseHandler.getRidePosts();		
-//	}
 }

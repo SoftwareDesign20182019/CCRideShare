@@ -99,7 +99,8 @@ public class AddRidePostController{
 				String time = "" + time_hours.getValue() + ":" + time_minutes.getValue() + time_ampm.getValue();
 				
 				RidePost newRidePost = new RidePost(date.getValue().toString(), time, to_location_combo_box.getValue(), 
-						from_location_combo_box.getValue(), Integer.parseInt(num_available_spots.getText()), Integer.parseInt(price.getText()), comments.getText());	
+						from_location_combo_box.getValue(), Integer.parseInt(num_available_spots.getText()), Integer.parseInt(price.getText()), 
+						comments.getText(), DatabaseHandler.getCurrentUser().getEmail());	
 				
 				DatabaseHandler.addRidePost(newRidePost);
 				reopenRideListApp();

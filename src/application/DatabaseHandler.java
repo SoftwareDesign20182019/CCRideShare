@@ -17,8 +17,8 @@ public class DatabaseHandler {
 	public static final String PORT_NUMBER = "3306"; // Most people seem to use this port
 //	 public static final String PORT_NUMBER = "8889"; // Ely uses this port
 	public static final String CC_DOMAIN = "coloradocollege.edu";
-	
 	private static Statement databaseStatement; // Does this need to be closed ever?
+	private static User currentUser;
 	
 	/**
 	 * Creates the local database, the RidePost table, and RideRequestPost table if they don't already exist
@@ -46,7 +46,8 @@ public class DatabaseHandler {
 					 + "numSpots int, "
 					 + "price varchar(50), "
 					 + "comments varchar(500), "
-					 + "primary key (id));";
+					 + "primary key (id), "
+					 + "email varchar(100));";
 			
 			String createRequestTable = "create table if not exists RideRequestPosts ( " + 
 					 "id int not null auto_increment, "
@@ -54,7 +55,8 @@ public class DatabaseHandler {
 					 + "time varchar(10), "
 					 + "toLocation varchar(50), "
 					 + "fromLocation varchar(50), "
-					 + "primary key (id));";
+					 + "primary key (id), "
+					 + "email varchar(100));";
 			
 			String createLocationTable = "create table if not exists Locations ( "
 					 + "id int not null auto_increment, "
@@ -79,7 +81,25 @@ public class DatabaseHandler {
 		}
 	}
 	
+	public static User setCurrentUser(String email)
+	{
+		ArrayList<User> users = DatabaseHandler.getUser(email);
+		if(!users.isEmpty())
+		{
+			currentUser = users.get(0);
+			return currentUser;
+		}
+		else
+		{
+			System.out.println("Not a current user: "+email);
+			return new User("","");
+		}
+	}
 	
+	public static User getCurrentUser()
+	{
+		return currentUser;
+	}
 	
 	/*public static Statement getStatement() {	
 		try {
@@ -102,8 +122,8 @@ public class DatabaseHandler {
 	 */
 	public static int addRidePost(RidePost ridePost) {
 		String date = ridePost.getDate();
-		String sqlInsert = String.format("INSERT INTO RidePosts values (null, %s, '%s', '%s', '%s', %d, '%s', '%s')", 
-				"STR_TO_DATE('"+date+"', '%Y-%m-%d')", ridePost.getTime(), ridePost.getToLocation(), ridePost.getFromLocation(), ridePost.getNumSpots(), ridePost.getPrice(), ridePost.getComments());
+		String sqlInsert = String.format("INSERT INTO RidePosts values (null, %s, '%s', '%s', '%s', %d, '%s', '%s', '%s')", 
+				"STR_TO_DATE('"+date+"', '%Y-%m-%d')", ridePost.getTime(), ridePost.getToLocation(), ridePost.getFromLocation(), ridePost.getNumSpots(), ridePost.getPrice(), ridePost.getComments(), ridePost.getEmail());
 		try{
 			int rowsAdded = databaseStatement.executeUpdate(sqlInsert);
 			return rowsAdded;
@@ -120,8 +140,8 @@ public class DatabaseHandler {
 	 */
 	public static int addRideRequestPost(RideRequestPost riderequestPost) {
 		String date = riderequestPost.getDate();
-		String sqlInsert = String.format("INSERT INTO RideRequestPosts values (null, %s, '%s', '%s', '%s')", 
-				 "STR_TO_DATE('"+date+"','%Y-%m-%d')", riderequestPost.getTime(), riderequestPost.getToLocation(), riderequestPost.getFromLocation());
+		String sqlInsert = String.format("INSERT INTO RideRequestPosts values (null, %s, '%s', '%s', '%s', '%s')", 
+				 "STR_TO_DATE('"+date+"','%Y-%m-%d')", riderequestPost.getTime(), riderequestPost.getToLocation(), riderequestPost.getFromLocation(), riderequestPost.getEmail());
 
 		try{
 			int rowsAdded = databaseStatement.executeUpdate(sqlInsert);
@@ -182,7 +202,8 @@ public class DatabaseHandler {
 				int numSpots = rset.getInt("numSpots");
 				int price = rset.getInt("price");
 				String comments = rset.getString("comments");
-				RidePost currRidePost = new RidePost(date, time, toLocation, fromLocation, numSpots, price, comments);
+				String email = rset.getString("email");
+				RidePost currRidePost = new RidePost(date, time, toLocation, fromLocation, numSpots, price, comments, email);
 				
 				ridePosts.add(currRidePost);
 			}
@@ -210,7 +231,8 @@ public class DatabaseHandler {
 				String time = rset.getString("time");
 				String toLocation = rset.getString("toLocation");
 				String fromLocation = rset.getString("fromLocation");
-				RideRequestPost currRideRequestPost = new RideRequestPost(date, time, toLocation, fromLocation);
+				String email = rset.getString("email");
+				RideRequestPost currRideRequestPost = new RideRequestPost(date, time, toLocation, fromLocation, email);
 				
 				riderequestPosts.add(currRideRequestPost);
 			}
@@ -345,7 +367,8 @@ public class DatabaseHandler {
 				int numSpots = rset.getInt("numSpots");
 				int price = rset.getInt("price");
 				String comments = rset.getString("comments");
-				RidePost RidePosts = new RidePost(StringDate, time, toLocation, fromLocation, numSpots, price, comments);	
+				String email = rset.getString("email");
+				RidePost RidePosts = new RidePost(StringDate, time, toLocation, fromLocation, numSpots, price, comments, email);	
 			
 				SearchedPostsByDate.add(RidePosts);	
 			}

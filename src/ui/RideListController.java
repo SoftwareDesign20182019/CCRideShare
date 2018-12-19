@@ -9,9 +9,11 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ResourceBundle;
 
+import application.AddNewLocationApplication;
 import application.AddRidePostApplication;
 import application.ApplicationFactory;
 import application.DatabaseHandler;
+import application.RideDetailsApplication;
 import application.RideListApplication;
 import application.RidePost;
 import application.RideRequestPost;
@@ -24,6 +26,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.control.Button;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
@@ -200,5 +204,22 @@ public class RideListController{
 				ex.printStackTrace();
 			}
 		}
+	}
+	/**
+	 * @return the ID of the selected post
+	 */
+	@FXML
+	private void clickPost() {
+		List<RidePost> postList;
+		postList = ridepost_table.getSelectionModel().getSelectedItems();
+		//ID row to add
+		RidePost selectedPost = postList.get(0);
+		
+		// Can't use the ApplicationFactory because we need to call a method specific to AddNewLocationApplication
+		RideDetailsApplication rideDetailsApp = new RideDetailsApplication(); 
+		rideDetailsApp.setRidePost(selectedPost);
+		rideDetailsApp.start(new Stage());
+		
+		
 	}
 }

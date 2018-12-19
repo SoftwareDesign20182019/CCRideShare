@@ -60,20 +60,7 @@ public class ApplicationFactory {
 	 * @param email of user
 	 * @return the user object that has the email 
 	 */
-	public static User setCurrentUser(String email)
-	{
-		ArrayList<User> users = DatabaseHandler.getUser(email);
-		if(!users.isEmpty())
-		{
-			currentUser = users.get(0);
-			return currentUser;
-		}
-		else
-		{
-			System.out.println("Not a current user: "+email);
-			return new User("","");
-		}
-	}
+	
 	
 	private static class ApplicationWithType{
 		private Application application;
@@ -93,8 +80,5 @@ public class ApplicationFactory {
 		}
 	}
 	
-	public static User getCurrentUser()
-	{
-		return currentUser;
-	}
+
 }

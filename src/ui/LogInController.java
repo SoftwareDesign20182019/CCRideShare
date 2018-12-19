@@ -82,7 +82,7 @@ public class LogInController
 		{
 			if(DatabaseHandler.checkEmail(email) && DatabaseHandler.isRightPassword(email,password))
 			{
-				ApplicationFactory.setCurrentUser(email);
+				DatabaseHandler.setCurrentUser(email);
 				Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
 				app.start(primaryStage);
 				//TODO: Tell main GUI that this is the person logged in

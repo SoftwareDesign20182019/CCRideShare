@@ -1,5 +1,6 @@
 package ui;
 
+import application.RidePost;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
@@ -22,6 +23,9 @@ public class RideDetailsController {
 	private Label price;
 	@FXML
 	private Text comments;
+	private RidePost ridePost;
+	@FXML
+	private Label email;
 	
 	public RideDetailsController() {
 		date = new Label();
@@ -31,6 +35,7 @@ public class RideDetailsController {
 		spots = new Label();
 		price = new Label();
 		comments = new Text();
+		email = new Label();
 	}
 	/**
 	 * Method to be called automatically when this controller is attached to the FXML file
@@ -38,21 +43,29 @@ public class RideDetailsController {
 	@FXML
 	private void initialize() {
 		
-		//get all the values from the database tht are needed here
-		//convert them to string maybe?
-		
-		date.setText();
-		time.setText();
-		from.setText();
-		to.setText();
-		spots.setText();
-		price.setText();
-		comments.setText();
+	}
+	/**
+	 * returns a String with the value of the desired attribute of the RidePost
+	 */
+	public void setRidePost(RidePost ridePost) {
+		this.ridePost = ridePost;
 	}
 	
+	public void setStage(Stage stage) {
+		this.primaryStage = stage;
+	}
 	
-	
-	
+	public void assignGUIvalues() {
+		date.setText(ridePost.getDate());
+		time.setText(ridePost.getTime());
+		from.setText(ridePost.getFromLocation());
+		to.setText(ridePost.getToLocation());
+		spots.setText(Integer.toString(ridePost.getNumSpots()));
+		price.setText(Integer.toString(ridePost.getPrice()));
+		comments.setText(ridePost.getComments());
+		//implement this
+		email.setText(ridePost.getEmail());
+	}
 	
 	
 	

@@ -127,7 +127,7 @@ public class CreateAccountController {
 		{
 			User newUser = new User(email,fullName);
 			newUser.addToDatabase(password);
-			ApplicationFactory.setCurrentUser(email);
+			DatabaseHandler.setCurrentUser(email);
 			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
 			app.start(primaryStage);
 			
