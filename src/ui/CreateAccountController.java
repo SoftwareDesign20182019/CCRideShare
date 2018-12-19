@@ -29,13 +29,12 @@ import javafx.stage.Stage;
 
 import javafx.application.Application;
 
-
+/**
+ * Connects the .fxml GUI file with the backend operations
+ * @author arehorst
+ */
 public class CreateAccountController implements Controller {
 
-	/**
-	 * Connects the .fxml GUI file with the backend operations
-	 * @author arehorst
-	 */
 	private Stage stage;
 	private DatabaseHandler databaseHandler;
 	private ApplicationFactory appFactory;

@@ -16,6 +16,7 @@ public class RidePost {
 	private int numSpots;
 	private int price;
 	private String comments;
+	private String email;
 	
 	// private User driver;
 	// private ArrayList<User> riders;
@@ -30,7 +31,7 @@ public class RidePost {
 	 * @param price - cost to ride
 	 * @param comments - any additional comments about trunk space for luggage, car coziness, etc.
 	 */
-	public RidePost(String date, String time, String toLocation, String fromLocation, int numSpots, int price, String comments) {
+	public RidePost(String date, String time, String toLocation, String fromLocation, int numSpots, int price, String comments, String email) {
 		this.date = date; 
 		this.time = time;
 		this.toLocation = toLocation;
@@ -38,7 +39,7 @@ public class RidePost {
 		this.numSpots = numSpots;
 		this.price = price;
 		this.comments = comments;
-		// databaseStatement = DatabaseHandler.getStatement();
+		this.email = email;
 	}
 
 	public String getDate() {
@@ -95,6 +96,14 @@ public class RidePost {
 
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	/**

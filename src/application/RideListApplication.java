@@ -2,6 +2,8 @@ package application;
 	
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,6 +26,10 @@ public class RideListApplication extends Application {
 	private ListTab tab;
 	private ApplicationFactory appFactory;
 	
+	//stage positioning constants
+	private static final Screen PRIMARY_SCREEN = Screen.getPrimary();
+	private static final Rectangle2D PRIMARY_SCREEN_BOUNDS = PRIMARY_SCREEN.getVisualBounds();
+	
 	/**
 	 * Set up stage for the GUI
 	 * @param primaryStage - the primary stage
@@ -37,10 +43,12 @@ public class RideListApplication extends Application {
 			controller = loader.getController();
 			controller.setStage(primaryStage);
 			controller.setAppFactory(appFactory);
-			//Parent root = FXMLLoader.load(getClass().getResource("/ui/RideListGUI.fxml"));
 			Scene scene = new Scene(root);
-//			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
+			double stageX = PRIMARY_SCREEN_BOUNDS.getMinX() + (PRIMARY_SCREEN_BOUNDS.getWidth() - primaryStage.getWidth()) / 2;
+			double stageY = PRIMARY_SCREEN_BOUNDS.getMinY() + (PRIMARY_SCREEN_BOUNDS.getHeight() - primaryStage.getHeight()) / 2;
+			primaryStage.setX(stageX);
+			primaryStage.setY(stageY);
 			primaryStage.show();
 			if(tab != null) {
 				controller.setTab(tab);

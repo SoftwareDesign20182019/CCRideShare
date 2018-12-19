@@ -13,12 +13,14 @@ public class RideRequestPost {
 	private String time;
 	private String toLocation;
 	private String fromLocation;
+	private String email;
 
-	public RideRequestPost(String date, String time, String toLocation, String fromLocation) {
+	public RideRequestPost(String date, String time, String toLocation, String fromLocation, String email) {
 		this.date = date; 
 		this.time = time;
 		this.toLocation = toLocation;
 		this.fromLocation = fromLocation;
+		this.email = email;
 	}
 	
 	public String getDate() {
@@ -51,6 +53,14 @@ public class RideRequestPost {
 
 	public void setFromLocation(String fromLocation) {
 		this.fromLocation = fromLocation;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	/**

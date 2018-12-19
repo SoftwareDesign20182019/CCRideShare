@@ -36,7 +36,7 @@
                               </Label>
                               <ScrollPane hbarPolicy="NEVER" layoutX="1.0" layoutY="62.0" prefHeight="622.0" prefWidth="1074.0" style="-fx-background-color: #818c98;" vbarPolicy="ALWAYS">
                                  <content>
-                                    <TableView fx:id="ridepost_table" prefHeight="597.0" prefWidth="1059.0">
+                                    <TableView fx:id="ridepost_table" onMouseReleased="#clickPost" prefHeight="597.0" prefWidth="1059.0">
                                       <columns>
                                         <TableColumn fx:id="time_col" prefWidth="112.00004577636719" text="Time" />
                                         <TableColumn fx:id="to_col" prefWidth="347.1999816894531" text="To" />

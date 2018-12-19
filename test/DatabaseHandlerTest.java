@@ -12,7 +12,7 @@ public class DatabaseHandlerTest {
 	@Test
 	public void addRideTest() 
 	{
-		RidePost ridePost = new RidePost("1-1-1", "11:11PM", "Danver", "Colorado College", 4, 20, "no comments");
+		RidePost ridePost = new RidePost("1-1-1", "11:11PM", "Danver", "Colorado College", 4, 20, "no comments", "e@coloradocollege.edu");
 		int rowsAdded = ridePost.addToDatabase();
 		
 		assertEquals(rowsAdded,1);
@@ -21,7 +21,7 @@ public class DatabaseHandlerTest {
 	@Test
 	public void addRideRequestTest() 
 	{
-		RideRequestPost rideRequest = new RideRequestPost("1-1-1", "11:11PM", "CC", "Denver");
+		RideRequestPost rideRequest = new RideRequestPost("1-1-1", "11:11PM", "CC", "Denver", "e@coloradocollege.edu");
 		int rowsAdded = rideRequest.addToDatabase();
 		
 		assertEquals(rowsAdded,1);

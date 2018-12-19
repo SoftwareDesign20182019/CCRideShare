@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="233.0" prefWidth="968.0" scaleShape="false" style="-fx-border-color: yellowgreen;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RideDetailsController">
+   <children>
+      <Pane layoutX="-2.0" prefHeight="233.0" prefWidth="972.0" style="-fx-background-color: lightgrey; -fx-border-width: 5;">
+         <children>
+            <Text fx:id="comments" layoutX="535.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="apfj fgsdfg'psfa'pfsfgsf dgwefgwergw sregwsrtg swtrgsrtg srtgsrstgs rtgsdfbdfbs ebwtbhwerg wesgwerrgs ergsergsegs dfgsgegae0 rgjqeriijg q[0rwjf[0 q0rjfq[ weij p fq wepifjq[w 0ieghq[re hq[weoufi hj'psjf p'Jsd.dj lfgnlf nalfng 'aerkn" textAlignment="JUSTIFY" wrappingWidth="420.6708984375">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#979797" layoutX="695.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Text>
+            <Label fx:id="date" layoutX="32.0" layoutY="30.0" prefHeight="28.0" prefWidth="129.0" text="Date">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="time" layoutX="161.0" layoutY="31.0" text="Time">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+            <Label layoutX="33.0" layoutY="67.0" text="From" />
+            <Label layoutX="268.0" layoutY="67.0" text="To" />
+            <Label layoutX="33.0" layoutY="128.0" text="Spots available" />
+            <Label fx:id="price" layoutX="52.0" layoutY="186.0" text="priceValue">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+            <Label fx:id="to" layoutX="46.0" layoutY="88.0" text="toValue">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+            <Label fx:id="from" layoutX="277.0" layoutY="88.0" text="fromValue">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+            <Label fx:id="spots" layoutX="46.0" layoutY="149.0" text="spotsValue">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+            <Label layoutX="267.0" layoutY="166.0" text="Contact" />
+            <Label fx:id="email" layoutX="282.0" layoutY="186.0" text="email">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="41.0" layoutY="186.0" text="\$">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

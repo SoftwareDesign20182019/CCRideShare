@@ -119,7 +119,7 @@ public class AddRideRequestController implements Controller {
 			String time = "" + time_hours.getValue() + ":" + time_minutes.getValue() + time_ampm.getValue();
 			
 			RideRequestPost newRideRequest = new RideRequestPost(date.getValue().toString(), time, to_location_combo_box.getValue(), 
-					from_location_combo_box.getValue());	
+					from_location_combo_box.getValue(), databaseHandler.getCurrentUser().getEmail());
 			
 			databaseHandler.addRideRequestPost(newRideRequest);
 			reopenRideListApp(RideListApplication.ListTab.RIDE_REQUESTS);
