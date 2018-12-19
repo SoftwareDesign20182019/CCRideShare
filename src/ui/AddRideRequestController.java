@@ -23,14 +23,13 @@ import java.util.ArrayList;
  * Connects the AddRidePost FXML GUI file with the backend operations
  * @author elysamuel16
  */
-public class AddRideRequestController implements Controller {
+public class AddRideRequestController{
 
 	@FXML
 	private static final String ADD_NEW_LOCATION_OPTION = "Add a New Location...";
 	
-	private Stage stage;
+	private Stage primaryStage;
 	private DatabaseHandler databaseHandler;
-	private ApplicationFactory appFactory;
 	
 	@FXML
 	private URL location;
@@ -100,13 +99,10 @@ public class AddRideRequestController implements Controller {
 		locationComboBox.getItems().add(ADD_NEW_LOCATION_OPTION);
 	}
 	
-	public void setStage(Stage stage) {
-		this.stage = stage;
+	public void setPrimaryStage(Stage primaryStage) {
+		this.primaryStage = primaryStage;
 	}
 	
-	public void setAppFactory(ApplicationFactory factory) {
-		this.appFactory = factory;
-	}
 	
 	@FXML
 	private void createRideRequest() {
@@ -119,7 +115,7 @@ public class AddRideRequestController implements Controller {
 			String time = "" + time_hours.getValue() + ":" + time_minutes.getValue() + time_ampm.getValue();
 			
 			RideRequestPost newRideRequest = new RideRequestPost(date.getValue().toString(), time, to_location_combo_box.getValue(), 
-					from_location_combo_box.getValue(), databaseHandler.getCurrentUser().getEmail());
+					from_location_combo_box.getValue());	
 			
 			databaseHandler.addRideRequestPost(newRideRequest);
 			reopenRideListApp(RideListApplication.ListTab.RIDE_REQUESTS);
@@ -136,10 +132,9 @@ public class AddRideRequestController implements Controller {
 	
 	private void reopenRideListApp(RideListApplication.ListTab tabDesired) {
 		RideListApplication app = new RideListApplication(); // Can't use the factory this time because we need to call a method specific to RideListApplication
-		app.setAppFactory(appFactory);
 		app.setTab(tabDesired);
 		try{
-			app.start(stage);
+			app.start(primaryStage);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
@@ -171,7 +166,6 @@ public class AddRideRequestController implements Controller {
 			}
 			// Can't use the ApplicationFactory because we need to call a method specific to AddNewLocationApplication
 			AddNewLocationApplication newLocationApp = new AddNewLocationApplication(); 
-			newLocationApp.setAppFactory(appFactory);
 			newLocationApp.start(new Stage());
 			String newLocation = newLocationApp.getNewLocation();
 			// The user clicked cancel in the AddNewLocationGUI

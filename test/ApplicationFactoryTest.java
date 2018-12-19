@@ -2,52 +2,40 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import javafx.stage.Stage;
-import ui.RideListController;
-import ui.AddRidePostController;
-import ui.AddRideRequestController;
-import ui.LogInController;
-import ui.CreateAccountController;
+import application.AddRidePostApplication;
+import application.AddRideRequestApplication;
 import application.ApplicationFactory;
 import application.ApplicationFactory.ApplicationType;
-import application.GeneralApplication;
+import application.CreateAccountApplication;
+import application.LogInApplication;
+import application.RideListApplication;
 
 public class ApplicationFactoryTest {
 
 	@Test
 	public void testGetApplicationRidelist() {
-		ApplicationType testType = ApplicationType.RIDE_LIST;
-		ApplicationFactory appFactory = new ApplicationFactory();
-		GeneralApplication testApp = appFactory.getApplication(testType);
-		assertTrue(testApp.getGUIPath().contains("ui/RideListGUI.fxml"));
+		ApplicationType testType = ApplicationFactory.ApplicationType.RIDE_LIST;
+		assertTrue(ApplicationFactory.getApplication(testType) instanceof RideListApplication);		
 	}
 	@Test
 	public void testGetApplicationAddridepost() {
 		ApplicationType testType = ApplicationFactory.ApplicationType.ADD_RIDE_POST;
-		ApplicationFactory appFactory = new ApplicationFactory();
-		GeneralApplication testApp = appFactory.getApplication(testType);
-		assertTrue(testApp.getGUIPath().contains("ui/AddRidePostGUI.fxml"));		
+		assertTrue(ApplicationFactory.getApplication(testType) instanceof AddRidePostApplication);		
 	}
 	@Test
 	public void testGetApplicationAddriderequest() {
 		ApplicationType testType = ApplicationFactory.ApplicationType.ADD_RIDE_REQUEST;
-		ApplicationFactory appFactory = new ApplicationFactory();
-		GeneralApplication testApp = appFactory.getApplication(testType);
-		assertTrue(testApp.getGUIPath().contains("ui/AddRideRequestGUI.fxml"));			
+		assertTrue(ApplicationFactory.getApplication(testType) instanceof AddRideRequestApplication);		
 	}
 	@Test
 	public void testGetApplicationCreateaccount() {
 		ApplicationType testType = ApplicationFactory.ApplicationType.CREATE_ACCOUNT;
-		ApplicationFactory appFactory = new ApplicationFactory();
-		GeneralApplication testApp = appFactory.getApplication(testType);
-		assertTrue(testApp.getGUIPath().contains("ui/CreateAccountGUI.fxml"));		
+		assertTrue(ApplicationFactory.getApplication(testType) instanceof CreateAccountApplication);		
 	}
 	@Test
 	public void testGetApplicationLogin() {
 		ApplicationType testType = ApplicationFactory.ApplicationType.LOG_IN;
-		ApplicationFactory appFactory = new ApplicationFactory();
-		GeneralApplication testApp = appFactory.getApplication(testType);
-		assertTrue(testApp.getGUIPath().contains("ui/LogInGUI.fxml"));		
+		assertTrue(ApplicationFactory.getApplication(testType) instanceof LogInApplication);		
 	}
 	
 	

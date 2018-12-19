@@ -31,11 +31,10 @@ import java.lang.NumberFormatException;
  * Connects the AddRidePost FXML GUI file with the backend operations
  * @author elysamuel16
  */
-public class AddRidePostController implements Controller {
+public class AddRidePostController{
 
-	private Stage stage;
+	private Stage primaryStage;
 	private DatabaseHandler databaseHandler;
-	private ApplicationFactory appFactory;
 	
 	@FXML
 	private static final String ADD_NEW_LOCATION_OPTION = "Add a New Location..."; 
@@ -102,8 +101,7 @@ public class AddRidePostController implements Controller {
 				String time = "" + time_hours.getValue() + ":" + time_minutes.getValue() + time_ampm.getValue();
 				
 				RidePost newRidePost = new RidePost(date.getValue().toString(), time, to_location_combo_box.getValue(), 
-						from_location_combo_box.getValue(), Integer.parseInt(num_available_spots.getText()), Integer.parseInt(price.getText()), 
-						comments.getText(), databaseHandler.getCurrentUser().getEmail());	
+						from_location_combo_box.getValue(), Integer.parseInt(num_available_spots.getText()), Integer.parseInt(price.getText()), comments.getText());	
 				
 				databaseHandler.addRidePost(newRidePost);
 				reopenRideListApp();
@@ -156,22 +154,17 @@ public class AddRidePostController implements Controller {
 		locationComboBox.getItems().add(ADD_NEW_LOCATION_OPTION);
 	}
 	
-	public void setStage(Stage stage) {
-		this.stage = stage;
+	public void setPrimaryStage(Stage primaryStage) {
+		this.primaryStage = primaryStage;
 	}
-	
-	public void setAppFactory(ApplicationFactory factory) {
-		this.appFactory = factory;
-	}
-	
 	/**
 	 * reopens the main window displaying the list of rides
 	 * called by the 'cancel' and 'submit' buttons
 	 */
 	public void reopenRideListApp() {
-		Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
+		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
 		try{
-			app.start(stage);
+			app.start(primaryStage);
 			
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -204,7 +197,6 @@ public class AddRidePostController implements Controller {
 			}
 			// Can't use the ApplicationFactory because we need to call a method specific to AddNewLocationApplication
 			AddNewLocationApplication newLocationApp = new AddNewLocationApplication(); 
-			newLocationApp.setAppFactory(appFactory);
 			newLocationApp.start(new Stage());
 			String newLocation = newLocationApp.getNewLocation();
 			// The user clicked cancel in the AddNewLocationGUI

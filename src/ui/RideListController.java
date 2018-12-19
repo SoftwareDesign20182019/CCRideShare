@@ -9,14 +9,15 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ResourceBundle;
 
+import application.AddRidePostApplication;
 import application.ApplicationFactory;
 import application.DatabaseHandler;
-import application.RideDetailsApplication;
 import application.RideListApplication;
 import application.RidePost;
 import application.RideRequestPost;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -25,8 +26,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import java.util.ArrayList;
-import java.util.List;
-
 import javafx.scene.control.Button;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
@@ -38,11 +37,10 @@ import javafx.scene.control.TabPane;
  * Connects the .fxml GUI file with the backend operations
  * @author viktorkelemen & elymerenstein & arehorst
  */
-public class RideListController implements Controller{
+public class RideListController{
 	
-	private Stage stage;
+	private Stage primaryStage;
 	private DatabaseHandler databaseHandler;
-	private ApplicationFactory appFactory;
 	
 	@FXML
     private Label currentDateLabel;
@@ -186,6 +184,7 @@ public class RideListController implements Controller{
 		request_from_col.setCellValueFactory(new PropertyValueFactory<RidePost, String>("fromLocation"));
 
 		riderequestpost_table.setItems(requestData);
+
 		
 		addRidePostButton.setOnAction(new AddRidePostButtonHandler());
 		
@@ -200,7 +199,19 @@ public class RideListController implements Controller{
 	{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate date = dateFilter.getValue();
-		String dateLabel = formatter.format(date);
+
+		String dateLabel;
+		
+		if(date!=null)
+		{
+			dateLabel = formatter.format(date);
+		}
+		else
+		{
+			date = currentDate();
+			dateLabel = formatter.format(date);
+		}
+		
 		currentDateLabel.setText(dateLabel);
 		currentDateRequest.setText(dateLabel);
 		displayDate = date;
@@ -217,13 +228,9 @@ public class RideListController implements Controller{
 		}
 	}
 	
-	public void setStage(Stage stage) {
-		this.stage = stage;
-		this.stage.setResizable(false);
-	}
-	
-	public void setAppFactory(ApplicationFactory factory) {
-		this.appFactory = factory;
+	public void setPrimaryStage(Stage primaryStage) {
+		this.primaryStage = primaryStage;
+		this.primaryStage.setResizable(false);
 	}
 	
 	private LocalDate currentDate() {
@@ -322,9 +329,9 @@ public class RideListController implements Controller{
 		
 		@Override
 		public void handle(ActionEvent event) {
-			Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.ADD_RIDE_POST);
+			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.ADD_RIDE_POST);
 			try{
-				app.start(stage);
+				app.start(primaryStage);
 				
 			}catch(Exception ex) {
 				ex.printStackTrace();
@@ -336,31 +343,14 @@ public class RideListController implements Controller{
 		
 		@Override
 		public void handle(ActionEvent event) {
-			Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.ADD_RIDE_REQUEST);
+			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.ADD_RIDE_REQUEST);
 			try{
-				app.start(stage);
+				app.start(primaryStage);
 				
 			}
 			catch(Exception ex) {
 				ex.printStackTrace();
 			}
 		}
-	}
-	/**
-	 * @return the ID of the selected post
-	 */
-	@FXML
-	private void clickPost() {
-		List<RidePost> postList;
-		postList = ridepost_table.getSelectionModel().getSelectedItems();
-		//ID row to add
-		RidePost selectedPost = postList.get(0);
-		
-		// Can't use the ApplicationFactory because we need to call a method specific to AddNewLocationApplication
-		RideDetailsApplication rideDetailsApp = new RideDetailsApplication(); 
-		rideDetailsApp.setRidePost(selectedPost);
-		rideDetailsApp.start(new Stage());
-		
-		
 	}
 }

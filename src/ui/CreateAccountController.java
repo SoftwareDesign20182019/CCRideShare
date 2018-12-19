@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ResourceBundle;
 
+import application.AddRidePostApplication;
 import application.ApplicationFactory;
 import application.DatabaseHandler;
 import application.RideListApplication;
@@ -29,15 +30,15 @@ import javafx.stage.Stage;
 
 import javafx.application.Application;
 
-/**
- * Connects the .fxml GUI file with the backend operations
- * @author arehorst
- */
-public class CreateAccountController implements Controller {
 
-	private Stage stage;
+public class CreateAccountController {
+
+	/**
+	 * Connects the .fxml GUI file with the backend operations
+	 * @author arehorst
+	 */
+	private Stage primaryStage;
 	private DatabaseHandler databaseHandler;
-	private ApplicationFactory appFactory;
 
 	// Ride Tab
 	@FXML
@@ -85,23 +86,18 @@ public class CreateAccountController implements Controller {
 		
 	}
 
-	public void setStage(Stage stage) {
-		this.stage = stage;
-		this.stage.setResizable(false);
+	public void setPrimaryStage(Stage primaryStage) {
+		this.primaryStage = primaryStage;
+		this.primaryStage.setResizable(false);
 	}
-	
-	public void setAppFactory(ApplicationFactory factory) {
-		this.appFactory = factory;
-	}
-	
 	/**
 	 * when the login button is pressed
 	 * brings up the login window
 	 */
 	public void logInButton() {
-		Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.LOG_IN);
+		Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.LOG_IN);
 		try{
-			app.start(stage);
+			app.start(primaryStage);
 
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -133,9 +129,9 @@ public class CreateAccountController implements Controller {
 		{
 			User newUser = new User(email,fullName);
 			newUser.addToDatabase(password);
-			databaseHandler.setCurrentUser(email);
-			Application app = appFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
-			app.start(stage);
+			ApplicationFactory.setCurrentUser(email);
+			Application app = ApplicationFactory.getApplication(ApplicationFactory.ApplicationType.RIDE_LIST);
+			app.start(primaryStage);
 			
 		}
 		else if(databaseHandler.checkEmail(email))

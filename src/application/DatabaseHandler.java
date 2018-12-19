@@ -20,13 +20,12 @@ public class DatabaseHandler {
 	private static DatabaseHandler databaseHandlerInstance;
 	
 	// Constants:
-//	private static final String PORT_NUMBER = "3306"; // Most people seem to use this port
-	private static final String PORT_NUMBER = "8889"; // Ely uses this port
+	private static final String PORT_NUMBER = "3306"; // Most people seem to use this port
+//	private static final String PORT_NUMBER = "8889"; // Ely uses this port
 	private static final String CC_DOMAIN = "@coloradocollege.edu";
 	
 	// Instance variables:
 	private Statement databaseStatement; // Does this need to be closed ever?
-	private User currentUser;
 	
 	// Singleton method: 
 	public static DatabaseHandler getInstance() {
@@ -66,8 +65,7 @@ public class DatabaseHandler {
 					 + "numSpots int, "
 					 + "price varchar(50), "
 					 + "comments varchar(500), "
-					 + "primary key (id), "
-					 + "email varchar(100));";
+					 + "primary key (id));";
 			
 			String createRequestTable = "create table if not exists RideRequestPosts ( " + 
 					 "id int not null auto_increment, "
@@ -75,8 +73,7 @@ public class DatabaseHandler {
 					 + "time varchar(10), "
 					 + "toLocation varchar(50), "
 					 + "fromLocation varchar(50), "
-					 + "primary key (id), "
-					 + "email varchar(100));";
+					 + "primary key (id));";
 			
 			String createLocationTable = "create table if not exists Locations ( "
 					 + "id int not null auto_increment, "
@@ -101,6 +98,22 @@ public class DatabaseHandler {
 		}
 	}
 	
+	
+	
+	/*public static Statement getStatement() {	
+		try {
+				// Set up new Connection and Statement, now that the database is created
+				Connection conn = DriverManager.getConnection(
+						"jdbc:mysql://localhost:" + PORT_NUMBER + "/CCRideShare?user=root&password=root");
+				Statement stmt = conn.createStatement();
+			return stmt;
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		}
+		
+	}*/
+	
 	/**
 	 * adds a specified RidePost to the RidePosts table
 	 * @param ridePost - the RidePost that is to be added to the table
@@ -108,12 +121,15 @@ public class DatabaseHandler {
 	 */
 	public int addRidePost(RidePost ridePost) {
 		String date = ridePost.getDate();
-		String sqlInsert = String.format("INSERT INTO RidePosts values (null, %s, '%s', '%s', '%s', %d, '%s', '%s', '%s')", 
-				"STR_TO_DATE('"+date+"', '%Y-%m-%d')", ridePost.getTime(), ridePost.getToLocation(), ridePost.getFromLocation(), ridePost.getNumSpots(), ridePost.getPrice(), ridePost.getComments(), ridePost.getEmail());
-		try{
+		String sqlInsert = String.format("INSERT INTO RidePosts values (null, %s, '%s', '%s', '%s', %d, '%s', '%s')", 
+				"STR_TO_DATE('"+date+"', '%Y-%m-%d')", ridePost.getTime(), ridePost.getToLocation(), ridePost.getFromLocation(), ridePost.getNumSpots(), ridePost.getPrice(), ridePost.getComments());
+		try
+		{
 			int rowsAdded = databaseStatement.executeUpdate(sqlInsert);
 			return rowsAdded;
-		}catch(SQLException ex) {
+		}
+		catch(SQLException ex) 
+		{
 			ex.printStackTrace();
 			return 0;
 		}
@@ -126,13 +142,16 @@ public class DatabaseHandler {
 	 */
 	public int addRideRequestPost(RideRequestPost riderequestPost) {
 		String date = riderequestPost.getDate();
-		String sqlInsert = String.format("INSERT INTO RideRequestPosts values (null, %s, '%s', '%s', '%s', '%s')", 
-				 "STR_TO_DATE('"+date+"','%Y-%m-%d')", riderequestPost.getTime(), riderequestPost.getToLocation(), riderequestPost.getFromLocation(), riderequestPost.getEmail());
+		String sqlInsert = String.format("INSERT INTO RideRequestPosts values (null, %s, '%s', '%s', '%s')", 
+				 "STR_TO_DATE('"+date+"','%Y-%m-%d')", riderequestPost.getTime(), riderequestPost.getToLocation(), riderequestPost.getFromLocation());
 
-		try{
+		try
+		{
 			int rowsAdded = databaseStatement.executeUpdate(sqlInsert);
 			return rowsAdded;
-		}catch(SQLException ex) {
+		}
+		catch(SQLException ex) 
+		{
 			ex.printStackTrace();
 			return 0;
 		}
@@ -194,29 +213,31 @@ public class DatabaseHandler {
 			}
 			
 			ResultSet rset = databaseStatement.executeQuery(sqlQuery);
-			ArrayList<RidePost> searchedPosts = new ArrayList<RidePost>();
-			searchedPosts.clear();
+			ArrayList<RidePost> SearchedPosts = new ArrayList<RidePost>();
+			SearchedPosts.clear();
 			
 			while(rset.next())
 			{
-				String stringDate = rset.getString("date");
+				String StringDate = rset.getString("date");
 				String time = rset.getString("time");
 				String toLocation = rset.getString("toLocation");
 				String fromLocation = rset.getString("fromLocation");
 				int numSpots = rset.getInt("numSpots");
 				int price = rset.getInt("price");
 				String comments = rset.getString("comments");
-				String email = rset.getString("email");
-				RidePost currRidePost = new RidePost(stringDate, time, toLocation, fromLocation, numSpots, price, comments, email);
-				
-				searchedPosts.add(currRidePost);
+				RidePost RidePosts = new RidePost(StringDate, time, toLocation, fromLocation, numSpots, price, comments);	
+			
+				SearchedPosts.add(RidePosts);	
 			}
 			
 			rset.close();
-			return searchedPosts;
-		}catch(SQLException ex) {
-			ex.printStackTrace();
-			System.exit(-1);
+			
+			return SearchedPosts;
+		}
+		
+		catch(SQLException e)
+		{
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -245,21 +266,23 @@ public class DatabaseHandler {
 			
 			while(rset.next())
 			{
-				String stringDate = rset.getString("date");
+				String StringDate = rset.getString("date");
 				String time = rset.getString("time");
 				String toLocation = rset.getString("toLocation");
 				String fromLocation = rset.getString("fromLocation");
-				String email = rset.getString("email");
-				RideRequestPost currRideRequestPost = new RideRequestPost(stringDate, time, toLocation, fromLocation, email);
-				
-				searchedPosts.add(currRideRequestPost);
+				RideRequestPost RideRequestPosts = new RideRequestPost(StringDate, time, toLocation, fromLocation);	
+			
+				searchedPosts.add(RideRequestPosts);	
 			}
 			
 			rset.close();
+			
 			return searchedPosts;
-		}catch(SQLException ex) {
-			ex.printStackTrace();
-			System.exit(-1);
+		}
+		
+		catch(SQLException e)
+		{
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -363,28 +386,5 @@ public class DatabaseHandler {
 		}
 	}
 	
-	/**
-	 * returns the object corresponding to an email address
-	 * @param email of user
-	 * @return the user object that has the email 
-	 */
-	public User setCurrentUser(String email)
-	{
-		ArrayList<User> users = this.getUser(email);
-		if(!users.isEmpty())
-		{
-			currentUser = users.get(0);
-			return currentUser;
-		}
-		else
-		{
-			System.out.println("Not a current user: "+email);
-			return new User("","");
-		}
-	}
 	
-	public User getCurrentUser()
-	{
-		return currentUser;
-	}
 }
